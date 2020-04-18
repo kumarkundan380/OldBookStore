@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { LoginServeiceService } from '../share/login-serveice.service';
+import { JavaServiceService } from '../java-service.service';
 import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.component';
 
 @Component({
@@ -11,9 +12,16 @@ import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.co
 })
 export class ProductdisplayComponent implements OnInit {
 
-  constructor(private router:Router,private loginService:LoginServeiceService,private dialog:MatDialog) { }
+  constructor(private router:Router,private loginService:LoginServeiceService,private javaService:JavaServiceService,private dialog:MatDialog) { }
+
+  bookList:any[];
 
   ngOnInit() {
+    this.javaService.getBooks().subscribe((books: any[]) => {
+      this.bookList = books;
+      console.log(this.bookList[0]);
+    });
+    // console.log(this.bookList.book_name);
   }
   booksell(){
     //console.log("for book sell.....");

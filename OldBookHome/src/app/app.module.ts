@@ -45,6 +45,7 @@ import {} from './java-service.service';
 import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
+import { ShowBookComponent } from './show-book/show-book.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { BookSellSearchComponent } from './book-sell-search/book-sell-search.com
     RegistrationComponent,
     BooksellComponent,
     BookreqAddressComponent,
-    BookSellSearchComponent
+    BookSellSearchComponent,
+    ShowBookComponent
   ],
   imports: [
     BrowserModule,

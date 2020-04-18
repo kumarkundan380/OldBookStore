@@ -84,7 +84,30 @@
             </div>
         </div>
 
-        <div class="col-sm-3 product-detail">
+        <div class="col-sm-3 product-detail" *ngFor="let book of bookList">
+            <div class="product-warp" id="catlogHeight">
+                <div class="product-info">
+                    <!-- <img class="imgdisplay" src="../../assets/b4.jpg " width="100%"> -->
+                    <img class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image" >
+                </div>
+                <div class="product-info product-info-wrap">
+                    <div class="title-warp">
+                        <h4 class="title-name"> {{book.bookName}} </h4>
+                    </div>
+                    <span class="catagory"> {{book.authors}} </span>
+                    <div class="title-warp">
+                        <div class="col-sm-9 price-warp">
+                            <p><b>₹</b> 250.0</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-sm-3 product-detail">
             <div class="product-warp">
                 <div class="product-info">
                     <img class="imgdisplay" src="../../assets/b4.jpg " width="100%">
@@ -146,7 +169,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="col-sm-3 product-detail">
             <div class="product-warp">
                 <div class="product-info">
@@ -209,5 +232,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 </div>

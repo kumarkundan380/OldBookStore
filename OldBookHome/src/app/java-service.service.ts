@@ -23,7 +23,6 @@ export class UserLogin{
   public userName:string;
   public userPassword:string;
 }
-
 // book details
 export class BookDetails{
   public book_name:string;
@@ -77,6 +76,10 @@ export class JavaServiceService {
   }
   getAddress(){
     this.urls=this.url+"getAddress";
+    return this.http.get(this.urls);
+  }
+  getBooks(){
+    this.urls=this.url+"getBooks";
     return this.http.get(this.urls);
   }
 }
