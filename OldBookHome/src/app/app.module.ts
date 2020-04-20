@@ -46,6 +46,7 @@ import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
 import { ShowBookComponent } from './show-book/show-book.component';
+import { BuyBookComponent } from './buy-book/buy-book.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ShowBookComponent } from './show-book/show-book.component';
     BooksellComponent,
     BookreqAddressComponent,
     BookSellSearchComponent,
-    ShowBookComponent
+    ShowBookComponent,
+    BuyBookComponent
   ],
   imports: [
     BrowserModule,

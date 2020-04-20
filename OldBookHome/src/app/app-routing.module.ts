@@ -9,6 +9,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
+import { BuyBookComponent } from './buy-book/buy-book.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'registration',component:RegistrationComponent},
   {path:'booksell',component:BooksellComponent},
   {path:'address',component:BookreqAddressComponent},
-  {path:'booksellsearch',component:BookSellSearchComponent}
+  {path:'booksellsearch',component:BookSellSearchComponent},
+  {path:'buybook/:sellOrderRequestId',component:BuyBookComponent}
 ];
 
 @NgModule({

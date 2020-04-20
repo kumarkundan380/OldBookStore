@@ -13,9 +13,9 @@ import { UserInfo, JavaServiceService } from '../java-service.service';
 })
 export class RegistrationComponent implements OnInit {
   userInfo=new UserInfo();
-  constructor(public registrationService:RegistrationService,
+    constructor(public registrationService:RegistrationService,
     public loginService:LoginServeiceService,
-     public notificationService:NotificationService,
+    public notificationService:NotificationService,
     public dialogRef:MatDialogRef<RegistrationComponent>,
     public dialog: MatDialog,
     public javaServiceObj:JavaServiceService  ) { 
@@ -25,8 +25,8 @@ export class RegistrationComponent implements OnInit {
 
 
 onClear() {
-this.registrationService.form.reset();
-this.registrationService.initializeFormGroup();
+  this.registrationService.form.reset();
+  this.registrationService.initializeFormGroup();
   this.notificationService.warn(':: Clear successfully');
 }
 
@@ -41,17 +41,17 @@ if (this.registrationService.form.valid) {
   );
 
   console.log(this.userInfo);
-this.registrationService.form.reset();
-this.registrationService.initializeFormGroup();
+  this.registrationService.form.reset();
+  this.registrationService.initializeFormGroup();
   this.notificationService.success(':: Submitted successfully');
-this.onClose();
+  this.onClose();
 }
 }
 
 onClose() {
-this.registrationService.form.reset();
-this.registrationService.initializeFormGroup();
-this.dialogRef.close();
+  this.registrationService.form.reset();
+  this.registrationService.initializeFormGroup();
+  this.dialogRef.close();
 }
 
 // login(){

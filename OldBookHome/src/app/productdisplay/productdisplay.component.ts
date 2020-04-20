@@ -21,7 +21,6 @@ export class ProductdisplayComponent implements OnInit {
       this.bookList = books;
       console.log(this.bookList[0]);
     });
-    // console.log(this.bookList.book_name);
   }
   booksell(){
     //console.log("for book sell.....");
@@ -34,6 +33,9 @@ export class ProductdisplayComponent implements OnInit {
     this.dialog.open(BookSellSearchComponent,dialogConfig);
 
 
+  }
+  buyBook(sellOrderRequestId:number){
+    this.router.navigate(['/buybook',sellOrderRequestId]);
   }
 
 }

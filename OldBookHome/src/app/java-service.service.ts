@@ -82,4 +82,8 @@ export class JavaServiceService {
     this.urls=this.url+"getBooks";
     return this.http.get(this.urls);
   }
+  getBookById(id:number){
+    this.urls=this.url+"fetch/"+`${id}`;
+    return this.http.get(this.urls);
+  }
 }

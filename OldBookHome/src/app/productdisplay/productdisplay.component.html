@@ -88,7 +88,8 @@
             <div class="product-warp" id="catlogHeight">
                 <div class="product-info">
                     <!-- <img class="imgdisplay" src="../../assets/b4.jpg " width="100%"> -->
-                    <img class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image" >
+                    <img class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image" (click)="buyBook(book.sellOrderRequestId)">
+                    <!-- <img routerLink = "['/buybook', i]" class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image"> -->
                 </div>
                 <div class="product-info product-info-wrap">
                     <div class="title-warp">
