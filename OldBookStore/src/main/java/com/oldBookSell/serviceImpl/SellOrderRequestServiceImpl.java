@@ -47,15 +47,15 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		sellOrderRequestObj.setAddressId(sellOrderRequestDTO.getAddressId());
 		System.out.println(sellOrderRequestDTO.getAddressId());
 
-		SellOrderRequest abc=sellOrderRequest.findByBookNameAndAuthor(sellOrderRequestDTO.getBook_name(),sellOrderRequestDTO.getAuthors());
+		SellOrderRequest sellOrder=sellOrderRequest.findByBookNameAndAuthor(sellOrderRequestDTO.getBook_name(),sellOrderRequestDTO.getAuthors());
 		
 		try {
 			
-			if(abc == null) {
+			if(sellOrder == null) {
 				sellOrderRequest.save(sellOrderRequestObj);
 			}else {
-				sellOrderRequestObj.setQuantity(abc.getQuantity()+1);
-				sellOrderRequestObj.setSellOrderRequestId(abc.getSellOrderRequestId());
+				sellOrderRequestObj.setQuantity(sellOrder.getQuantity()+1);
+				sellOrderRequestObj.setSellOrderRequestId(sellOrder.getSellOrderRequestId());
 				sellOrderRequest.save(sellOrderRequestObj);
 			}
 			

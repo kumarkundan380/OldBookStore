@@ -67,5 +67,10 @@ public class OldBookSellController {
 			return sellOrderRequestService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found :: " + id));
 		}
 		
+		@GetMapping("/getRole")
+		public String getRole() {
+			return oldBookSellServices.getRole();
+		}
+		
 		
 }

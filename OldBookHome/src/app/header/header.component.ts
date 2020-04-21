@@ -4,6 +4,8 @@ import { LoginComponent } from '../login/login.component';
 import { LoginServeiceService } from '../share/login-serveice.service';
 import { RegistrationService } from '../share/registration.service';
 import { RegistrationComponent } from '../registration/registration.component';
+import { AuthenticationService } from '../service/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,11 @@ import { RegistrationComponent } from '../registration/registration.component';
 export class HeaderComponent implements OnInit {
 
   cartshow:boolean=false;
-  constructor(public dialog: MatDialog,public loginService:LoginServeiceService,public registrationService:RegistrationService ) { }
+  constructor(public dialog: MatDialog,
+    public loginService:LoginServeiceService,
+    public registrationService:RegistrationService,
+    public authenticationService:AuthenticationService,
+    public router:Router ) { }
   fun(){
     this.cartshow=true;
     console.log("fuction call");
@@ -35,5 +41,9 @@ export class HeaderComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "60%";
     this.dialog.open(RegistrationComponent,dialogConfig);
+  }
+  logout(){
+    this.authenticationService.logOut();
+    this.router.navigate(['\mainslider']);
   }
 }

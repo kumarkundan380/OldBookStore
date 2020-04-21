@@ -53,16 +53,16 @@ public class SellOrderRequest {
 	@Column(name = "thumbnail")
 	private String thumbnail;// large image size
 
-	@Column(name = "amount")
+	@Column(name = "amount", columnDefinition = "integer default 500")
 	private float amount;
 
 	@Column(name = "currencyCode")
 	private String currencyCode;
 
-	@Column(name = "quantity")
+	@Column(name = "quantity",columnDefinition = "integer default 0")
 	private int quantity;
 
-	@Column(name = "check_status", columnDefinition = "BOOLEAN")
+	@Column(name = "check_status", columnDefinition = "boolean default false")
 	private Boolean checkStatus;
 
 	@Column(name = "user_id")
@@ -70,6 +70,9 @@ public class SellOrderRequest {
 
 	@Column(name = "address_id")
 	private String addressId;
+	
+	@Column(name="dilevery_person_id")
+	private int dileveryPersonId;
 
 	public int getSellOrderRequestId() {
 		return sellOrderRequestId;
@@ -222,6 +225,14 @@ public class SellOrderRequest {
 
 	public void setAddressId(String addressId) {
 		this.addressId = addressId;
+	}
+	
+	public int getDileveryPersonId() {
+		return dileveryPersonId;
+	}
+
+	public void setDileveryPersonId(int dileveryPersonId) {
+		this.dileveryPersonId = dileveryPersonId;
 	}
 
 	public SellOrderRequest() {

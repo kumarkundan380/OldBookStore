@@ -34,9 +34,12 @@ public class UserDetails {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "role")
+	@Column(name = "role", columnDefinition = "varchar(255) default 'USER'")
 	private String role;
-	  
+	
+	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL)
+	@JoinColumn(name="userId",referencedColumnName = "userId")
+	private List<Address> address;
 	 	
 	public UserDetails() {
 		super();
@@ -98,12 +101,6 @@ public class UserDetails {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
-
-
-
-	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL)
-	@JoinColumn(name="userId",referencedColumnName = "userId")
-	private List<Address> address;
 
 	public List<Address> getAddress() {
 		return address;

@@ -10,11 +10,13 @@ import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
+import { ProductdisplayComponent } from './productdisplay/productdisplay.component';
 
 
 const routes: Routes = [
   {path:'',redirectTo:'/mainslider',pathMatch:'full'},
-  {path:'home',component:HeaderComponent}, 
+  {path:'home',component:HeaderComponent},
+  {path:'producthome',component:ProductdisplayComponent}, 
   {path:'mainslider',component:MainsliderComponent},
   {path:'checkout',component:CheckoutComponent},
   {path:'login',component:LoginComponent},

@@ -12,14 +12,20 @@ import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.co
 })
 export class ProductdisplayComponent implements OnInit {
 
-  constructor(private router:Router,private loginService:LoginServeiceService,private javaService:JavaServiceService,private dialog:MatDialog) { }
+  constructor(public router:Router,
+    public loginService:LoginServeiceService,
+    public javaService:JavaServiceService,
+    public dialog:MatDialog) {
+
+   }
 
   bookList:any[];
 
   ngOnInit() {
-    this.javaService.getBooks().subscribe((books: any[]) => {
-      this.bookList = books;
-      console.log(this.bookList[0]);
+       this.javaService.getBooks().subscribe((books: any[]) => {
+       this.bookList = books;
+      //  console.log(this.bookList[0]);
+      //  this.router.navigate(['/mainslider']);
     });
   }
   booksell(){

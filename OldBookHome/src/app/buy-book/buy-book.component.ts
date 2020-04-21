@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { JavaServiceService } from '../java-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-buy-book',
@@ -13,7 +13,7 @@ export class BuyBookComponent implements OnInit,AfterViewInit {
   } 
 
 
-  constructor(private javaService:JavaServiceService,public route: ActivatedRoute) { }
+  constructor(private javaService:JavaServiceService,public route: ActivatedRoute,private router:Router) { }
 
   bookDetail:any;
   id:number;
@@ -27,5 +27,8 @@ export class BuyBookComponent implements OnInit,AfterViewInit {
         this.bookDetail=book;
         console.log(this.bookDetail);
     });
+  }
+  viewCart(){
+      this.router.navigate(['\mainslider']);   
   }  
 }

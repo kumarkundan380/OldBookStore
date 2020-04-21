@@ -7,6 +7,7 @@ import com.oldBookSell.dto.SellOrderRequestDTO;
 import com.oldBookSell.model.SellOrderRequest;
 
 public interface SellOrderRequestService {
+	
 	public SellOrderRequestDTO bookRequest(SellOrderRequestDTO sellOrderRequestDTO);
 	
 	public List<SellOrderRequest> findAll();

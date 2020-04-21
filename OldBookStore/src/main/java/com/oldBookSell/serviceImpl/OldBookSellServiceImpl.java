@@ -102,5 +102,19 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userDetailRepository.findByEmail(authentication.getName());
 	}
+	
+	@Override
+	public String getRole() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
+		return userDetailRepository.hasRole(authentication.getName());
+	}
+
+	@Override
+	public int getDeliveryPerson() {
+		List<Integer> list= userDetailRepository.findAllByRole("deliveryPerson");
+		int i=(int) (Math.random()*list.size());
+		return list.get(i);
+	}
+
 
 }
