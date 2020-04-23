@@ -45,8 +45,11 @@ import {} from './java-service.service';
 import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
-import { ShowBookComponent } from './show-book/show-book.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ProfileComponent } from './profile/profile.component';
+import { ShowBookComponent } from './show-book/show-book.component';
 
 @NgModule({
   declarations: [
@@ -61,8 +64,9 @@ import { BuyBookComponent } from './buy-book/buy-book.component';
     BooksellComponent,
     BookreqAddressComponent,
     BookSellSearchComponent,
-    ShowBookComponent,
-    BuyBookComponent
+    BuyBookComponent,
+    ProfileComponent,
+    ShowBookComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +91,9 @@ import { BuyBookComponent } from './buy-book/buy-book.component';
     MatCardModule,
     MatListModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule,
+    NgxSpinnerModule
   ],
   providers: [LoginServeiceService,RegistrationService,NotificationService,AuthGardService,
     {    

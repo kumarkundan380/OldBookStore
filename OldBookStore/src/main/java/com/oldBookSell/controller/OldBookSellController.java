@@ -61,6 +61,11 @@ public class OldBookSellController {
 			return sellOrderRequestService.findAll();
 		}
 		
+		@GetMapping("/findBooks/{min}/{max}")
+		public List<SellOrderRequest> getBook(@PathVariable(value = "min")int min,@PathVariable(value = "max")int max){
+			return sellOrderRequestService.findBooks(min,max);
+		}
+		
 		/* Get a book by id*/
 		@GetMapping("/fetch/{id}")
 		public SellOrderRequest getBookById(@PathVariable(value = "id")int id) throws ResourceNotFoundException {
@@ -72,5 +77,10 @@ public class OldBookSellController {
 			return oldBookSellServices.getRole();
 		}
 		
+		@GetMapping("/searchBook/{searchValue}")
+		public List<SellOrderRequest> searchBook(@PathVariable(value = "searchValue")String searchValue){
+			System.out.println("search book.....");
+			return sellOrderRequestService.findBookByNameAuthorAndIsbn(searchValue);
+		}
 		
 }

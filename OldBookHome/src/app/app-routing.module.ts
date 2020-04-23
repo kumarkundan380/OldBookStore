@@ -10,13 +10,13 @@ import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
-import { ProductdisplayComponent } from './productdisplay/productdisplay.component';
+import { ShowBookComponent } from './show-book/show-book.component';
+
 
 
 const routes: Routes = [
   {path:'',redirectTo:'/mainslider',pathMatch:'full'},
-  {path:'home',component:HeaderComponent},
-  {path:'producthome',component:ProductdisplayComponent}, 
+  {path:'home',component:HeaderComponent}, 
   {path:'mainslider',component:MainsliderComponent},
   {path:'checkout',component:CheckoutComponent},
   {path:'login',component:LoginComponent},
@@ -24,7 +24,8 @@ const routes: Routes = [
   {path:'booksell',component:BooksellComponent},
   {path:'address',component:BookreqAddressComponent},
   {path:'booksellsearch',component:BookSellSearchComponent},
-  {path:'buybook/:sellOrderRequestId',component:BuyBookComponent}
+  {path:'buybook/:sellOrderRequestId',component:BuyBookComponent},
+  {path:'showbook',component:ShowBookComponent}
 ];
 
 @NgModule({

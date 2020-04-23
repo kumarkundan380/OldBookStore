@@ -51,7 +51,8 @@ export class JavaServiceService {
 
   bookObj=new BookDetails();
   bookISBN:any;
-  
+  search:any;
+  bookList:any;
   private urls:string;
   constructor(private http:HttpClient, private router:Router) { 
   }
@@ -82,8 +83,30 @@ export class JavaServiceService {
     this.urls=this.url+"getBooks";
     return this.http.get(this.urls);
   }
+
+  findBooks(min:number,max:number){
+    this.urls=this.url+"findBooks/"+`${min}` +"/" + `${max}`;
+    return this.http.get(this.urls);
+  }
   getBookById(id:number){
     this.urls=this.url+"fetch/"+`${id}`;
     return this.http.get(this.urls);
+  }
+  searchBook(searchValue:string){
+    this.urls=this.url+"searchBook/"+`${searchValue}`;
+    return this.http.get(this.urls).subscribe((books:any[]) =>
+    {
+      console.log(books);
+      this.bookList=books;
+      this.router.navigate(['/showbook']);
+      
+    });
+  //   this.searchVal = this.javaService.search;
+  //     console.log("ngonit....",this.searchVal);
+  //     this.javaService.searchBook(this.searchVal).subscribe((books: any[]) => {
+  //     console.log(books);
+  //     this.bookList = books;
+  //    //  this.router.navigate(['/mainslider']);
+  //  });
   }
 }

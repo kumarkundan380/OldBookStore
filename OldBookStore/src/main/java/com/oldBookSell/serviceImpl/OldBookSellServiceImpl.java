@@ -37,7 +37,8 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		userDetails.setEmail(odlBookSellDTO.getEmail());
 		userDetails.setPassword(bcryptEncoder.encode(odlBookSellDTO.getPassword()));
 		userDetails.setRole(odlBookSellDTO.getRole());
-		
+//		if(odlBookSellDTO.getRole().equals(null))
+//			userDetails.setRole("USER");
 		Address addressObj=new Address();
 		
 		addressObj.setAddress(odlBookSellDTO.getAddress());
@@ -115,6 +116,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		int i=(int) (Math.random()*list.size());
 		return list.get(i);
 	}
-
+	
+	
 
 }

@@ -45,26 +45,10 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		sellOrderRequestObj.setCheckStatus(sellOrderRequestDTO.getCheck_status());
 		sellOrderRequestObj.setUserId(authentication.getName());
 		sellOrderRequestObj.setAddressId(sellOrderRequestDTO.getAddressId());
-		System.out.println(sellOrderRequestDTO.getAddressId());
-
-		SellOrderRequest sellOrder=sellOrderRequest.findByBookNameAndAuthor(sellOrderRequestDTO.getBook_name(),sellOrderRequestDTO.getAuthors());
+		sellOrderRequestObj.setDileveryPersonId(sellOrderRequestDTO.getDileveryPersonId());
 		
-		try {
-			
-			if(sellOrder == null) {
-				sellOrderRequest.save(sellOrderRequestObj);
-			}else {
-				sellOrderRequestObj.setQuantity(sellOrder.getQuantity()+1);
-				sellOrderRequestObj.setSellOrderRequestId(sellOrder.getSellOrderRequestId());
-				sellOrderRequest.save(sellOrderRequestObj);
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
+		sellOrderRequest.save(sellOrderRequestObj);
 		return sellOrderRequestDTO;
-		
 	}
 
 	@Override
@@ -73,8 +57,20 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		return sellOrderRequest.findAll();
 	}
 
+
 	@Override
 	public Optional<SellOrderRequest> findById(int id) {
 		return sellOrderRequest.findById(id);
 	}
+	
+	@Override
+	public List<SellOrderRequest> findBooks(int min,int max){
+		return sellOrderRequest.findBooks(min, max);
+	}
+
+	@Override
+	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String searchType) {
+		return sellOrderRequest.findBookByNameAuthorAndIsbn(searchType);
+	}
+	
 }

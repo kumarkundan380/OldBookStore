@@ -1,18 +1,20 @@
-<div class="margin" *ngIf="bookDetail != null">
-    <div class="col-sm-6">
+<app-header></app-header>
+<div  *ngIf="bookDetail != null">
+    <div class="col-sm-4 "> 
         <div class="card">
             <img src="{{bookDetail.thumbnail}}" alt="Java Book" id="img">
         </div>
     </div>
-    <div class="col-sm-6" id="detailHeight">
+    <div class="col-sm-8" id="detailHeight">
         <div>
             <h3 class="header">Book Details</h3>
         </div>
-        <div class="card-body">
-            <p >Book Name:{{bookDetail.bookName}} </p>
-            <p >Book Author:{{bookDetail.authors}}  </p>
-            <p >Book Publisher:{{bookDetail.publisher}} </p>
-            <p >Book Descripation:{{bookDetail.description}} </p>
+        <div class="card-body product-info-wrap">
+            <!-- <p>Authors : <span class="catagory"> {{book.authors}}</span></p> -->
+            <p >Book Name : <span class="catagory">{{bookDetail.bookName}}</span> </p>
+            <p >Book Author : <span class="catagory">{{bookDetail.authors}}</span> </p>
+            <p >Book Publisher : <span class="catagory">{{bookDetail.publisher}}</span> </p>
+            <p >Book Descripation : <span class="catagory">{{bookDetail.description}}</span></p>
         </div>
         <div class=" footer">
             <h3 class="card-title"><p><b>₹</b> {{bookDetail.amount}} </p></h3>

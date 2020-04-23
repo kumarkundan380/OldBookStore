@@ -123,5 +123,4 @@ public class UserDetails {
 		this.address = address;
 	}
 	
-	
 }

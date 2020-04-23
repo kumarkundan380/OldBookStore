@@ -2,7 +2,7 @@ package com.oldBookSell.dto;
 
 public class SellOrderRequestDTO {
 	
-    private String book_name;//title
+	private String book_name;//title
     private String authors;
     private String description;
     private String publisher;
@@ -20,6 +20,7 @@ public class SellOrderRequestDTO {
     private String user_id;
     private int quantity=1;
     private Boolean check_status=false;
+    private int dileveryPersonId;
  
     
 	public String getBook_name() {
@@ -133,6 +134,12 @@ public class SellOrderRequestDTO {
 	}
 	public SellOrderRequestDTO() {
 		super();
+	}
+	public int getDileveryPersonId() {
+		return dileveryPersonId;
+	}
+	public void setDileveryPersonId(int dileveryPersonId) {
+		this.dileveryPersonId = dileveryPersonId;
 	}
     
 }

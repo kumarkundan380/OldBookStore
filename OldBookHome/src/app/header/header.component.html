@@ -8,8 +8,8 @@
           <div class="search-form search1">
               <form class="search-form">
                 <div class="form-wrap search2">
-                  <input  placeholder="Type to search..." type="text">
-                  <button class="btn-search" type="submit">Search</button>
+                  <input  placeholder="Type to search..." type="text" #searchValue>
+                  <button class="btn-search" type="submit" (click)="searchBook(searchValue)">Search</button>
                 </div>
               </form>
           </div>
@@ -74,7 +74,7 @@
           <li><a *ngIf="!authenticationService.isUserLoggedIn()" (click)="login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           <!-- <a class="nav-link font btn btn-outline-info mr-sm-2" id="menue_button" >LogIn</a> -->
           
-          <li><a  href="#" *ngIf="authenticationService.isUserLoggedIn()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          <li><a *ngIf="authenticationService.isUserLoggedIn()" (click)="viewProfile()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
 
           <li><a *ngIf="authenticationService.isUserLoggedIn()" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 

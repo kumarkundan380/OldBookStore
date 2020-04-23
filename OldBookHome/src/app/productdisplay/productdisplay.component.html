@@ -83,13 +83,19 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3 product-detail" *ngFor="let book of bookList">
-        <div class="product-warp" id="catlogHeight">
-            <div class="product-info">
-                <img class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image" (click)="buyBook(book.sellOrderRequestId)">
-            </div>
-            <div class="product-info product-info-wrap">
-                <div class="title-warp">
+    <div
+        class="search-results"
+        infiniteScroll
+        [infiniteScrollDistance]="6"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()">
+        <div class="col-sm-3 product-detail" *ngFor="let book of bookList">
+            <div class="product-warp" id="catlogHeight">
+                <div class="product-info">
+                    <img class=" imgdisplay" src="{{book.smallThumbnail}}" alt="book image" (click)="buyBook(book.sellOrderRequestId)">
+                </div>
+                <div class="product-info product-info-wrap">
+                    <div class="title-warp">
                     <h4 class="title-name"> {{book.bookName}} </h4>
                 </div>
                 <span class="catagory"> {{book.authors}} </span>
@@ -103,5 +109,15 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-sm-3 product-detail">
+        <ngx-spinner
+          bdOpacity = 0.9
+          bdColor = ""
+          size = "default"
+          color = "#581f87"
+          type = "ball-pulse-sync"
+          [fullScreen] = "false" >
+        </ngx-spinner>
     </div>
 </div> 

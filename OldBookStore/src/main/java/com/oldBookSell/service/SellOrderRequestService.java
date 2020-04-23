@@ -13,4 +13,9 @@ public interface SellOrderRequestService {
 	public List<SellOrderRequest> findAll();
 	
 	public Optional<SellOrderRequest> findById(int id);
+
+	public List<SellOrderRequest> findBooks(int min, int max);
+	
+	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String searchType);
+
 }

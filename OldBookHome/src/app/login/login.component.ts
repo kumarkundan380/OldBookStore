@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['/loginError']);
         console.log("not logIn");
         //this.closebutton.nativeElement.click();
-        }
-        );
+        });
 
       // console.log(this.loginService.form.value);
       this.loginService.form.reset();
