@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oldBookSell.dto.BuyOrderRequestDTO;
 import com.oldBookSell.dto.OldBookSellDTO;
 import com.oldBookSell.dto.SellOrderRequestDTO;
 import com.oldBookSell.exception.ResourceNotFoundException;
+import com.oldBookSell.model.BuyOrderRequest;
 import com.oldBookSell.model.SellOrderRequest;
 import com.oldBookSell.model.UserDetails;
+import com.oldBookSell.service.BuyOrderRequestService;
 import com.oldBookSell.service.OldBookSellServices;
 import com.oldBookSell.service.SellOrderRequestService;
 
@@ -30,6 +34,9 @@ public class OldBookSellController {
 		@Autowired
 		SellOrderRequestService sellOrderRequestService;
 		
+		@Autowired
+		BuyOrderRequestService buyOrderRequestService;
+		
 		@GetMapping("/hello")
 		public  String hello(Principal principal) {
 			return "hello fundtion excute sucessfully";
@@ -40,7 +47,16 @@ public class OldBookSellController {
 			return  oldBookSellServices.createUser(userDetail);
 		}
 		
+		@PostMapping("/addtocrt")
+		public BuyOrderRequestDTO buyBookDetails(@RequestBody BuyOrderRequestDTO buyOrderRequestDTO) {
+			return buyOrderRequestService.saveRequest(buyOrderRequestDTO);
+		}
 		
+		@GetMapping("/showcart")
+		public List<BuyOrderRequest> findFromCart(){
+			return buyOrderRequestService.findRequest();
+		}
+			
 		@RequestMapping("/bookDetailsRequest")
 		public SellOrderRequestDTO addBookDetails(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
 			return sellOrderRequestService.bookRequest(sellOrderRequestDTO);
