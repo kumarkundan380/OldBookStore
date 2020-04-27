@@ -40,3 +40,13 @@ p{
     background-color: #fec239;
     color: black;
 }
+i{
+    margin: 1rem;
+    display: inline;
+    color: #fec239;
+    font-size: 3rem;
+}
+img{
+    width: 100%;
+    height: 20vh;
+}

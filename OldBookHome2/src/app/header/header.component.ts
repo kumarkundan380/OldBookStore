@@ -38,6 +38,9 @@ export class HeaderComponent implements OnInit {
   deliveryRequestFun(){
       this.router.navigate(["/deliveryRequest"]);
   }
+  listUserFun(){
+    this.router.navigate(["/listUser"]);
+  }
 
   login(){
     this.loginService.initializeFormGroup();

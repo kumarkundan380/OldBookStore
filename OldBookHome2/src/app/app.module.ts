@@ -50,6 +50,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProfileComponent } from './profile/profile.component';
 import { ShowBookComponent } from './show-book/show-book.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
+import { ListUserComponent } from './list-user/list-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { BuyBookComponent } from './buy-book/buy-book.component';
     ProfileComponent,
     ShowBookComponent,
     BuyBookComponent,
-    BookDeliverAddressComponent
+    BookDeliverAddressComponent,
+    ListUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

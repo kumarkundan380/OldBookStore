@@ -2,13 +2,13 @@
     <div class="col-sm-3">
         <div class="productlist catagory1">
             <div class="subccatagory1 catagory-type1">Top Catagory</div>
-            <div class="subccatagory1 catagory-book top-catagory"> Science</div>
-            <div class="subccatagory1 catagory-book"> Mathematics</div>
-            <div class="subccatagory1 catagory-book"> Computer</div>
-            <div class="subccatagory1 catagory-book"> Biology</div>
-            <div class="subccatagory1 catagory-book"> Novels</div>
-            <div class="subccatagory1 catagory-book"> History</div>
-            <div class="subccatagory1 catagory-book"> Business</div>    
+            <div class="subccatagory1 catagory-book top-catagory"><a (click)="searchCatogory('Science')">Science</a></div>
+            <div class="subccatagory1 catagory-book" ><a (click)="searchCatogory('Mathematics')">Mathematics</a> </div>
+            <div class="subccatagory1 catagory-book" > <a (click)="searchCatogory('Computer')">Computer</a></div>
+            <div class="subccatagory1 catagory-book" ><a (click)="searchCatogory('Biology')">Biology</a> </div>
+            <div class="subccatagory1 catagory-book" > <a (click)="searchCatogory('Novels')">Novels</a></div>
+            <div class="subccatagory1 catagory-book" ><a (click)="searchCatogory('History')">History</a> </div>
+            <div class="subccatagory1 catagory-book" ><a (click)="searchCatogory('Business')">Business</a> </div>    
         </div>
         <div class="productlist catagory2">
             <div class="subccatagory1 catagory-type1"> Book Author</div>
@@ -25,7 +25,6 @@
                 <span id="offer-name4">%</span>off<br>
                 <span id="offer-name5">So many books, so little time.    </span>
             </div>
-         
         </div>
         <div class="productlist catagory4">
             <div class="subccatagory1 catagory-type1 top-catagory"> book4.1</div>
@@ -41,7 +40,7 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="logo text-center">
-                            <img class="icon" src="../../assets/samllimage/BuyBooks.png">
+                            <img class="icon" src="../../assets/samllimage/BuyBooks.png" (click)="purchaseBook()">
                         </div>
                         <div class="logo logotext">
                             BUY
@@ -57,10 +56,10 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="logo text-center">
-                            <img class="icon" src="../../assets/samllimage/abc.png">
+                            <img class="icon" src="../../assets/samllimage/abc.png" (click)="booksell()">
                         </div>
                         <div class="logo logotext">
-                            <a (click)="booksell()">SELL</a>
+                            SELL
                         </div>
                     </div>
                     <div class="col-sm-2"></div>
@@ -84,50 +83,58 @@
             </div>
         </div>
         <!-- Book cart display  -->
-        <div *ngFor="let book of bookList" infiniteScroll [infiniteScrollDistance]="6" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-        <div class="col-md-4 product-detail">
-            <div class="product-warp">
-                <div class="product-info">
-                    <img *ngIf= "book.smallThumbnail" class="imgdisplay" src="{{book.smallThumbnail}}" src="../../assets/default-book.jpg" (click)="buyBook(book.sellOrderRequestId)">
-                    <img *ngIf= "!book.smallThumbnail" class="imgdisplay" src="../../assets/default-book.jpg" (click)="buyBook(book.sellOrderRequestId)">
-                </div>
-                <div class="product-info product-info-wrap">
-                    <div class="title-warp">
-                        <h4 class="title-name">{{book.bookName}}</h4>
-                    </div>
-                    <span class="catagory">{{book.authors}}</span>
-                    <div class="title-warp">
-                        <div class="col-sm-9 price-warp">
-                            <p><b>₹</b> {{book.amount}} </p>
+        <div *ngIf="!cartDisplay">
+            <div *ngFor="let book of bookList" infiniteScroll [infiniteScrollDistance]="6" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+                <div class="col-md-4 product-detail">
+                    <div class="product-warp">
+                        <div class="product-info">
+                            <img *ngIf= "book.smallThumbnail" class="imgdisplay" src="{{book.smallThumbnail}}" (click)="buyBook(book.sellOrderRequestId)">
+                            <img *ngIf= "!book.smallThumbnail" class="imgdisplay" src="../../assets/default-book.jpg" (click)="buyBook(book.sellOrderRequestId)">
                         </div>
-                        <div class="col-sm-3">
-                            <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
-                        </div> 
+                        <div class="product-info product-info-wrap">
+                            <div class="title-warp">
+                                <h4 class="title-name">{{book.bookName}}</h4>
+                            </div>
+                            <span class="catagory">{{book.authors}}</span>
+                            <div class="title-warp">
+                                <div class="col-sm-9 price-warp">
+                                    <p><b>₹</b> {{book.amount}} </p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Book catogory display  -->
+        <div *ngIf="cartDisplay">
+            <div *ngFor="let book of bookList">
+                <div class="col-md-4 product-detail">
+                    <div class="product-warp">
+                        <div class="product-info">
+                            <img *ngIf= "book.smallThumbnail" class="imgdisplay" src="{{book.smallThumbnail}}" (click)="buyBook(book.sellOrderRequestId)">
+                            <img *ngIf= "!book.smallThumbnail" class="imgdisplay" src="../../assets/default-book.jpg" (click)="buyBook(book.sellOrderRequestId)">
+                        </div>
+                        <div class="product-info product-info-wrap">
+                            <div class="title-warp">
+                                <h4 class="title-name">{{book.bookName}}</h4>
+                            </div>
+                            <span class="catagory">{{book.authors}}</span>
+                            <div class="title-warp">
+                                <div class="col-sm-9 price-warp">
+                                    <p><b>₹</b> {{book.amount}} </p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-        <!-- <div class="col-sm-3 product-detail">
-            <div class="product-warp">
-                <div class="product-info">
-                    <img class="imgdisplay" src="../../assets/b4.jpg " width="100%">
-                </div>
-                <div class="product-info product-info-wrap">
-                    <div class="title-warp">
-                        <h4 class="title-name">Programming in c</h4>
-                    </div>
-                    <span class="catagory">By aditya raj</span>
-                    <div class="title-warp">
-                        <div class="col-sm-9 price-warp">
-                            <p><b>₹</b> 250.0</p>
-                        </div>
-                        <div class="col-sm-3">
-                            <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </div> -->
 </div>

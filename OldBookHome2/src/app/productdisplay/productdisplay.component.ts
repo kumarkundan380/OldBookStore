@@ -16,17 +16,18 @@ export class ProductdisplayComponent implements OnInit {
   newList:any;
   notEmptyPost = true;
   notscrolly = true;
-  constructor(private router:Router,private loginService:BookSellSearchService,private dialog:MatDialog,private javaService:JavaServiceService) { }
+  cartDisplay=false;
+  constructor(public router:Router,
+    public loginService:BookSellSearchService,
+    public dialog:MatDialog,
+    public javaService:JavaServiceService) { }
 
   ngOnInit() {
     this.javaService.findBooks(0,3).subscribe((books: any[]) => {
-      // console.log(books);
       this.bookList = books;
    });
   }
   booksell(){
-    //console.log("for book sell.....");
-    // this.router.navigate(['/booksell']);
     this.loginService.initializeFormGroup();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -38,7 +39,7 @@ export class ProductdisplayComponent implements OnInit {
 
   onScroll() {
     if (this.notscrolly && this.notEmptyPost){
-      // this.spinner.show();
+      //this.spinner.show();
       this.notscrolly = false;
       this.loadNextPost();
     }
@@ -46,7 +47,6 @@ export class ProductdisplayComponent implements OnInit {
   }
   loadNextPost() {
     this.javaService.findBooks(this.bookList.length,this.bookList.length+3).subscribe((newBookList: any[]) => {
-      // this.spinner.hide();
       if (newBookList.length === 0 ) {
         this.notEmptyPost =  false;
       }
@@ -58,6 +58,17 @@ export class ProductdisplayComponent implements OnInit {
   buyBook(sellOrderRequestId:number){
     this.javaService.bookId=sellOrderRequestId;
     this.router.navigate(['/buybook']);
+  }
+  purchaseBook(){
+    this.router.navigate(['/checkout']);
+  }
+
+  searchCatogory(category:string){
+    this.cartDisplay=true;
+    this.javaService.getBookByCategory(category).subscribe(data=>{
+      this.bookList=data;
+      console.log(data);
+    })
   }
 
 

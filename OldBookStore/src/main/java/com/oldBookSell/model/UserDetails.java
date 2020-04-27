@@ -34,7 +34,10 @@ public class UserDetails {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "role", columnDefinition = "varchar(255) default 'USER'")
+	//To set default value
+	// columnDefinition = "varchar(255) default 'USER'"
+	
+	@Column(name = "role")
 	private String role;
 	
 	@OneToMany(targetEntity = Address.class,cascade = CascadeType.ALL)

@@ -67,12 +67,13 @@
         </li>
         <li><a href="#">Products</a></li>
         <li><a (click)="deliveryRequestFun()" *ngIf="javaCallObj.hasRole()">Request</a></li>
+        <li><a (click)="listUserFun()" *ngIf="javaCallObj.hasAdminRole()">User List</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a  (click)="registration()" *ngIf="!hasLogin.isUserLoggedIn()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a  (click)="login()" *ngIf="!hasLogin.isUserLoggedIn()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a   *ngIf="hasLogin.isUserLoggedIn()" (click)="viewProfile()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+        <li><a  (click)="viewProfile()" *ngIf="hasLogin.isUserLoggedIn()"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
         <li><a  (click)="logOut()" *ngIf="hasLogin.isUserLoggedIn()" ><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>

@@ -18,6 +18,15 @@ export class UserInfo{
   public state: string;
 } 
 
+export class UserDetail{
+  public userId:number;
+  public firstName:string;
+  public lastName: string;
+  public email: string;
+  public mobileNumber:string;
+  public role:string;
+}
+
 // login details
 export class UserLogin{
   public userName:string;
@@ -54,6 +63,7 @@ export class JavaServiceService {
   bookISBN:any;
   bookId:any;
   bookList:any;
+  userId:number;
   // userRole:string;
   
   private urls:string;
@@ -81,9 +91,13 @@ export class JavaServiceService {
     // console.log(bookObj.isbnNo1);
     this.http.post(this.urls,bookObj).subscribe(
       data=>{
-        console.log("book stored.....");
-      }
-    );
+       // console.log("book stored.....");
+      });
+  }
+
+  userList(){
+    this.urls=this.url+"listUser";
+    return this.http.get(this.urls);
   }
 
   addAddress(data:UserInfo){
@@ -94,10 +108,19 @@ export class JavaServiceService {
     this.urls=this.url+"getAddress";
     return this.http.get(this.urls);
   }
+  hasAdminRole(){
+    if(sessionStorage.getItem('userRole')==="admin"){
+      return true;
+    }
+    return false;
+  }
   hasRole(){
     if(sessionStorage.getItem('userRole')==="deliveryPerson"){
       return true;
     }
+    // if(sessionStorage.getItem('userRole')==="admin"){
+    //   return true;
+    // }
     return false;
   }
   getDeliveryRequest(){
@@ -111,8 +134,7 @@ export class JavaServiceService {
      data=>{
        console.log("updated book status..........");
        this.router.navigate(['/deliveryRequest']);
-     }
-   );
+     });
   }
 
   findBooks(min:number,max:number){
@@ -129,6 +151,29 @@ export class JavaServiceService {
       this.router.navigate(['/showbook']);
       
     });
+  }
+
+  getUserById(id:number){
+    this.urls=this.url+"fetchUser";
+    console.log(id);
+    return this.http.post(this.urls,id);
+  }
+
+  updateUserDetail(value:UserDetail) {
+    // return this.http.put(`${this.baseUrl}`+'/update/'+`${id}`,value);
+    this.urls=this.url+"updateUser";
+    return this.http.post(this.urls,value);
+  }
+
+  deleteUser(userId:number){
+    this.urls=this.url+"deleteUser";
+    console.log(userId);
+    return this.http.post(this.urls,userId);
+  }
+
+  getBookByCategory(category:string){
+    this.urls=this.url +"fetchCategory";
+    return this.http.post(this.urls,category);
   }
 
   getBookById(id:number){

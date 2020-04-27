@@ -142,12 +142,14 @@ button{
     margin: 0;
     width: 100%;
     background-color: #f3f3f3;
+    cursor: pointer;
 }
 a{
     color: black;
 }
 .navbar-right {
     margin-right: 2%;
+    cursor: pointer;
 }
 
 /* --------------------- loging design---------------------------------------- */

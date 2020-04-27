@@ -22,7 +22,8 @@ public interface UserDetailRepository extends JpaRepository<UserDetails,Integer>
 	
 	@Query(value="select user_id from user_details where role=?1",nativeQuery = true)
 	List<Integer> findAllByRole(String string);
-			
-//			@Query(value="select user_id from user_details where email=?1",nativeQuery = true)
-//			Iterable<Integer> getId(String email);
+	
+	@Query(value="select user_id from user_details where email=?1",nativeQuery = true)
+	int getDevileryPersonId(String name);
+	
 }

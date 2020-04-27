@@ -20,9 +20,7 @@ export class BookreqAddressComponent implements OnInit {
     public notificationService:NotificationService,
     public dialogRef:MatDialogRef<BookreqAddressComponent>,
     public dialog: MatDialog,
-    public javaServiceObj:JavaServiceService ) { 
-      
-    }
+    public javaServiceObj:JavaServiceService ) { }
 
   onClear() {
     this.addaddressservice.form.reset();

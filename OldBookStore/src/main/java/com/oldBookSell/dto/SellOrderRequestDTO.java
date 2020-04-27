@@ -1,8 +1,11 @@
 package com.oldBookSell.dto;
 
 public class SellOrderRequestDTO {
+
+	/* SellOrderRequest class Data Member*/
 	
-	private String book_name;//title
+	private int sellOrderRequestId;
+    private String book_name;//title
     private String authors;
     private String description;
     private String publisher;
@@ -19,109 +22,142 @@ public class SellOrderRequestDTO {
     private String addressId;
     private String user_id;
     private int quantity=1;
-    private Boolean check_status=false;
+    private String check_status="Pending";
     private int dileveryPersonId;
+    private String feedBack;
  
-    
-	public String getBook_name() {
+    public String getBook_name() {
 		return book_name;
 	}
-	public void setBook_name(String book_name) {
+	
+    public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
-	public String getAuthors() {
+	
+    public String getAuthors() {
 		return authors;
 	}
-	public void setAuthors(String authors) {
+	
+    public void setAuthors(String authors) {
 		this.authors = authors;
 	}
-	public String getDescription() {
+	
+    public String getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
+	
+    public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getPublisher() {
+	
+    public String getPublisher() {
 		return publisher;
 	}
-	public void setPublisher(String publisher) {
+	
+    public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public String getPublishedDate() {
+	
+    public String getPublishedDate() {
 		return publishedDate;
 	}
-	public void setPublishedDate(String publishedDate) {
+	
+    public void setPublishedDate(String publishedDate) {
 		this.publishedDate = publishedDate;
 	}
-	public String getCategories() {
+	
+    public String getCategories() {
 		return categories;
 	}
-	public void setCategories(String categories) {
+	
+    public void setCategories(String categories) {
 		this.categories = categories;
 	}
-	public String getIsbn_type_10() {
+	
+    public String getIsbn_type_10() {
 		return isbn_type_10;
 	}
-	public void setIsbn_type_10(String isbn_type_10) {
+	
+    public void setIsbn_type_10(String isbn_type_10) {
 		this.isbn_type_10 = isbn_type_10;
 	}
-	public String getIsbnNo1() {
+	
+    public String getIsbnNo1() {
 		return isbnNo1;
 	}
-	public void setIsbnNo1(String isbnNo1) {
+	
+    public void setIsbnNo1(String isbnNo1) {
 		this.isbnNo1 = isbnNo1;
 	}
-	public String getIsbn_type_13() {
+	
+    public String getIsbn_type_13() {
 		return isbn_type_13;
 	}
-	public void setIsbn_type_13(String isbn_type_13) {
+	
+    public void setIsbn_type_13(String isbn_type_13) {
 		this.isbn_type_13 = isbn_type_13;
 	}
-	public String getIsbnNo2() {
+	
+    public String getIsbnNo2() {
 		return isbnNo2;
 	}
-	public void setIsbnNo2(String isbnNo2) {
+	
+    public void setIsbnNo2(String isbnNo2) {
 		this.isbnNo2 = isbnNo2;
 	}
-	public String getSmallThumbnail() {
+	
+    public String getSmallThumbnail() {
 		return smallThumbnail;
 	}
-	public void setSmallThumbnail(String smallThumbnail) {
+	
+    public void setSmallThumbnail(String smallThumbnail) {
 		this.smallThumbnail = smallThumbnail;
 	}
-	public String getThumbnail() {
+	
+    public String getThumbnail() {
 		return thumbnail;
 	}
-	public void setThumbnail(String thumbnail) {
+	
+    public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	public float getAmount() {
+	
+    public float getAmount() {
 		return amount;
 	}
-	public void setAmount(float amount) {
+	
+    public void setAmount(float amount) {
 		this.amount = amount;
 	}
-	public String getCurrencyCode() {
+	
+    public String getCurrencyCode() {
 		return currencyCode;
 	}
-	public void setCurrencyCode(String currencyCode) {
+	
+    public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
-	public int getQuantity() {
+	
+    public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	
+    public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public Boolean getCheck_status() {
+	
+	public String getCheck_status() {
 		return check_status;
 	}
-	public void setCheck_status(Boolean check_status) {
+	
+	public void setCheck_status(String check_status) {
 		this.check_status = check_status;
 	}
+	
 	public String getUser_id() {
 		return user_id;
 	}
+	
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
@@ -129,17 +165,37 @@ public class SellOrderRequestDTO {
 	public String getAddressId() {
 		return addressId;
 	}
+	
 	public void setAddressId(String addressId) {
 		this.addressId = addressId;
 	}
-	public SellOrderRequestDTO() {
-		super();
-	}
+	
 	public int getDileveryPersonId() {
 		return dileveryPersonId;
 	}
+	
 	public void setDileveryPersonId(int dileveryPersonId) {
 		this.dileveryPersonId = dileveryPersonId;
 	}
-    
+	
+	public int getSellOrderRequestId() {
+		return sellOrderRequestId;
+	}
+	
+	public void setSellOrderRequestId(int sellOrderRequestId) {
+		this.sellOrderRequestId = sellOrderRequestId;
+	}
+	
+	public String getFeedBack() {
+		return feedBack;
+	}
+	
+	public void setFeedBack(String feedBack) {
+		this.feedBack = feedBack;
+	}
+	
+	public SellOrderRequestDTO() {
+		super();
+	}
+
 }

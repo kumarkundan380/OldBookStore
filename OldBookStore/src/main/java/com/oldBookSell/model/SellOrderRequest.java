@@ -53,17 +53,17 @@ public class SellOrderRequest {
 	@Column(name = "thumbnail")
 	private String thumbnail;// large image size
 
-	@Column(name = "amount", columnDefinition = "integer default 500")
+	@Column(name = "amount")
 	private float amount;
 
 	@Column(name = "currencyCode")
 	private String currencyCode;
 
-	@Column(name = "quantity",columnDefinition = "integer default 0")
+	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name = "check_status", columnDefinition = "boolean default false")
-	private Boolean checkStatus;
+	@Column(name = "check_status")
+	private String checkStatus="Pending";
 
 	@Column(name = "user_id")
 	private String userId;
@@ -73,6 +73,9 @@ public class SellOrderRequest {
 	
 	@Column(name="dilevery_person_id")
 	private int dileveryPersonId;
+	
+	@Column(name = "feedback_by_delivery_person")
+	private String feedBack;
 
 	public int getSellOrderRequestId() {
 		return sellOrderRequestId;
@@ -202,11 +205,11 @@ public class SellOrderRequest {
 		this.quantity = quantity;
 	}
 
-	public Boolean getCheckStatus() {
+	public String getCheckStatus() {
 		return checkStatus;
 	}
 
-	public void setCheckStatus(Boolean checkStatus) {
+	public void setCheckStatus(String checkStatus) {
 		this.checkStatus = checkStatus;
 	}
 
@@ -237,7 +240,6 @@ public class SellOrderRequest {
 
 	public SellOrderRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

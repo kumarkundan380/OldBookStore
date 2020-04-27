@@ -10,12 +10,16 @@ public interface SellOrderRequestService {
 	
 	public SellOrderRequestDTO bookRequest(SellOrderRequestDTO sellOrderRequestDTO);
 	
-	public List<SellOrderRequest> findAll();
-	
 	public Optional<SellOrderRequest> findById(int id);
 
 	public List<SellOrderRequest> findBooks(int min, int max);
 	
+	public List<SellOrderRequest> findBookByCategory(String category);
+	
 	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String searchType);
+	
+	public Iterable<Object> deliveryRequest(int deliveryPerson_id);
+	
+	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO);
 
 }

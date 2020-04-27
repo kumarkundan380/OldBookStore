@@ -14,6 +14,8 @@ import { UpdateBookStatusComponent } from './update-book-status/update-book-stat
 import { ProfileComponent } from './profile/profile.component';
 import { ShowBookComponent } from './show-book/show-book.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
+import { ListUserComponent } from './list-user/list-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/mainslider',pathMatch:'full'},
@@ -30,7 +32,9 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent},
   {path:'showbook',component:ShowBookComponent},
   {path:'buybook',component:BuyBookComponent},
-  {path:'checkout',component:CheckoutComponent}
+  {path:'checkout',component:CheckoutComponent},
+  {path:'listUser',component:ListUserComponent},
+  {path:'editUser',component:EditUserComponent}
 ];
 
 @NgModule({

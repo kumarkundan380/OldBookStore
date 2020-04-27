@@ -3,6 +3,8 @@ package com.oldBookSell.serviceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -17,11 +19,17 @@ import com.oldBookSell.service.SellOrderRequestService;
 @Service
 public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	
+	public static final Logger LOGGER=LoggerFactory.getLogger(SellOrderRequestServiceImpl.class);
+
+
+	
 	@Autowired
 	SellOrderRequestRepository sellOrderRequest;
 	
 	@Override
 	public SellOrderRequestDTO bookRequest(SellOrderRequestDTO sellOrderRequestDTO) {
+		
+		LOGGER.info("SellOrderRequestService bookRequest method is calling....");
 	
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
@@ -46,31 +54,69 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		sellOrderRequestObj.setUserId(authentication.getName());
 		sellOrderRequestObj.setAddressId(sellOrderRequestDTO.getAddressId());
 		sellOrderRequestObj.setDileveryPersonId(sellOrderRequestDTO.getDileveryPersonId());
+		//this code for usefull for book tabel find the the unique book and update quatity
+//		SellOrderRequest abc=sellOrderRequest.findByBookNameAndAuthor(sellOrderRequestDTO.getBook_name(),sellOrderRequestDTO.getAuthors());
+//		
+//		try {	
+//			
+//			if(abc == null) {
+//				sellOrderRequest.save(sellOrderRequestObj);
+//			}else {
+//				sellOrderRequestObj.setQuantity(abc.getQuantity()+1);
+//				sellOrderRequestObj.setSellOrderRequestId(abc.getSellOrderRequestId());
+//				sellOrderRequest.save(sellOrderRequestObj);
+//			}
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
 		
+		// delivery person logic
+//		List list = sellOrderRequest.findAllByRole()
 		sellOrderRequest.save(sellOrderRequestObj);
+		LOGGER.info("Sell Book Request save to sell_order_request Table ");
 		return sellOrderRequestDTO;
-	}
-
-	@Override
-	public List<SellOrderRequest> findAll() {
 		
-		return sellOrderRequest.findAll();
 	}
 
+	@Override
+	public Iterable<Object> deliveryRequest(int deliveryPerson_id) {
+		LOGGER.info("SellOrderRequestService deliveryRequest method is caling....");
+		Iterable<Object>result= sellOrderRequest.deliveryPersonRequest(deliveryPerson_id);
+		LOGGER.info("In SellOrderRequestService Delivery Person id="+deliveryPerson_id);
+		return result;
+	}
 
 	@Override
-	public Optional<SellOrderRequest> findById(int id) {
-		return sellOrderRequest.findById(id);
+	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO) {
+		LOGGER.info("SellOrderRequestService updateBookStatus method is calling....");
+		sellOrderRequest.updateBookStatus(sellOrderRequestDTO.getCheck_status(),sellOrderRequestDTO.getFeedBack(),sellOrderRequestDTO.getSellOrderRequestId());
 	}
-	
+
 	@Override
-	public List<SellOrderRequest> findBooks(int min,int max){
+	public List<SellOrderRequest> findBooks(int min, int max) {
+		LOGGER.info("SellOrderRequestService findBooks method is calling....");
+		LOGGER.info("In SellOrderService findBooks Min="+min);
+		LOGGER.info("In SellOrderService findBooks Max="+max);
 		return sellOrderRequest.findBooks(min, max);
 	}
 
 	@Override
-	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String searchType) {
-		return sellOrderRequest.findBookByNameAuthorAndIsbn(searchType);
+	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String bookName) {
+		LOGGER.info("SellOrderRequestService findBooksByNameAuthorAndIsbn method is calling....");
+		return sellOrderRequest.findBookByNameAuthorAndIsbn(bookName);
+	}
+	
+	@Override
+	public List<SellOrderRequest> findBookByCategory(String category){
+		LOGGER.info("SellOrderRequestService findBookByCategory method is calling....");
+		return sellOrderRequest.findBookByCategory(category);
+	}
+
+	@Override
+	public Optional<SellOrderRequest> findById(int bookId) {
+		LOGGER.info("SellOrderRequestService findById method is calling.....");
+		return sellOrderRequest.findById(bookId);
 	}
 	
 }
