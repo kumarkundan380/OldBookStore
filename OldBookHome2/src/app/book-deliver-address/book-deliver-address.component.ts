@@ -15,9 +15,10 @@ export class BookDeliverAddressComponent implements OnInit {
   userInfo=new UserInfo();
   isShowAddress:boolean=false;
   address:any;
+  lastAddress:any;
+  addressId:number;
 
-  constructor(
-    public addaddressservice:AddAddressService,
+  constructor(public addaddressservice:AddAddressService,
     public notificationService:NotificationService,
     public dialogRef:MatDialogRef<BookDeliverAddressComponent>,
     public dialog: MatDialog,
@@ -27,6 +28,7 @@ export class BookDeliverAddressComponent implements OnInit {
     this.javaServiceObj.getAddress().subscribe(
       (data)=>{
         this.address=data;
+        this.address=this.address.address;
       });
   }
 
@@ -35,9 +37,12 @@ export class BookDeliverAddressComponent implements OnInit {
     this.addaddressservice.initializeFormGroup();
     this.notificationService.warn(':: Clear successfully');
   }
-  sendId(id:number){
-    this.javaServiceObj.bookObj.addressId=id;
-    this.javaServiceObj.requestBookDetails(this.javaServiceObj.bookObj);
+  sendId(addressId:number){
+    if(this.javaServiceObj.checkCart){
+      this.javaServiceObj.bookDeliverAddressMultipleBook(addressId);
+    }else{
+      this.javaServiceObj.bookDeliverAddressSingleBook(addressId); 
+    }
     this.onClose();
   }
   onSubmit() {
@@ -45,8 +50,10 @@ export class BookDeliverAddressComponent implements OnInit {
       this.userInfo=this.addaddressservice.form.value;
       this.javaServiceObj.addAddress(this.userInfo).subscribe(
         data=>{
-          this.javaServiceObj.bookObj.addressId=this.address.address[this.address.address.length-1].id;
-          this.sendId(this.javaServiceObj.bookObj.addressId);
+          this.lastAddress=data;
+          this.addressId=this.lastAddress.address[this.lastAddress.address.length-1].id;
+         // console.log(this.addressId);
+          this.sendId(this.addressId);
         });
       this.addaddressservice.form.reset();
       this.addaddressservice.initializeFormGroup();

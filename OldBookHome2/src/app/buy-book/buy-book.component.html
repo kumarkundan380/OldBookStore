@@ -21,12 +21,12 @@
         </div>
         <div class="col-sm-3">
             <div class="text-center">
-                <button class="btn sell">Add to Cart</button>
+                <button (click)="addToCart(bookDetail.sellOrderRequestId)" class="btn sell">Add to Cart</button>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="title-warp text-center">
-                <button class="btn sell" (click)="viewCart()">View Cart</button>
+                <button class="btn sell" (click)="buyNow(bookDetail.sellOrderRequestId)">Shop Now</button>
             </div>
         </div>
     </div>

@@ -16,44 +16,69 @@ import com.oldBookSell.service.BuyOrderRequestService;
 public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 
 	@Autowired
-	BuyOrderRequestRepository buyOrderRequest;
+	BuyOrderRequestRepository buyOrderRequestRepository;
 	
 	@Override
-	public BuyOrderRequestDTO saveRequest(BuyOrderRequestDTO buyOrderRequestDTO) {
+	public int saveRequest(BuyOrderRequestDTO buyOrderRequestDto) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
 		BuyOrderRequest buyOrderRequestObj=new BuyOrderRequest();
 		
-		buyOrderRequestObj.setBookName(buyOrderRequestDTO.getBook_name());
-		buyOrderRequestObj.setAuthors(buyOrderRequestDTO.getAuthors());
-		buyOrderRequestObj.setDescription(buyOrderRequestDTO.getDescription());
-		buyOrderRequestObj.setPublisher(buyOrderRequestDTO.getPublisher());
-		buyOrderRequestObj.setPublishedDate(buyOrderRequestDTO.getPublishedDate());
-		buyOrderRequestObj.setCategories(buyOrderRequestDTO.getCategories());
-		buyOrderRequestObj.setIsbnType10(buyOrderRequestDTO.getIsbn_type_10());
-		buyOrderRequestObj.setIsbnNo1(buyOrderRequestDTO.getIsbnNo1());
-		buyOrderRequestObj.setIsbnType13(buyOrderRequestDTO.getIsbn_type_13());
-		buyOrderRequestObj.setIsbnNo2(buyOrderRequestDTO.getIsbnNo2());
-		buyOrderRequestObj.setSmallThumbnail(buyOrderRequestDTO.getSmallThumbnail());
-		buyOrderRequestObj.setThumbnail(buyOrderRequestDTO.getThumbnail());
-		buyOrderRequestObj.setAmount(buyOrderRequestDTO.getAmount());
-		buyOrderRequestObj.setCurrencyCode(buyOrderRequestDTO.getCurrencyCode());
-		buyOrderRequestObj.setQuantity(buyOrderRequestDTO.getQuantity());
-		buyOrderRequestObj.setCheckStatus(buyOrderRequestDTO.getCheck_status());
+		buyOrderRequestObj.setBookName(buyOrderRequestDto.getBookName());
+		buyOrderRequestObj.setAuthors(buyOrderRequestDto.getAuthors());
+		buyOrderRequestObj.setSmallThumbnail(buyOrderRequestDto.getSmallThumbnail());
+		buyOrderRequestObj.setAmount(buyOrderRequestDto.getAmount());
+		buyOrderRequestObj.setQuantity(buyOrderRequestDto.getQuantity());
+		buyOrderRequestObj.setCheckStatus(buyOrderRequestDto.getCheckStatus());
+		buyOrderRequestObj.setBookId(buyOrderRequestDto.getBookId());
 		buyOrderRequestObj.setUserId(authentication.getName());
-		buyOrderRequestObj.setAddressId(buyOrderRequestDTO.getAddressId());
-		buyOrderRequestObj.setDileveryPersonId(buyOrderRequestDTO.getDileveryPersonId());
+		buyOrderRequestObj.setAddressId(buyOrderRequestDto.getAddressId());
+		buyOrderRequestObj.setDileveryPersonId(buyOrderRequestDto.getDileveryPersonId());
 		
-		buyOrderRequest.save(buyOrderRequestObj);
-		return buyOrderRequestDTO;
-
+		buyOrderRequestRepository.save(buyOrderRequestObj);
+		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");
 	}
 
 	@Override
-	public List<BuyOrderRequest> findRequest() {
+	public int getNotification() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");
+	}
+
+	@Override
+	public List<BuyOrderRequest> getOrderRequest() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return buyOrderRequestRepository.getOrderRequest(authentication.getName(),"user");
+	}
+
+	@Override
+	public void deleteBookRequest(int requestBookId) {
+		buyOrderRequestRepository.deleteById(requestBookId);
+	}
+
+	@Override
+	public void addDeliverAddress(int addressId,int deliveryPersonId) {
 		
-		return buyOrderRequest.findAll();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,authentication.getName(),"user");
+	}
+
+	@Override
+	public Iterable<Object> deliverySellRequest(int deliveryId) {
+		Iterable<Object>result= buyOrderRequestRepository.deliveryPersonRequest(deliveryId);
+		return result;
+	}
+
+	@Override
+	public void updateBuyBookStatus(int buyOrderRequestId, String check_status) {
+		
+		buyOrderRequestRepository.updateBuyBookStatus(buyOrderRequestId,check_status);
+	}
+	
+	@Override
+	public Iterable<Object> deliverySellRequestAdmin() {
+		
+		return buyOrderRequestRepository.deliveryGetAdmin();
 	}
 
 }

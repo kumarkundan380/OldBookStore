@@ -9,25 +9,25 @@
             <div  class="col-sm-2">Total</div>
             <div  class="col-sm-2">Action</div>
         </div>
-        <div class="col-sm-12 product-checkout abcd">
+        <div class="col-sm-12 product-checkout abcd " *ngFor="let book of bookList">
             <div  class="col-sm-2">
-                <img src="../../assets/b3.jpg" width="100%">
+                <img id="bookImage" src="{{book.smallThumbnail}}">
             </div>
-            <div  class="col-sm-2 text-center product-name-wrap">Programming in c</div>
-            <div  class="col-sm-2 text-center product-name-wrap">350.00</div>
+            <div  class="col-sm-2 text-center product-name-wrap">{{book.bookName}}</div>
+            <div  class="col-sm-2 text-center product-name-wrap">{{book.amount}}</div>
             <div  class="col-sm-2 ">
                 <i id="add-item" class="fas fa-minus"></i>
                 <p id="add-item">1</p>
                 <i id="add-item" class="fas fa-plus"></i>
             </div>
-            <div  class="col-sm-2 text-center product-name-wrap">350.00</div>
+            <div  class="col-sm-2 text-center product-name-wrap">{{book.amount}}</div>
             <div  class="col-sm-2 text-center">
-                <a href="#">
+                <a (click)="deleteBookRequest(book.buyOrderRequestId)">
                     <i class="fas fa-times"></i>
                 </a>
             </div>
         </div>
-        <div class="col-sm-12 product-checkout abcd">
+        <!-- <div class="col-sm-12 product-checkout abcd">
         <div  class="col-sm-2">
             <img src="../../assets/b3.jpg" width="100%">
         </div>
@@ -62,7 +62,8 @@
                 <i class="fas fa-times"></i>
             </a>
         </div>
-    </div>
+    </div> -->
+    
     <div class="col-sm-12 product-checkout abcd">
         <div  class="col-sm-2"></div>
         <div  class="col-sm-2 text-center"></div>

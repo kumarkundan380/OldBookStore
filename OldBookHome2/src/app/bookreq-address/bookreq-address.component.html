@@ -5,7 +5,7 @@
     <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
   </mat-toolbar>
   <mat-dialog-content class="mat-typography">
-    <div class="showAddress" *ngFor="let res of address.address">
+    <div class="showAddress" *ngFor="let res of address">
       <span id="address-wrap">
         {{res.address}}<br>
         {{res.address2}}<br>
@@ -13,12 +13,12 @@
         {{res.state}}
         {{res.postalCode}}
       </span>
-        <button class="addButton" (click)="sendId(res.id)">Add</button>
-      </div>
-      <div>
+      <button class="addButton" (click)="sendId(res.id)">Add</button>
+    </div>
+    <div>
         <button class="btn addNewAddressBtn"  (click)="addAddress()">Add New Address</button>
-      </div>
-        <div *ngIf="isShowAddress">
+    </div>
+      <div *ngIf="isShowAddress">
       <form [formGroup]="addaddressservice.form" class="normal-form" (submit)="onSubmit()">
         <mat-grid-list cols=1 rowHeight="400px">
           <mat-grid-tile>

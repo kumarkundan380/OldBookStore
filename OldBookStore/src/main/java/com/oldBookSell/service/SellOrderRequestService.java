@@ -21,5 +21,11 @@ public interface SellOrderRequestService {
 	public Iterable<Object> deliveryRequest(int deliveryPerson_id);
 	
 	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO);
+	
+	public List<SellOrderRequest> findBookByAuthor(String author);
+	
+	public List<SellOrderRequest> findBookByPublisher(String publisher);
 
+	public Iterable<Object> deliveryRequestAdmin();
+	
 }

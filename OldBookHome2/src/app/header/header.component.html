@@ -16,9 +16,9 @@
       <!-- (click)="fun()" -->
       <div class="cart">
         <div class="cart-wrap">
-          <button type="button" data-toggle="modal" data-target="#myModal" class="cart-button">
+          <button type="button" data-toggle="modal" data-target="#myModal" class="cart-button" (click)="getNotificationBook()">
             <i class="fas fa-cart-plus fa-2x icon"></i>
-            <h5 class="totalItem">0</h5>
+            <h5 class="totalItem">{{javaCallObj.getNotification()}}</h5>
           </button>
         </div>
         <div class="modal fade" id="myModal" role="dialog">
@@ -26,19 +26,19 @@
             <div class="modal-content">
               <div class="modal-header">
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                <button type="button" class="check-cart close"  routerLink="/checkout" routerLinkActive="active" data-dismiss="modal">Check Card</button> <h5 id="item" >0 ITEM</h5>
+                <button type="button" class="check-cart close"  routerLink="/checkout" routerLinkActive="active" data-dismiss="modal">Check Card</button> <h5 id="item" >{{javaCallObj.getNotification()}} ITEM</h5>
               </div>
-              <span *ngFor="let i of [1,2,3]">
+              <span *ngFor="let book of bookList">
                 <div class="product-cart">
                   <div class="poduct-image">
-                    <img id="cart-img" src="../../assets/samllimage/ExchangeIcon.jpg">
+                      <img id="cart-img" src="{{book.smallThumbnail}}">
                   </div>
                   <div class="product-name">
-                    <p class="product-name-wrap">programming in c</p>
-                    <span class="cart-price">1*120</span>
+                      <p class="product-name-wrap">{{book.bookName}}</p>
+                      <span class="cart-price">₹ {{book.amount}}</span>
                   </div>
                   <div class="deleteitem">
-                    <a id="cart-delete" href="#"><i class="fas fa-trash fa-1x"></i></a>
+                      <a id="cart-delete" (click)="deleteBookRequest(book.buyOrderRequestId)"><i class="fas fa-trash fa-1x"></i></a>
                   </div>
                 </div>
               </span>
@@ -66,8 +66,19 @@
           </ul>
         </li>
         <li><a href="#">Products</a></li>
-        <li><a (click)="deliveryRequestFun()" *ngIf="javaCallObj.hasRole()">Request</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" *ngIf="javaCallObj.hasRole()">Request</a>
+          <ul class="dropdown-menu">
+            <li><a (click)="deliverySellRequest()">Sell Request</a></li>
+            <li><a (click)="deliveryRequestFun()">Buy Request</a></li>
+          </ul>
+        </li>
         <li><a (click)="listUserFun()" *ngIf="javaCallObj.hasAdminRole()">User List</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" *ngIf="javaCallObj.hasAdminRole()">Request</a>
+          <ul class="dropdown-menu">
+            <li><a (click)="deliverySellRequestAdmin()">Sell Request</a></li>
+            <li><a (click)="deliveryRequestFunAdmin()">Buy Request</a></li>
+          </ul>
+        </li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

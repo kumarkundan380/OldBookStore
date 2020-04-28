@@ -14,9 +14,11 @@ import { JavaServiceService } from '../java-service.service';
 export class ProductdisplayComponent implements OnInit {
   bookList:any;
   newList:any;
+//  authorName=false;
+//  cartDisplay=false;
   notEmptyPost = true;
   notscrolly = true;
-  cartDisplay=false;
+  
   constructor(public router:Router,
     public loginService:BookSellSearchService,
     public dialog:MatDialog,
@@ -40,6 +42,7 @@ export class ProductdisplayComponent implements OnInit {
   onScroll() {
     if (this.notscrolly && this.notEmptyPost){
       //this.spinner.show();
+      
       this.notscrolly = false;
       this.loadNextPost();
     }
@@ -59,16 +62,36 @@ export class ProductdisplayComponent implements OnInit {
     this.javaService.bookId=sellOrderRequestId;
     this.router.navigate(['/buybook']);
   }
+
+  addToCart(bookId:number){
+    console.log(bookId);
+    this.javaService.addSellOrderRequest(bookId);
+  } 
+
   purchaseBook(){
     this.router.navigate(['/checkout']);
   }
 
+  findBookByAuthor(author:string){
+    this.notEmptyPost=false;
+    this.javaService.findBookByAuthor(author).subscribe(data=>{
+    //  console.log(data)
+      this.bookList=data;
+    });
+  }
+
+  findBookByPublisher(publisher:string){
+    this.javaService.getBookByPublisher(publisher).subscribe(data=>{
+      this.bookList=data;
+    });
+  }
+
   searchCatogory(category:string){
-    this.cartDisplay=true;
+    this.notEmptyPost=false;
     this.javaService.getBookByCategory(category).subscribe(data=>{
       this.bookList=data;
-      console.log(data);
-    })
+    //  console.log(data);
+    });
   }
 
 

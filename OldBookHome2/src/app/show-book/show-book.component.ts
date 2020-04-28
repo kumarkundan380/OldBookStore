@@ -34,5 +34,8 @@ export class ShowBookComponent implements OnInit {
     this.javaService.bookId=sellOrderRequestId;
     this.router.navigate(['/buybook']);
   }
+  addToCart(bookId:number){
+    this.javaService.addSellOrderRequest(bookId);
+  }
 
 }

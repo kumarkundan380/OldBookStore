@@ -7,8 +7,21 @@ import com.oldBookSell.model.BuyOrderRequest;
 
 public interface BuyOrderRequestService {
 	
-	public BuyOrderRequestDTO saveRequest(BuyOrderRequestDTO bookDetail);
+	public int saveRequest(BuyOrderRequestDTO bookDetail);
+
+	public int getNotification();
+
+	public List<BuyOrderRequest> getOrderRequest();
+
+	public void deleteBookRequest(int requestBookId);
+
+	void addDeliverAddress(int addressId, int deliveryPersonId);
+
+	public Iterable<Object> deliverySellRequest(int deliveryId);
+
+	public void updateBuyBookStatus(int buyOrderRequestId, String check_status);
 	
-	public List<BuyOrderRequest> findRequest();
+	public Iterable<Object> deliverySellRequestAdmin();
+	
 
 }

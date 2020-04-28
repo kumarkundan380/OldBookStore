@@ -34,16 +34,18 @@ export class BookreqAddressComponent implements OnInit {
   }
   onSubmit() {
     if (this.addaddressservice.form.valid) {
-      this.userInfo=this.addaddressservice.form.value;
-      this.javaServiceObj.addAddress(this.userInfo).subscribe(
-        data=>{
-          this.javaServiceObj.bookObj.addressId=this.address.address[this.address.address.length-1].id;
-          this.sendId(this.javaServiceObj.bookObj.addressId);
-        });
-      this.addaddressservice.form.reset();
-      this.addaddressservice.initializeFormGroup();
-      this.notificationService.success(':: Submitted successfully');
-      this.onClose();
+    this.userInfo=this.addaddressservice.form.value;
+    this.javaServiceObj.addAddress(this.userInfo).subscribe(
+      data=>{
+      //    console.log("address add ho gaya.......");
+        this.address=data;
+        this.javaServiceObj.bookObj.addressId=this.address.address[this.address.address.length-1].id;
+        this.sendId(this.javaServiceObj.bookObj.addressId);
+      });
+    this.addaddressservice.form.reset();
+    this.addaddressservice.initializeFormGroup();
+    this.notificationService.success(':: Submitted successfully');
+    this.onClose();
     }
   }
 
@@ -59,6 +61,7 @@ export class BookreqAddressComponent implements OnInit {
     this.javaServiceObj.getAddress().subscribe(
     (data)=>{
       this.address=data;
+      this.address=this.address.address;
     });
   }
 }

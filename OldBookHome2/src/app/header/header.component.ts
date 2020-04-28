@@ -17,6 +17,7 @@ import { ProfileComponent } from '../profile/profile.component';
 export class HeaderComponent implements OnInit {
 
   cartshow:boolean=false;
+  bookList:any;
   constructor(public dialog: MatDialog,
     public loginService:LoginServeiceService,
     public registrationService:RegistrationService,
@@ -25,14 +26,33 @@ export class HeaderComponent implements OnInit {
     public router:Router) { }
   fun(){
     this.cartshow=true;
-    // console.log("fuction call");
   }
   ngOnInit() {
-    // this.isRole=this.javaCallObj.hasRole();
-    // console.log(this.hasLogin.isUserLoggedIn());
   }
   searchBook(searchValue:any){
     this.javaCallObj.searchBook(searchValue.value);
+  }
+
+  getNotificationBook(){
+    if(this.hasLogin.isUserLoggedIn()){
+      this.javaCallObj.getBuyBook().subscribe(
+        book=>{
+          this.bookList=book;
+          console.log(this.bookList);
+        });
+    }
+  }  
+
+  deleteBookRequest(requestId:number){
+    this.javaCallObj.delteBookRequest(requestId).subscribe(
+      data=>{
+        this.javaCallObj.getBookNotification();
+      });
+  }
+
+  //this method used for geeting all book request for deliver 
+  deliverySellRequest(){
+    this.router.navigate(["/deliverBuyRequest"]);
   }
 
   deliveryRequestFun(){
@@ -63,15 +83,23 @@ export class HeaderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "40%";
-    //{position: {top: '0%', left: '20%'}}
-   // dialogConfig.position({ top: '50px', left: '50px' });
     this.dialog.open(ProfileComponent,dialogConfig);
   }
   logOut(){
     this.hasLogin.logOut();
     sessionStorage.removeItem('userRole');
+    sessionStorage.removeItem('notification1');
+    sessionStorage.setItem('notification1','0');
     this.router.navigate(["/mainslider"]);
 
+  }
+  // ---------------admin part---------------
+
+  deliverySellRequestAdmin(){
+    this.router.navigate(["/deliverBuyRequest"]);
+  }
+  deliveryRequestFunAdmin(){
+    this.router.navigate(["/deliveryRequest"]);
   }
   
 }

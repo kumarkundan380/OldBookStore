@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JavaServiceService } from '../java-service.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import { BookSellSearchService } from '../share/book-sell-search.service';
 
@@ -20,6 +19,9 @@ export class BookSellSearchComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+  }
+
   onSubmit() {
     if (this.loginService.form.valid) {
       // this.userLogin=this.loginService.form.value;
@@ -36,9 +38,6 @@ export class BookSellSearchComponent implements OnInit {
     this.loginService.form.reset();
     this.loginService.initializeFormGroup();
     this.dialogRef.close();
-  }
-
-  ngOnInit() {
   }
 
 }

@@ -100,6 +100,12 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		LOGGER.info("In SellOrderService findBooks Max="+max);
 		return sellOrderRequest.findBooks(min, max);
 	}
+	@Override
+	public List<SellOrderRequest> findBookByAuthor(String author){
+		LOGGER.info("SellOrderRequestService findBookByAuthor method is calling....");
+		LOGGER.info("In SellOrderService findBookByAuthor Author Name="+author);
+		return sellOrderRequest.findBookByAuthor(author);
+	}
 
 	@Override
 	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String bookName) {
@@ -112,11 +118,23 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		LOGGER.info("SellOrderRequestService findBookByCategory method is calling....");
 		return sellOrderRequest.findBookByCategory(category);
 	}
+	
+	@Override
+	public List<SellOrderRequest> findBookByPublisher(String publisher){
+		LOGGER.info("SellOrderRequestService findBookByPublisher method is calling....");
+		return sellOrderRequest.findBookByPublisher(publisher);
+	}
 
 	@Override
 	public Optional<SellOrderRequest> findById(int bookId) {
 		LOGGER.info("SellOrderRequestService findById method is calling.....");
 		return sellOrderRequest.findById(bookId);
+	}
+	
+	@Override
+	public Iterable<Object> deliveryRequestAdmin() {
+		Iterable<Object>result= sellOrderRequest.deliveryPersonRequestAdmin();
+		return result;
 	}
 	
 }

@@ -1,7 +1,7 @@
 <div class="fluid-container productdisplaywrap"> 
     <div class="col-sm-3">
         <div class="productlist catagory1">
-            <div class="subccatagory1 catagory-type1">Top Catagory</div>
+            <div class="subccatagory1 catagory-type1">Top Category</div>
             <div class="subccatagory1 catagory-book top-catagory"><a (click)="searchCatogory('Science')">Science</a></div>
             <div class="subccatagory1 catagory-book" ><a (click)="searchCatogory('Mathematics')">Mathematics</a> </div>
             <div class="subccatagory1 catagory-book" > <a (click)="searchCatogory('Computer')">Computer</a></div>
@@ -12,10 +12,16 @@
         </div>
         <div class="productlist catagory2">
             <div class="subccatagory1 catagory-type1"> Book Author</div>
-            <div class="subccatagory1 catagory-book top-catagory"> Author 1</div>
-            <div class="subccatagory1 catagory-book"> Author 2</div>
-            <div class="subccatagory1 catagory-book"> Author 3</div>
-            <div class="subccatagory1 catagory-book"> Author 4</div>
+            <div class="subccatagory1 catagory-book top-catagory"><a (click)="findBookByAuthor('Christian')">Brian Christian</a> </div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Griffiths')">Tom Griffiths</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Cormen')">Thomas H. Cormen</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Tracy Kidder')">Tracy Kidder</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Sedgewick')">Robert Sedgewick</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Laakmann McDowell')">Gayle Laakmann McDowell</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Tanenbaum')">Andrew S. Tanenbaum</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Martin')">Robert Cecil Martin</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Andy Hunt')">Andy Hunt</a></div>
+            <div class="subccatagory1 catagory-book"><a (click)="findBookByAuthor('Schildt')">Herbert Schildt</a></div>
         </div>
         <div class="productlist catagory3">
             <div class="subccatagory1 offer-name"> 
@@ -27,10 +33,12 @@
             </div>
         </div>
         <div class="productlist catagory4">
-            <div class="subccatagory1 catagory-type1 top-catagory"> book4.1</div>
-            <div class="subccatagory1 catagory-book"> book4.2</div>
-            <div class="subccatagory1 catagory-book"> book4.3</div>
-            <div class="subccatagory1 catagory-book"> book4.4</div>
+            <div class="subccatagory1 catagory-type1 top-catagory"> Publisher</div>
+            <div class="subccatagory1 catagory-book"> <a (click)="findBookByPublisher('McGraw')">McGraw Hill</a></div>
+            <div class="subccatagory1 catagory-book"> <a (click)="findBookByPublisher('MIT')">MIT Press</a></div>
+            <div class="subccatagory1 catagory-book"> <a (click)="findBookByPublisher('Reilly')">O'Reilly Media</a></div>
+            <div class="subccatagory1 catagory-book"> <a (click)="findBookByPublisher('Addison')">Addison Wesley</a></div>
+            <div class="subccatagory1 catagory-book"> <a (click)="findBookByPublisher('Create')">CreateSpace</a></div>
         </div>
     </div>
     <div class="col-sm-9">
@@ -83,7 +91,7 @@
             </div>
         </div>
         <!-- Book cart display  -->
-        <div *ngIf="!cartDisplay">
+        <div>
             <div *ngFor="let book of bookList" infiniteScroll [infiniteScrollDistance]="6" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
                 <div class="col-md-4 product-detail">
                     <div class="product-warp">
@@ -101,40 +109,14 @@
                                     <p><b>₹</b> {{book.amount}} </p>
                                 </div>
                                 <div class="col-sm-3">
-                                    <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
-                                </div> 
+                                    <a  class="add-icon" (click)="addToCart(book.sellOrderRequestId)"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
+                                </div>  
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Book catogory display  -->
-        <div *ngIf="cartDisplay">
-            <div *ngFor="let book of bookList">
-                <div class="col-md-4 product-detail">
-                    <div class="product-warp">
-                        <div class="product-info">
-                            <img *ngIf= "book.smallThumbnail" class="imgdisplay" src="{{book.smallThumbnail}}" (click)="buyBook(book.sellOrderRequestId)">
-                            <img *ngIf= "!book.smallThumbnail" class="imgdisplay" src="../../assets/default-book.jpg" (click)="buyBook(book.sellOrderRequestId)">
-                        </div>
-                        <div class="product-info product-info-wrap">
-                            <div class="title-warp">
-                                <h4 class="title-name">{{book.bookName}}</h4>
-                            </div>
-                            <span class="catagory">{{book.authors}}</span>
-                            <div class="title-warp">
-                                <div class="col-sm-9 price-warp">
-                                    <p><b>₹</b> {{book.amount}} </p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <a  class="add-icon"> <i class="fas fa-cart-plus fa-2x add-to-cart"></i> </a>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>

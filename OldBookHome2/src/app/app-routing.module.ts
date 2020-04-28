@@ -16,6 +16,7 @@ import { ShowBookComponent } from './show-book/show-book.component';
 import { BuyBookComponent } from './buy-book/buy-book.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { DeliveryBuyRequestComponent } from './delivery-buy-request/delivery-buy-request.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/mainslider',pathMatch:'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path:'buybook',component:BuyBookComponent},
   {path:'checkout',component:CheckoutComponent},
   {path:'listUser',component:ListUserComponent},
+  {path:'deliverBuyRequest',component:DeliveryBuyRequestComponent},
   {path:'editUser',component:EditUserComponent}
 ];
 

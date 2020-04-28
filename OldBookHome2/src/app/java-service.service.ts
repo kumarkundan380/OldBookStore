@@ -63,6 +63,10 @@ export class JavaServiceService {
   bookISBN:any;
   bookId:any;
   bookList:any;
+  notification:any;
+  checkCart:boolean=false;
+  addressNo:number;
+  deliveryForBuy:boolean=false;
   userId:number;
   // userRole:string;
   
@@ -78,21 +82,18 @@ export class JavaServiceService {
     this.urls=this.url+"getRole";
     this.http.get(this.urls,{responseType: 'text'}).subscribe(
       data=>{
-        // this.userRole=data;
         sessionStorage.setItem('userRole',data);
-        // sessionStorage.setItem('username',this.userLogin.userName);
-        // console.log(this.userRole); 
-        // console.log( this.hasRole());
-      }
-    );
+      });
   }
   requestBookDetails(bookObj:BookDetails ){
     this.urls=this.url+"bookDetailsRequest";
-    // console.log(bookObj.isbnNo1);
     this.http.post(this.urls,bookObj).subscribe(
       data=>{
-       // console.log("book stored.....");
       });
+  }
+  findBookByAuthor(author:string){
+    this.urls=this.url+"fetchAuthor";
+    return this.http.post(this.urls,author);
   }
 
   userList(){
@@ -118,23 +119,27 @@ export class JavaServiceService {
     if(sessionStorage.getItem('userRole')==="deliveryPerson"){
       return true;
     }
-    // if(sessionStorage.getItem('userRole')==="admin"){
-    //   return true;
-    // }
     return false;
   }
+
+  // deliveryPerson get the notificaton for bookBuy
   getDeliveryRequest(){
     this.urls=this.url+"getRequest";
     return this.http.get(this.urls);
   }
   updateBookStatus(status:any){
     this.urls=this.url+"bookStatus";
-    // console.log("update book methoc...");
-   this.http.post(this.urls,status).subscribe(
-     data=>{
-       console.log("updated book status..........");
-       this.router.navigate(['/deliveryRequest']);
+    this.http.post(this.urls,status).subscribe(
+      data=>{
+        console.log("updated book status..........");
+        this.router.navigate(['/deliveryRequest']);
      });
+  }
+
+  // deliveryPerson get the notificaton for bookSell 
+  getDeliverySellRequest(){
+    this.urls=this.url+"getSellRequest";
+    return this.http.get(this.urls);
   }
 
   findBooks(min:number,max:number){
@@ -146,38 +151,116 @@ export class JavaServiceService {
     this.urls=this.url+"searchBook";
     this.http.post(this.urls,searchValue).subscribe((books:any[]) =>
     {
-      console.log(books);
+    //  console.log(books);
       this.bookList=books;
       this.router.navigate(['/showbook']);
       
     });
   }
 
+  addSellOrderRequest(bookId:number){
+    console.log(bookId);
+    this.urls=this.url+"sellBookRequest";
+    this.http.post(this.urls,bookId).subscribe(
+      totalRequest=>{
+        this.notification=totalRequest;
+        sessionStorage.setItem('notification1',this.notification);
+      });
+  }
+
+  getNotification(){
+    return sessionStorage.getItem('notification1');
+  }
+
+  getBookNotification(){
+    this.urls=this.url+"getNotification";
+    this.http.get(this.urls).subscribe(
+      totalRequest=>{
+        this.notification=totalRequest;
+        sessionStorage.setItem('notification1',this.notification);
+      });
+  }
+
+  getBuyBook(){
+    this.urls=this.url+"getBuyBook";
+    return this.http.get(this.urls);
+  }
+
+  delteBookRequest(requestId:number){
+    this.urls=this.url+"deleteBookRequest";
+    return this.http.post(this.urls,requestId);
+  }
+
+  bookDeliverAddressMultipleBook(addressId:number){
+    this.urls=this.url+"addDeliverAddress";
+    this.http.post(this.urls,addressId).subscribe(
+      totalRequest=>{
+        this.notification=totalRequest;
+        sessionStorage.setItem('notification1',this.notification);
+      });
+  }
+
+  bookDeliverAddressSingleBook(addressId:number){
+    var array=new Array(2);
+    // console.log(addressId+".........................");
+    array[0]=addressId;
+    array[1]=this.bookId;
+    this.urls=this.url+"addDeliverAddressSingleBook";
+    // console.log(this.bookId+"....................");
+    this.http.post(this.urls,array).subscribe(
+      totalRequest=>{
+        // this.notification=totalRequest;
+        // sessionStorage.setItem('notification1',this.notification);
+        // console.log("book ordered.......");
+      });
+  }
+
+  updateBuyBookStatus(status:any){
+    this.urls=this.url+"updateBuyBookStatus";
+    this.http.post(this.urls,status).subscribe(
+      data=>{
+        this.router.navigate(['/deliverBuyRequest']);
+      });
+  }
+
   getUserById(id:number){
     this.urls=this.url+"fetchUser";
-    console.log(id);
     return this.http.post(this.urls,id);
   }
 
   updateUserDetail(value:UserDetail) {
-    // return this.http.put(`${this.baseUrl}`+'/update/'+`${id}`,value);
     this.urls=this.url+"updateUser";
     return this.http.post(this.urls,value);
   }
 
   deleteUser(userId:number){
     this.urls=this.url+"deleteUser";
-    console.log(userId);
     return this.http.post(this.urls,userId);
   }
 
+  //book serching for purchage topCatagory
   getBookByCategory(category:string){
     this.urls=this.url +"fetchCategory";
     return this.http.post(this.urls,category);
   }
 
+  getBookByPublisher(publisher:string){
+    this.urls=this.url+"fetchPublisher";
+    return this.http.post(this.urls,publisher);
+  }
+
   getBookById(id:number){
     this.urls=this.url+"fetch";
     return this.http.post(this.urls,id);
+  }
+
+  // -------------- Admin part--------------------
+  getDeliverySellRequestAdmin(){
+    this.urls=this.url+"getSellRequestAdmin";
+    return this.http.get(this.urls);
+  }
+  getDeliveryRequestAdmin(){
+    this.urls=this.url+"getRequestAdmin";
+    return this.http.get(this.urls);
   }
 }
