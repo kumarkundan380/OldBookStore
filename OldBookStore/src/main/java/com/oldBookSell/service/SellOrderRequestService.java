@@ -18,6 +18,12 @@ public interface SellOrderRequestService {
 	
 	public List<SellOrderRequest> findBookByNameAuthorAndIsbn(String searchType);
 	
+	public List<SellOrderRequest> findSellHistory(String sellUserId);
+	
+	public Iterable<Object> sellDate(String userId);
+	
+	public int getSellOrderNotification(String status);
+	
 	public Iterable<Object> deliveryRequest(int deliveryPerson_id);
 	
 	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO);

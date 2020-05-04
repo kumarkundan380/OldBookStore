@@ -12,12 +12,16 @@ public interface BuyOrderRequestService {
 	public int getNotification();
 
 	public List<BuyOrderRequest> getOrderRequest();
+	
+	public List<BuyOrderRequest> findBuyHistory(String buyUserId);
 
 	public void deleteBookRequest(int requestBookId);
 
 	void addDeliverAddress(int addressId, int deliveryPersonId);
 
 	public Iterable<Object> deliverySellRequest(int deliveryId);
+	
+	public Iterable<Object> buyDate(String userId);
 
 	public void updateBuyBookStatus(int buyOrderRequestId, String check_status);
 	

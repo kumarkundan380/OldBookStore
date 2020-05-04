@@ -23,14 +23,18 @@ export class UpdateBookStatusComponent implements OnInit {
     }
     onSubmit() {
       if (this.bookStatus.form.valid) {
-      this.status=this.bookStatus.form.value;
-      this.status.sellOrderRequestId=this.javaService.bookId;
-      console.log(this.status);
-      this.javaService.updateBookStatus(this.status);
-      this.bookStatus.form.reset();
-      this.bookStatus.initializeFormGroup();
-      this.onClose(); 
-    }
+        this.status=this.bookStatus.form.value;
+        this.status.sellOrderRequestId=this.javaService.bookId;
+        if(this.javaService.deliveryForBuy){
+          this.javaService.updateBuyBookStatus(this.status);
+        }else{
+            this.javaService.updateBookStatus(this.status);
+        }
+      
+        this.bookStatus.form.reset();
+        this.bookStatus.initializeFormGroup();
+        this.onClose(); 
+      }
   }
 
   onClose() {

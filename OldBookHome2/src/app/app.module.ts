@@ -32,6 +32,9 @@ import { BuyBookComponent } from './buy-book/buy-book.component';
 import { DeliveryBuyRequestComponent } from './delivery-buy-request/delivery-buy-request.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BuyHistoryComponent } from './buy-history/buy-history.component';
+import { SellHistoryComponent } from './sell-history/sell-history.component';
 
 
 @NgModule({
@@ -55,7 +58,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     BookDeliverAddressComponent,
     DeliveryBuyRequestComponent,
     ListUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    BuyHistoryComponent,
+    SellHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,8 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     FormsModule,
     MaterialModule,
     HttpClientModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxSpinnerModule
   ],
   providers: [LoginServeiceService,RegistrationService,NotificationService,AuthGardService,
     {    

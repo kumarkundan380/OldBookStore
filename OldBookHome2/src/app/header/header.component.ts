@@ -8,6 +8,8 @@ import { JavaServiceService } from '../java-service.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';
 import { ProfileComponent } from '../profile/profile.component';
+import { NgxSpinnerService } from "ngx-spinner";
+import { NotificationService } from '../share/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +24,9 @@ export class HeaderComponent implements OnInit {
     public loginService:LoginServeiceService,
     public registrationService:RegistrationService,
     public javaCallObj:JavaServiceService,
+    public notificationService:NotificationService,
     public hasLogin:AuthenticationService,
+    public spinner:NgxSpinnerService,
     public router:Router) { }
   fun(){
     this.cartshow=true;
@@ -47,6 +51,7 @@ export class HeaderComponent implements OnInit {
     this.javaCallObj.delteBookRequest(requestId).subscribe(
       data=>{
         this.javaCallObj.getBookNotification();
+        this.notificationService.warn("Remove from cart Successfully.")
       });
   }
 
@@ -93,6 +98,17 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/mainslider"]);
 
   }
+
+  //........Hystory Part...........
+
+  buyOrder(){
+    this.router.navigate(["/buyHistory"]);
+  }
+  sellOrder(){
+    this.router.navigate(["/sellHistory"]);
+  }
+
+
   // ---------------admin part---------------
 
   deliverySellRequestAdmin(){

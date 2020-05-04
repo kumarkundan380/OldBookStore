@@ -21,8 +21,6 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	
 	public static final Logger LOGGER=LoggerFactory.getLogger(SellOrderRequestServiceImpl.class);
 
-
-	
 	@Autowired
 	SellOrderRequestRepository sellOrderRequest;
 	
@@ -54,25 +52,6 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		sellOrderRequestObj.setUserId(authentication.getName());
 		sellOrderRequestObj.setAddressId(sellOrderRequestDTO.getAddressId());
 		sellOrderRequestObj.setDileveryPersonId(sellOrderRequestDTO.getDileveryPersonId());
-		//this code for usefull for book tabel find the the unique book and update quatity
-//		SellOrderRequest abc=sellOrderRequest.findByBookNameAndAuthor(sellOrderRequestDTO.getBook_name(),sellOrderRequestDTO.getAuthors());
-//		
-//		try {	
-//			
-//			if(abc == null) {
-//				sellOrderRequest.save(sellOrderRequestObj);
-//			}else {
-//				sellOrderRequestObj.setQuantity(abc.getQuantity()+1);
-//				sellOrderRequestObj.setSellOrderRequestId(abc.getSellOrderRequestId());
-//				sellOrderRequest.save(sellOrderRequestObj);
-//			}
-//			
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-		
-		// delivery person logic
-//		List list = sellOrderRequest.findAllByRole()
 		sellOrderRequest.save(sellOrderRequestObj);
 		LOGGER.info("Sell Book Request save to sell_order_request Table ");
 		return sellOrderRequestDTO;
@@ -120,9 +99,29 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	}
 	
 	@Override
+	public List<SellOrderRequest> findSellHistory(String sellUserId){
+		LOGGER.info("SellOrderRequestService findSellHistory method is calling....");
+		return sellOrderRequest.findSellHistory(sellUserId);
+		
+	}
+	
+	@Override
 	public List<SellOrderRequest> findBookByPublisher(String publisher){
 		LOGGER.info("SellOrderRequestService findBookByPublisher method is calling....");
 		return sellOrderRequest.findBookByPublisher(publisher);
+	}
+	
+	@Override
+	public Iterable<Object> sellDate(String userId) {
+		LOGGER.info("SellOrderRequestService sellDate method is calling....");
+		Iterable<Object> result= sellOrderRequest.sellDate(userId);
+		return result;
+	}
+	
+	@Override
+	public int getSellOrderNotification(String status) {
+		LOGGER.info("SellOrderRequestService getSellOrderNotification method is calling....");
+		return sellOrderRequest.getSellOrderNotification(status);
 	}
 
 	@Override
@@ -133,8 +132,11 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	
 	@Override
 	public Iterable<Object> deliveryRequestAdmin() {
+		LOGGER.info("SellOrderRequestService deliveryRequestAdmin method is calling.....");
 		Iterable<Object>result= sellOrderRequest.deliveryPersonRequestAdmin();
 		return result;
 	}
+	
+	
 	
 }

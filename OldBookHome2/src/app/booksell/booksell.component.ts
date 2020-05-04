@@ -53,7 +53,7 @@ export class BooksellComponent implements OnInit {
       });
   }
   sellBook(bookNumber:number){
-   // console.log(this.array.items[bookNumber]);
+   console.log(this.array.items[bookNumber]);
    this.javaService.bookObj.book_name=this.array.items[bookNumber].volumeInfo.title;
    this.javaService.bookObj.authors= this.array.items[bookNumber].volumeInfo.authors[0];
    try {

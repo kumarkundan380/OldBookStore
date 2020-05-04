@@ -1,5 +1,7 @@
 package com.oldBookSell.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "sell_order_request")
@@ -77,6 +80,10 @@ public class SellOrderRequest {
 	@Column(name = "feedback_by_delivery_person")
 	private String feedBack;
 
+	@Column(name = "date")
+	@CreationTimestamp
+    private LocalDate date;
+	
 	public int getSellOrderRequestId() {
 		return sellOrderRequestId;
 	}

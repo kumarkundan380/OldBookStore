@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { LoginServeiceService } from '../share/login-serveice.service';
 import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.component';
 import { BookSellSearchService } from '../share/book-sell-search.service';
 import { JavaServiceService } from '../java-service.service';
+import { NotificationService } from '../share/notification.service';
+//import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
   selector: 'app-productdisplay',
@@ -21,6 +22,8 @@ export class ProductdisplayComponent implements OnInit {
   
   constructor(public router:Router,
     public loginService:BookSellSearchService,
+  //  public spinner:NgxSpinnerModule,
+    public notificationService:NotificationService,
     public dialog:MatDialog,
     public javaService:JavaServiceService) { }
 
@@ -52,6 +55,7 @@ export class ProductdisplayComponent implements OnInit {
     this.javaService.findBooks(this.bookList.length,this.bookList.length+3).subscribe((newBookList: any[]) => {
       if (newBookList.length === 0 ) {
         this.notEmptyPost =  false;
+        //this.spinner.hide();
       }
       this.bookList = this.bookList.concat(newBookList);
       this.notscrolly = true;
@@ -66,6 +70,7 @@ export class ProductdisplayComponent implements OnInit {
   addToCart(bookId:number){
     console.log(bookId);
     this.javaService.addSellOrderRequest(bookId);
+    this.notificationService.success("Added to Cart Successfully.")
   } 
 
   purchaseBook(){

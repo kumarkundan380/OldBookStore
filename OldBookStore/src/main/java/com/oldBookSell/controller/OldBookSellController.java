@@ -4,17 +4,12 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oldBookSell.dto.BuyOrderRequestDTO;
 import com.oldBookSell.dto.OldBookSellDTO;
 import com.oldBookSell.dto.SellOrderRequestDTO;
-import com.oldBookSell.exception.ResourceNotFoundException;
 import com.oldBookSell.model.BuyOrderRequest;
 import com.oldBookSell.model.SellOrderRequest;
 import com.oldBookSell.model.UserDetails;
@@ -154,7 +148,7 @@ public class OldBookSellController {
 			LOGGER.info("Controller addBuyOrderRequest method is caiing....");
 			
 			Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findById(bookId);
-			System.out.println(sellOrderRequest.get().getBookName());
+			LOGGER.info(" In Controller sellOrderRequest="+sellOrderRequest.get().getBookName());
 			BuyOrderRequestDTO buyOrderRequestDTO =new BuyOrderRequestDTO();
 			
 			buyOrderRequestDTO.setBookName(sellOrderRequest.get().getBookName());
@@ -227,6 +221,12 @@ public class OldBookSellController {
 			return buyOrderRequestService.deliverySellRequest(deliveryId);
 		}
 		
+		@RequestMapping("/sellOrderNotification")
+		public int getSellOrderNotification(@RequestBody String status) {
+			LOGGER.info("Controller getSellOrderNotification method is caiing....");
+			return sellOrderRequestService.getSellOrderNotification(status);
+		}
+		
 		@RequestMapping("/updateBuyBookStatus")
 		public void updateBuyBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
 			LOGGER.info("Controller updateBuyBookStatus method is calling....");
@@ -255,17 +255,39 @@ public class OldBookSellController {
 			
 		}
 		
+		@RequestMapping("/sellHistory")
+		public List<SellOrderRequest> findSellHistory(@RequestBody String sellUserId){
+			LOGGER.info("Controller findSellHistory method is caiing....");
+			return sellOrderRequestService.findSellHistory(sellUserId);
+		}
+		
+		@RequestMapping("/sellDate")
+		public Iterable<Object> sellDate(@RequestBody String userId) {
+			LOGGER.info("Controller sellDate method is caiing....");
+			return sellOrderRequestService.sellDate(userId);
+		}
+		
+		@RequestMapping("/buyDate")
+		public Iterable<Object> buyDate(@RequestBody String userId){
+			LOGGER.info("Controller buyDate method is caiing....");
+			return buyOrderRequestService.buyDate(userId);
+		}
+		
 		@GetMapping("/getSellRequestAdmin")
 		public Iterable<Object> getDeliverySellRequestAdmin() {
-//			int deliveryId=oldBookSellServices.getDeliveryPersonId();
-//			System.out.println(deliveryId+".............");
+			LOGGER.info("Controller getDeliverySellRequestAdmin method is caiing....");
 			return buyOrderRequestService.deliverySellRequestAdmin();
 		}
 		
 		@GetMapping("/getRequestAdmin")
 		public Iterable<Object> getDeliveryRequestAdmin() {
-		//	int deliveryId=oldBookSellServices.getDeliveryPersonId();
-			System.out.println("Kundan.............");
+			LOGGER.info("Controller getDeliveryReuestAdmin method is caiing....");
 			return sellOrderRequestService.deliveryRequestAdmin();
+		}
+		
+		@RequestMapping("/buyHistory")
+		public List<BuyOrderRequest> findBuyHistory(@RequestBody String buyUserId){
+			LOGGER.info("Controller findBuyHistory method is calling....");
+			return buyOrderRequestService.findBuyHistory(buyUserId);
 		}
 }

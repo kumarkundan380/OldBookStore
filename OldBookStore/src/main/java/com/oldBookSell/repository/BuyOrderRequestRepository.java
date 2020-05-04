@@ -32,6 +32,13 @@ public interface BuyOrderRequestRepository extends JpaRepository<BuyOrderRequest
 	@Query(value="update buy_order_request set check_status=?2 where buy_order_request_id=?1",nativeQuery = true)
 	void updateBuyBookStatus(int buyOrderRequestId, String check_status);
 	
+	@Query(value="select * from buy_order_request where user_id=?1",nativeQuery=true)
+	List<BuyOrderRequest> findBuyHistory(String buyUserId);
+	
 	@Query(value="select buy_order_request_id,book_name,authors,amount,check_status,small_thumbnail,address, address2,district, postal_code,state,first_name,last_name,mobile_number from buy_order_request b, address a,user_details u where b.address_id = a.id and a.user_id = u.user_id",nativeQuery = true)
 	Iterable<Object> deliveryGetAdmin();
+	
+	@Query(value="Select date from buy_order_request where user_id=?1",nativeQuery=true)
+	Iterable<Object> buyDate(String userId);
+
 }

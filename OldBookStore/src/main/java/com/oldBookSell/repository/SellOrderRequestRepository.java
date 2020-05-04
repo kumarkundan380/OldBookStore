@@ -40,8 +40,17 @@ public interface SellOrderRequestRepository extends JpaRepository<SellOrderReque
 	@Query(value="select * from sell_order_request where publisher like %?1%",nativeQuery=true)
 	List<SellOrderRequest> findBookByPublisher(String publisher);
 	
+	@Query(value="select * from sell_order_request where user_id=?1",nativeQuery = true)
+	List<SellOrderRequest> findSellHistory(String sellUserId);
+	
+	@Query(value="select date from sell_order_request where user_id=?1",nativeQuery=true)
+	Iterable<Object> sellDate(String userId);
+	
 	@Query(value="select sell_order_request_id,book_name,authors,check_status,isbn_no1,isbn_no2,publisher, small_thumbnail,address, address2,district, postal_code,state,first_name,last_name,mobile_number from sell_order_request s, address a,user_details u where s.address_id = a.id and a.user_id = u.user_id",nativeQuery = true)
 	Iterable<Object> deliveryPersonRequestAdmin();
-
+	
+	@Query(value="select count(check_status) from sell_order_request where check_status=?1",nativeQuery=true)
+	int getSellOrderNotification(String status);
+	
 }
 

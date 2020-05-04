@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouteReuseStrategy } from '@angular/router';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
 
 // registration details 
 export class UserInfo{
@@ -52,6 +53,7 @@ export class BookDetails{
   public currencyCode:string;
   public checkPrice:boolean;
   public addressId:number;
+  public date:string;
 }
 
 @Injectable({
@@ -64,14 +66,19 @@ export class JavaServiceService {
   bookId:any;
   bookList:any;
   notification:any;
+  sucessNotification:any=0;
+  pendingNotification:any;
   checkCart:boolean=false;
   addressNo:number;
   deliveryForBuy:boolean=false;
   userId:number;
+  sellUserId:string;
+  buyUserId:string;
   // userRole:string;
   
   private urls:string;
-  constructor(private http:HttpClient, private router:Router) { 
+  constructor(private http:HttpClient, private router:Router,
+    public spinner:NgxSpinnerService) { 
   }
   public url="http://localhost:8080/";
   register(data:UserInfo){
@@ -131,7 +138,9 @@ export class JavaServiceService {
     this.urls=this.url+"bookStatus";
     this.http.post(this.urls,status).subscribe(
       data=>{
-        console.log("updated book status..........");
+      //  console.log("updated book status..........");
+        // this.sucessNotification=this.sucessNotification+1;
+        // sessionStorage.setItem('notificationSucess',this.sucessNotification);
         this.router.navigate(['/deliveryRequest']);
      });
   }
@@ -153,18 +162,53 @@ export class JavaServiceService {
     {
     //  console.log(books);
       this.bookList=books;
+      this.spinner.show();
+      setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
       this.router.navigate(['/showbook']);
+    }, 3000);
+     // this.router.navigate(['/showbook']);
       
     });
   }
 
+  // notifiction(status:string){
+  //   console.log('check status');
+  //   this.urls=this.url+"sellOrderNotification";
+  //   if(status==='sucess'){
+  //     this.http.post(this.urls,status).subscribe(data=>{
+  //       this.sucessNotification=data;
+  //       console.log(data);
+  //    //   sessionStorage.setItem('notificationSucess',this.sucessNotification);
+  //     });
+  //   }
+  //   else{
+  //     this.http.post(this.urls,status).subscribe(data=>{
+  //       this.pendingNotification=data;
+  //       console.log(data);
+  //   //    sessionStorage.setItem('notificationPending',this.pendingNotification);
+  //     });
+  //   } 
+  // }
+
+  // getSellNotification(status:string){
+  //  // this.notification(status);
+  //   if(status==='pending')
+  //     return this.notification(status);
+  //   else
+  //     return this.notification(status);
+  // }
+
   addSellOrderRequest(bookId:number){
-    console.log(bookId);
+  //  console.log(bookId);
     this.urls=this.url+"sellBookRequest";
     this.http.post(this.urls,bookId).subscribe(
       totalRequest=>{
         this.notification=totalRequest;
+        this.pendingNotification=totalRequest;
         sessionStorage.setItem('notification1',this.notification);
+        sessionStorage.setItem('notificationPending',this.pendingNotification);
       });
   }
 
@@ -215,6 +259,8 @@ export class JavaServiceService {
       });
   }
 
+  //-----Update Book Status---------
+
   updateBuyBookStatus(status:any){
     this.urls=this.url+"updateBuyBookStatus";
     this.http.post(this.urls,status).subscribe(
@@ -252,6 +298,29 @@ export class JavaServiceService {
   getBookById(id:number){
     this.urls=this.url+"fetch";
     return this.http.post(this.urls,id);
+  }
+
+  //--------System Date----------
+  sellDate(userId:string){
+    this.urls=this.url+"sellDate";
+    return this.http.post(this.urls,userId);
+  }
+
+  buyDate(userId:string){
+    this.urls=this.url+"buyDate";
+    return this.http.post(this.urls,userId);
+  }
+
+  //----------------History Part-----------
+  
+  getSellHistory(sellUserId:string){
+    this.urls=this.url+"sellHistory";
+    return this.http.post(this.urls,sellUserId);
+  }
+
+  getBuyHistory(buyUserId:string){
+    this.urls=this.url+"buyHistory";
+    return this.http.post(this.urls,buyUserId);
   }
 
   // -------------- Admin part--------------------

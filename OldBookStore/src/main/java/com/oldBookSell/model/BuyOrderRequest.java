@@ -1,5 +1,7 @@
 package com.oldBookSell.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "buy_order_request")
@@ -47,6 +51,10 @@ public class BuyOrderRequest {
 	
 	@Column(name="dilevery_person_id")
 	private int dileveryPersonId;
+	
+	@Column(name = "date")
+	@UpdateTimestamp
+    private LocalDate date;
 
 	public int getBuyOrderRequestId() {
 		return buyOrderRequestId;

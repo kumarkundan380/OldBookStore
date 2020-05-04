@@ -5,6 +5,7 @@ import { BookDeliverAddressComponent } from '../book-deliver-address/book-delive
 import { JavaServiceService } from '../java-service.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { from } from 'rxjs';
+import { NotificationService } from '../share/notification.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,6 +19,7 @@ export class CheckoutComponent implements OnInit {
   constructor(public addreqService:AddAddressService,
     public javaServiceObj:JavaServiceService,
     public hasLogin:AuthenticationService,
+    public notificationService:NotificationService,
     public dialog:MatDialog) { }
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class CheckoutComponent implements OnInit {
     this.javaServiceObj.delteBookRequest(requestId).subscribe(
       data=>{
         this.javaServiceObj.getBookNotification();
+        this.notificationService.warn("Removed from cart successfully.");
       });
   }
 

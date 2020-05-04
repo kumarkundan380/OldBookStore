@@ -1,3 +1,46 @@
+/* CSS for Header start*/
+.header{
+    background-color: #fec239;
+    width: 100%;
+    height: auto;
+}
+
+button{
+    background-color: #333;
+    color: white;
+    padding: 3%;
+    border: 0px;
+}
+
+.icon{
+    float: left;
+    margin-top: 0.8em;
+}
+
+.pending-cart-button{
+    background-color: orange;
+    display: inline;
+    margin: 1rem;
+}
+.pending-cart-button:focus{
+    outline: none;
+}
+.success-cart-button{
+    background-color: #4BB543;
+    display: inline;
+    margin: 1rem;
+}
+.success-cart-button:focus{
+    outline: none;
+}
+.totalItem{
+    color: white;
+    display: inline-flex;
+    position: absolute;
+}
+
+/* Header css end */
+
 .booktable{
     margin-top: 2rem;
     /* margin-bottom: 2rem; */

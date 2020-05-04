@@ -4,6 +4,7 @@ import { AddAddressService } from '../share/add-address.service';
 import { Router } from '@angular/router';
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 import { BookDeliverAddressComponent } from '../book-deliver-address/book-deliver-address.component';
+import { NotificationService } from '../share/notification.service';
 
 @Component({
   selector: 'app-buy-book',
@@ -14,6 +15,7 @@ export class BuyBookComponent implements OnInit {
   bookDetail:any;
   constructor(private javaServiceObj:JavaServiceService,
     public addreqService:AddAddressService,
+    public notificationService:NotificationService,
     public router:Router,
     public dialog:MatDialog) { }
 
@@ -26,6 +28,7 @@ export class BuyBookComponent implements OnInit {
 
   addToCart(bookId:number){
     this.javaServiceObj.addSellOrderRequest(bookId);
+    this.notificationService.success("Added to Cart Successfully.");
   }
   
   buyNow(bookId:number){
