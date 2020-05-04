@@ -34,7 +34,7 @@ export class ListUserComponent implements OnInit {
     const editDialog = new MatDialogConfig();
     editDialog.disableClose = true;
     editDialog.autoFocus = true;
-    editDialog.width = "50%";
+    editDialog.width = "45%";
     this.dialog.open(EditUserComponent, editDialog);
   }
   deleteUser(userId: number) {

@@ -5,6 +5,11 @@
     box-shadow: 1px 1px #ddd, 0em 0 0.4em 
 }
 
+#role{
+    padding: 1rem;
+}
+
+
 .button-row{
     padding: 2%;
     text-align: center;

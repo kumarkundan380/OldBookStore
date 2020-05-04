@@ -31,12 +31,25 @@
                         <mat-error>This field is mandatory.</mat-error>
                     </mat-form-field>
 
-                    <mat-form-field>
+                    <!-- <mat-form-field>
                         <input formControlName="role" matInput placeholder="Role*">
                         <span matPrefix><mat-icon>assignment_ind</mat-icon>&nbsp;</span>
                         <mat-error>This field is mandatory.</mat-error>
+                    </mat-form-field> -->
+                    
+                    <mat-form-field>
+                        <mat-label>Select Role</mat-label>
+                        <span matPrefix><mat-icon>assignment_ind</mat-icon>&nbsp;</span>
+                        <mat-select formControlName="role">    
+                            <!-- <mat-option value="user">User</mat-option>
+                            <mat-option value="deliveryPerson">Delivery Person</mat-option>
+                            <mat-option value="admin">Admin</mat-option> -->
+                            <mat-option *ngFor="let role of roles" [value]="role.value">
+                                {{role.viewValue}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
-                </div>
+                </div>    
             </mat-grid-tile>
         </mat-grid-list>
         <div class="button-row">
