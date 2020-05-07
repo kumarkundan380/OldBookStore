@@ -2,26 +2,39 @@ body{
     padding: 0px;
     margin: 0px;
 }
+.headerArea{
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    z-index: 1050;
+    top: 0;
+}
 .header{
     padding: 0px;
     margin: 0px;
 }
 .header1{
-    height: 80px;
+    height: 75px;
     width: 100%;
 }
 .image{
     float: left;
 }
-img{
-    margin-top: 1em;
-    margin-left: 1em;
-}
-.search1{
+.projectName{
     float: left;
-    margin-top: 20px;
-    width: 49%;
-    margin-left: 10%;
+
+}
+#projectName_wrap{
+    font-size: 4rem;
+    margin-top: 15px;
+    color: black;
+}
+#projectName_wrap_book{
+    color: #adadad;
+}
+img{
+    margin-top: 3px;
+    margin-left: 2rem;
 }
 .search2{
     width: 100%;
@@ -109,7 +122,7 @@ button{
 }
 .cart-price{
     font-size: large;
-    padding: 0.5rem;
+    padding: 1rem;
     margin: 0;
 }
 #cart-delete{
@@ -142,14 +155,16 @@ button{
     margin: 0;
     width: 100%;
     background-color: #f3f3f3;
-    cursor: pointer;
 }
 a{
     color: black;
 }
 .navbar-right {
     margin-right: 2%;
-    cursor: pointer;
+}
+#toggel{
+    font-size: x-large;
+    margin: 5px;
 }
 
 /* --------------------- loging design---------------------------------------- */
@@ -253,10 +268,15 @@ label{
         width: 44%;
         margin-left: 55%;
     }
+    .search1{
+        float: left;
+        width: 49%;
+        margin-top: 20px;
+    }
   }
   
   /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px )and (max-width: 767px)  {
+  @media only screen and (min-width: 600px )and (max-width: 768px)  {
     .header1 {background: #ffc111;
         height: 140px;
     }
@@ -264,8 +284,14 @@ label{
       
          float: left;
          width: 10%;
+         margin-top: -23px;
          height: 50%;
      }
+     .search1{
+        float: left;
+        width: 49%;
+        margin-left: 10%;
+    }
 
   }
 
@@ -274,21 +300,51 @@ label{
     .header{
         padding: 0px;
         margin: 0px;
-        height: 120px;
+        /* height: 120px; */
     }
     .header1 {background: #ffc111;
         height: 120px;
         width: 100%;
+    }
+    .navbar-toggler{
+        display: none;
+    }
+    .search1{
+        float: left;
+        width: 49%;
+        margin-left: 10%;
     }
   } 
   
   /* Large devices (laptops/desktops, 992px and up) */
   @media only screen and (min-width: 897px) {
     .header1 {background: #ffc111;}
+    .navbar-toggler{
+        display: none;
+    }
+    .search1{
+        float: left;
+        margin-top: 20px;
+        width: 46%;
+        margin-left: 6%;
+    }
   } 
   
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
     .header1 {background: #ffc111;}
+    .navbar-toggler{
+        display: none;
+    }
+    .search1{
+        float: left;
+        margin-top: 20px;
+        width: 49%;
+        margin-left: 10%;
+    }
+  }
+
+  a:hover{
+      cursor: pointer;
   }
 

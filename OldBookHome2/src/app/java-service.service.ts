@@ -74,6 +74,7 @@ export class JavaServiceService {
   userId:number;
   sellUserId:string;
   buyUserId:string;
+  totalPrice:number=0;
   // userRole:string;
   
   private urls:string;
@@ -134,16 +135,21 @@ export class JavaServiceService {
     this.urls=this.url+"getRequest";
     return this.http.get(this.urls);
   }
+
   updateBookStatus(status:any){
     this.urls=this.url+"bookStatus";
     this.http.post(this.urls,status).subscribe(
       data=>{
-      //  console.log("updated book status..........");
-        // this.sucessNotification=this.sucessNotification+1;
-        // sessionStorage.setItem('notificationSucess',this.sucessNotification);
-        this.router.navigate(['/deliveryRequest']);
-     });
+        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 1000);
+        this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('deliveryRequest');
+        });
+      });
   }
+
 
   // deliveryPerson get the notificaton for bookSell 
   getDeliverySellRequest(){
@@ -167,48 +173,19 @@ export class JavaServiceService {
       /** spinner ends after 5 seconds */
       this.spinner.hide();
       this.router.navigate(['/showbook']);
-    }, 3000);
+    }, 2000);
      // this.router.navigate(['/showbook']);
       
     });
   }
 
-  // notifiction(status:string){
-  //   console.log('check status');
-  //   this.urls=this.url+"sellOrderNotification";
-  //   if(status==='sucess'){
-  //     this.http.post(this.urls,status).subscribe(data=>{
-  //       this.sucessNotification=data;
-  //       console.log(data);
-  //    //   sessionStorage.setItem('notificationSucess',this.sucessNotification);
-  //     });
-  //   }
-  //   else{
-  //     this.http.post(this.urls,status).subscribe(data=>{
-  //       this.pendingNotification=data;
-  //       console.log(data);
-  //   //    sessionStorage.setItem('notificationPending',this.pendingNotification);
-  //     });
-  //   } 
-  // }
-
-  // getSellNotification(status:string){
-  //  // this.notification(status);
-  //   if(status==='pending')
-  //     return this.notification(status);
-  //   else
-  //     return this.notification(status);
-  // }
-
+  
   addSellOrderRequest(bookId:number){
-  //  console.log(bookId);
     this.urls=this.url+"sellBookRequest";
     this.http.post(this.urls,bookId).subscribe(
       totalRequest=>{
         this.notification=totalRequest;
-        this.pendingNotification=totalRequest;
         sessionStorage.setItem('notification1',this.notification);
-        sessionStorage.setItem('notificationPending',this.pendingNotification);
       });
   }
 
@@ -225,10 +202,38 @@ export class JavaServiceService {
       });
   }
 
+  getBookCatogory(){
+   this.urls=this.url+"allCatogory"; 
+   return this.http.get(this.urls);
+  }
+
   getBuyBook(){
     this.urls=this.url+"getBuyBook";
     return this.http.get(this.urls);
   }
+
+  plusQuantity(requestId:number){
+    this.urls=this.url+"plusQuantity";
+    this.http.post(this.urls,requestId).subscribe(
+      data=>{
+        console.log(data);
+        this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl('checkout');
+        });
+      });
+  }
+
+  minusQuantity(requestId:number){
+    this.urls=this.url+"minusQuantity";
+    this.http.post(this.urls,requestId).subscribe(
+      data=>{
+        console.log(data);
+        this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl('checkout');
+        });
+      });
+  }
+
 
   delteBookRequest(requestId:number){
     this.urls=this.url+"deleteBookRequest";
@@ -246,16 +251,11 @@ export class JavaServiceService {
 
   bookDeliverAddressSingleBook(addressId:number){
     var array=new Array(2);
-    // console.log(addressId+".........................");
     array[0]=addressId;
     array[1]=this.bookId;
     this.urls=this.url+"addDeliverAddressSingleBook";
-    // console.log(this.bookId+"....................");
     this.http.post(this.urls,array).subscribe(
       totalRequest=>{
-        // this.notification=totalRequest;
-        // sessionStorage.setItem('notification1',this.notification);
-        // console.log("book ordered.......");
       });
   }
 
@@ -265,7 +265,13 @@ export class JavaServiceService {
     this.urls=this.url+"updateBuyBookStatus";
     this.http.post(this.urls,status).subscribe(
       data=>{
-        this.router.navigate(['/deliverBuyRequest']);
+        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 1000);
+        this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('deliverBuyRequest');
+        });
       });
   }
 
@@ -301,6 +307,7 @@ export class JavaServiceService {
   }
 
   //--------System Date----------
+  
   sellDate(userId:string){
     this.urls=this.url+"sellDate";
     return this.http.post(this.urls,userId);

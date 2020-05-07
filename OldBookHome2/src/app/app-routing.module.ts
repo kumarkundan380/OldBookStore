@@ -19,6 +19,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { DeliveryBuyRequestComponent } from './delivery-buy-request/delivery-buy-request.component';
 import { BuyHistoryComponent } from './buy-history/buy-history.component';
 import { SellHistoryComponent } from './sell-history/sell-history.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/mainslider',pathMatch:'full'},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path:'listUser',component:ListUserComponent},
   {path:'deliverBuyRequest',component:DeliveryBuyRequestComponent},
   {path:'editUser',component:EditUserComponent},
+  {path:'refresh',component:RefreshComponent},
   {path:'buyHistory',component:BuyHistoryComponent},
   {path:'sellHistory',component:SellHistoryComponent}
 ];

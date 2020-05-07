@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit {
 
   cartshow:boolean=false;
   bookList:any;
+  catogoryList:any=[];
+  nav_toggel:boolean=false;
+
   constructor(public dialog: MatDialog,
     public loginService:LoginServeiceService,
     public registrationService:RegistrationService,
@@ -33,8 +36,25 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit() {
   }
+
+  home(){
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 2 seconds */
+      this.spinner.hide();
+    }, 2000);
+    this.router.navigateByUrl('mainslider');
+  }
+
   searchBook(searchValue:any){
     this.javaCallObj.searchBook(searchValue.value);
+  }
+
+  getPrice(){
+    this.javaCallObj.totalPrice=0;
+    for (let index = 0; index < this.bookList.length; index++) {
+      this.javaCallObj.totalPrice=this.javaCallObj.totalPrice+this.bookList[index].amount*this.bookList[index].quantity;  
+    }
   }
 
   getNotificationBook(){
@@ -42,31 +62,55 @@ export class HeaderComponent implements OnInit {
       this.javaCallObj.getBuyBook().subscribe(
         book=>{
           this.bookList=book;
-          console.log(this.bookList);
+          this.getPrice();
         });
     }
-  }  
+  }
+  
+  //---this method is used to find the all the catogory of book
+  
+  // getBookCatogory(){
+  //   this.javaCallObj.getBookCatogory().subscribe(book=>{
+  //     this.catogoryList=book;
+  //     console.log(book);
+  //   });
+  // }
+
+  searchCatogory(category:string){
+    this.javaCallObj.getBookByCategory(category).subscribe(data=>{
+      this.bookList=data;
+    });
+  }
 
   deleteBookRequest(requestId:number){
     this.javaCallObj.delteBookRequest(requestId).subscribe(
       data=>{
-        this.javaCallObj.getBookNotification();
-        this.notificationService.warn("Remove from cart Successfully.")
-      });
+        this.spinner.show();
+        setTimeout(() => {
+        this.spinner.hide();
+      }, 2000);
+      this.javaCallObj.getBookNotification();
+    });
+    this.notificationService.warn("Remove from cart Successfully.");
   }
 
   //this method used for geeting all book request for deliver 
   deliverySellRequest(){
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
     this.router.navigate(["/deliverBuyRequest"]);
   }
 
   deliveryRequestFun(){
-      this.router.navigate(["/deliveryRequest"]);
+    this.spinner.show();
+    setTimeout(() => {
+     this.spinner.hide();
+    }, 2000);
+    this.router.navigate(["/deliveryRequest"]);
   }
-  listUserFun(){
-    this.router.navigate(["/listUser"]);
-  }
-
+  
   login(){
     this.loginService.initializeFormGroup();
     const dialogConfig = new MatDialogConfig();
@@ -102,19 +146,45 @@ export class HeaderComponent implements OnInit {
   //........Hystory Part...........
 
   buyOrder(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 2000);
     this.router.navigate(["/buyHistory"]);
   }
+
   sellOrder(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 2000);
     this.router.navigate(["/sellHistory"]);
   }
 
 
   // ---------------admin part---------------
 
+  listUserFun(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 2000);
+    this.router.navigate(["/listUser"]);
+  }
+  
   deliverySellRequestAdmin(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 2000);
     this.router.navigate(["/deliverBuyRequest"]);
   }
+
   deliveryRequestFunAdmin(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 2000);
     this.router.navigate(["/deliveryRequest"]);
   }
   

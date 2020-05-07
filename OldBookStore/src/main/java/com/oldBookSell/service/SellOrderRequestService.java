@@ -20,6 +20,8 @@ public interface SellOrderRequestService {
 	
 	public List<SellOrderRequest> findSellHistory(String sellUserId);
 	
+	public Iterable<Object> findAllCatogory();
+	
 	public Iterable<Object> sellDate(String userId);
 	
 	public int getSellOrderNotification(String status);

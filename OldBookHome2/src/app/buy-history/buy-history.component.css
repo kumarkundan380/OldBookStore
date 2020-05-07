@@ -1,6 +1,7 @@
 .checkout-table{
     padding: 3rem;
     display: grid;
+    margin-top: 12rem;
     /* border: 1px solid red; */
 }
 .axx{

@@ -173,6 +173,18 @@ public class OldBookSellController {
 			return buyOrderRequestService.getOrderRequest();
 		}
 		
+		@RequestMapping("/plusQuantity")
+		public List<BuyOrderRequest> addQuantity(@RequestBody int requestBookId){
+			LOGGER.info("Controller addQuantity method is caiing....");
+			return buyOrderRequestService.addQuantity(requestBookId);
+		}
+		
+		@RequestMapping("/minusQuantity")
+		public List<BuyOrderRequest> substractQuantity(@RequestBody int requestBookId){
+			LOGGER.info("Controller substractQuantity method is caiing....");
+			return buyOrderRequestService.minusQuantity(requestBookId);
+		}
+		
 		@RequestMapping("/deleteBookRequest")
 		public int deleteBookRequest(@RequestBody int requestBookId){
 			LOGGER.info("Controller deleteBookRequest method is caiing....");
@@ -225,6 +237,12 @@ public class OldBookSellController {
 		public int getSellOrderNotification(@RequestBody String status) {
 			LOGGER.info("Controller getSellOrderNotification method is caiing....");
 			return sellOrderRequestService.getSellOrderNotification(status);
+		}
+		
+		@GetMapping("/allCatogory")
+		public Iterable<Object> findAllCatogory(){
+			LOGGER.info("Controller findAllCatogory method is caiing....");
+			return sellOrderRequestService.findAllCatogory();
 		}
 		
 		@RequestMapping("/updateBuyBookStatus")

@@ -27,10 +27,7 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRecord = new UserDetail();
-    // this.javaService.getUserById(this.javaService.userId);
-    console.log(this.javaService.userId);
     this.javaService.getUserById(this.javaService.userId).subscribe(data => {
-      console.log(data)
       this.userRecord = data;
       let json = {
         userId: this.userRecord.userId,
@@ -39,7 +36,6 @@ export class EditUserComponent implements OnInit {
         email: this.userRecord.email,
         mobileNumber: this.userRecord.mobileNumber,
         role:this.userRecord.role,
-      //  update_role: this.userRecord.role
       };
       this.edituserService.setFormValue(json);
     }, error => console.log(error));
@@ -50,18 +46,18 @@ export class EditUserComponent implements OnInit {
     if (this.edituserService.form.valid) {
       this.javaService.updateUserDetail(this.edituserService.form.value)
         .subscribe(data => {
-          console.log(data);
+            this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl('userList');
+          });
         });
       this.notificationService.success(':: Updated successfully');
     }
     this.onClose();
-    // this.router.navigate(['/editUser']);
   }
 
   onClear() {
     this.edituserService.form.reset();
     this.edituserService.initializeFormGroup();
-
   }
 
   onClose() {

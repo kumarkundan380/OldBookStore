@@ -5,6 +5,7 @@ import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.co
 import { BookSellSearchService } from '../share/book-sell-search.service';
 import { JavaServiceService } from '../java-service.service';
 import { NotificationService } from '../share/notification.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 //import { NgxSpinnerModule } from "ngx-spinner";
 
 @Component({
@@ -13,16 +14,15 @@ import { NotificationService } from '../share/notification.service';
   styleUrls: ['./productdisplay.component.css']
 })
 export class ProductdisplayComponent implements OnInit {
+  
   bookList:any;
   newList:any;
-//  authorName=false;
-//  cartDisplay=false;
   notEmptyPost = true;
   notscrolly = true;
   
   constructor(public router:Router,
     public loginService:BookSellSearchService,
-  //  public spinner:NgxSpinnerModule,
+    public spinner:NgxSpinnerService,
     public notificationService:NotificationService,
     public dialog:MatDialog,
     public javaService:JavaServiceService) { }
@@ -64,16 +64,24 @@ export class ProductdisplayComponent implements OnInit {
 
   buyBook(sellOrderRequestId:number){
     this.javaService.bookId=sellOrderRequestId;
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 1000);
     this.router.navigate(['/buybook']);
   }
 
   addToCart(bookId:number){
-    console.log(bookId);
+   // console.log(bookId);
     this.javaService.addSellOrderRequest(bookId);
     this.notificationService.success("Added to Cart Successfully.")
   } 
 
   purchaseBook(){
+    this.spinner.show();
+    setTimeout(() => {
+    this.spinner.hide();
+    }, 1000);
     this.router.navigate(['/checkout']);
   }
 
@@ -82,20 +90,35 @@ export class ProductdisplayComponent implements OnInit {
     this.javaService.findBookByAuthor(author).subscribe(data=>{
     //  console.log(data)
       this.bookList=data;
+      this.spinner.show();
+      setTimeout(() => {
+      this.spinner.hide();
+      this.bookList=data;
+      }, 1000);
     });
   }
 
   findBookByPublisher(publisher:string){
     this.javaService.getBookByPublisher(publisher).subscribe(data=>{
       this.bookList=data;
+      this.spinner.show();
+      setTimeout(() => {
+      this.spinner.hide();
+      this.bookList=data;
+      }, 1000);
     });
   }
 
   searchCatogory(category:string){
-    this.notEmptyPost=false;
+   // this.notEmptyPost=false;
     this.javaService.getBookByCategory(category).subscribe(data=>{
       this.bookList=data;
-    //  console.log(data);
+      this.spinner.show();
+      setTimeout(() => {
+      this.spinner.hide();
+      this.bookList=data;
+      }, 1000);
+      
     });
   }
 

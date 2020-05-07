@@ -1,6 +1,7 @@
 .checkout-table{
     padding: 3rem;
     display: grid;
+    margin-top: 13rem;
     /* border: 1px solid red; */
 }
 .axx{
@@ -39,4 +40,8 @@ p{
     padding: 1rem;
     background-color: #fec239;
     color: black;
+}
+#bookImage{
+    height: 100px;
+    width: 60%;
 }

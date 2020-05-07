@@ -123,6 +123,12 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		LOGGER.info("SellOrderRequestService getSellOrderNotification method is calling....");
 		return sellOrderRequest.getSellOrderNotification(status);
 	}
+	
+	@Override
+	public Iterable<Object> findAllCatogory(){
+		LOGGER.info("SellOrderRequestService findAllCatogory method is calling....");
+		return sellOrderRequest.findAllCatogory();
+	}
 
 	@Override
 	public Optional<SellOrderRequest> findById(int bookId) {

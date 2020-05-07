@@ -3,9 +3,9 @@ import { LoginServeiceService } from '../share/login-serveice.service';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RegistrationComponent } from '../registration/registration.component';
 import { RegistrationService } from '../share/registration.service';
-import { UserInfo, UserLogin, JavaServiceService } from '../java-service.service';
+import { UserLogin, JavaServiceService } from '../java-service.service';
 import { AuthenticationService } from '../service/authentication.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // userInfo=new UserInfo();
+  
   userLogin=new UserLogin();
 
   constructor(public loginService: LoginServeiceService,
@@ -39,21 +39,13 @@ export class LoginComponent implements OnInit {
           let tokenStr= 'Bearer '+data.token;
           sessionStorage.setItem('token', tokenStr);      
           this.router.navigate(['/mainslider']);
-          console.log("user Login sucessfully.........");
           this.javaCallObj.getRole();
         },
         error=>{
-        // this.invalidLogin=true;
-        // this.router.navigate(['/loginError']);
-        console.log("not logIn");
-        //this.closebutton.nativeElement.click();
-        }
-        );
-
-      // console.log(this.loginService.form.value);
+          console.log("not logIn");
+        });
       this.loginService.form.reset();
       this.loginService.initializeFormGroup();
-      //console.log(this.loginService.form.value);
       this.onClose();
     }
   }

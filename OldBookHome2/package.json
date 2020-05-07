@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~10.0.0-next.3",
     "@angular/platform-browser-dynamic": "~10.0.0-next.3",
     "@angular/router": "~10.0.0-next.3",
+    "chart.js": "^2.9.3",
     "hammerjs": "^2.0.8",
     "ngx-infinite-scroll": "^8.0.2",
     "ngx-spinner": "^9.0.2",

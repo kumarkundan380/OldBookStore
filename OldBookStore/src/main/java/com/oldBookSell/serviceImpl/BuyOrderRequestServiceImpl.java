@@ -1,6 +1,7 @@
 package com.oldBookSell.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +104,30 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	public Iterable<Object> deliverySellRequestAdmin() {
 		LOGGER.info("BuyOrderRequestService deliverySellRequestAdmin method is calling....");
 		return buyOrderRequestRepository.deliveryGetAdmin();
+	}
+	
+	@Override
+	public List<BuyOrderRequest> addQuantity(int requestBookId) {
+		LOGGER.info("BuyOrderRequestService addQuantity method is calling....");
+		Optional<BuyOrderRequest> buyOrderRequest =buyOrderRequestRepository.findById(requestBookId);
+		BuyOrderRequest buyOrderRequestObj=new BuyOrderRequest();
+		buyOrderRequestObj=buyOrderRequest.get();
+		buyOrderRequestObj.setQuantity(buyOrderRequestObj.getQuantity()+1);
+		LOGGER.info("In BuyOrderRequestService quantity"+buyOrderRequestObj.getQuantity());
+		buyOrderRequestRepository.save(buyOrderRequestObj);
+		return null;
+	}
+
+	@Override
+	public List<BuyOrderRequest> minusQuantity(int requestBookId) {
+		LOGGER.info("BuyOrderRequestService minusQuantity method is calling....");
+		Optional<BuyOrderRequest> buyOrderRequest =buyOrderRequestRepository.findById(requestBookId);
+		BuyOrderRequest buyOrderRequestObj=new BuyOrderRequest();
+		buyOrderRequestObj=buyOrderRequest.get();
+		buyOrderRequestObj.setQuantity(buyOrderRequestObj.getQuantity()-1);
+		LOGGER.info("In BuyOrderRequestService quantity"+buyOrderRequestObj.getQuantity());
+		buyOrderRequestRepository.save(buyOrderRequestObj);
+		return null;
 	}
 
 }

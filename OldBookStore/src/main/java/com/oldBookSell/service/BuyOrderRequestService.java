@@ -27,5 +27,9 @@ public interface BuyOrderRequestService {
 	
 	public Iterable<Object> deliverySellRequestAdmin();
 	
+	public List<BuyOrderRequest> addQuantity(int requestBookId);
+
+	public List<BuyOrderRequest> minusQuantity(int requestBookId);
+
 
 }

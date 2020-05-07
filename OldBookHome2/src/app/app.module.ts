@@ -35,6 +35,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BuyHistoryComponent } from './buy-history/buy-history.component';
 import { SellHistoryComponent } from './sell-history/sell-history.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { SellHistoryComponent } from './sell-history/sell-history.component';
     ListUserComponent,
     EditUserComponent,
     BuyHistoryComponent,
-    SellHistoryComponent
+    SellHistoryComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,
