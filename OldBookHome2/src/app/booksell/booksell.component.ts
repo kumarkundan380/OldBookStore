@@ -48,7 +48,12 @@ export class BooksellComponent implements OnInit {
     this.httpClient.get('https://www.googleapis.com/books/v1/volumes?q='+this.name.bookISBN).subscribe(
       data=>{
         this.array=data;
+     //   console.log(this.array);
         this.isBook=true;
+        this.spinner.show();
+        setTimeout(() => {
+        this.spinner.hide();
+        }, 3000);
         
     });
   }

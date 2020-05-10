@@ -27,15 +27,15 @@ export class EdituserService {
       role:'',
     });
   }  
-    setFormValue(data:any){
-      this.form.setValue({
-        userId:data.userId,
-        firstName:data.firstName,
-        lastName:data.lastName,
-        email:data.email,
-        mobileNumber:data.mobileNumber,
-        role:data.role,
-      });
-    }    
-  }  
+  setFormValue(data:any){
+    this.form.setValue({
+    userId:data.userId,
+    firstName:data.firstName,
+    lastName:data.lastName,
+    email:data.email,
+    mobileNumber:data.mobileNumber,
+    role:data.role,
+    });
+  }    
+}  
 

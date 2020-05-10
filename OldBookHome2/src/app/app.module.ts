@@ -36,6 +36,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BuyHistoryComponent } from './buy-history/buy-history.component';
 import { SellHistoryComponent } from './sell-history/sell-history.component';
 import { RefreshComponent } from './refresh/refresh.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { RefreshComponent } from './refresh/refresh.component';
     EditUserComponent,
     BuyHistoryComponent,
     SellHistoryComponent,
-    RefreshComponent
+    RefreshComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

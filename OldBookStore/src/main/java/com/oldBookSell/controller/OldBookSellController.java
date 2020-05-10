@@ -4,12 +4,15 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +21,15 @@ import com.oldBookSell.dto.BuyOrderRequestDTO;
 import com.oldBookSell.dto.OldBookSellDTO;
 import com.oldBookSell.dto.SellOrderRequestDTO;
 import com.oldBookSell.model.BuyOrderRequest;
+import com.oldBookSell.model.Payment;
 import com.oldBookSell.model.SellOrderRequest;
 import com.oldBookSell.model.UserDetails;
 import com.oldBookSell.service.BuyOrderRequestService;
 import com.oldBookSell.service.OldBookSellServices;
+import com.oldBookSell.service.PaymentService;
 import com.oldBookSell.service.SellOrderRequestService;
 import com.oldBookSell.serviceImpl.OldBookSellServiceImpl;
+import com.stripe.model.Charge;
 
 @RestController
 @RequestMapping
@@ -40,6 +46,9 @@ public class OldBookSellController {
 		
 		@Autowired
 		BuyOrderRequestService buyOrderRequestService;
+		
+		@Autowired
+		PaymentService paymentService;
 		
 		@GetMapping("/hello")
 		public  String hello(Principal principal) {
@@ -307,5 +316,29 @@ public class OldBookSellController {
 		public List<BuyOrderRequest> findBuyHistory(@RequestBody String buyUserId){
 			LOGGER.info("Controller findBuyHistory method is calling....");
 			return buyOrderRequestService.findBuyHistory(buyUserId);
+		}
+		
+		/* Controller for payment */
+		
+		@PostMapping("/charge")
+	    public Charge chargeCard(@RequestBody int grandTotal, HttpServletRequest request) throws Exception {
+			LOGGER.info("Controller chargeCard method is caiing....");
+	        String token = request.getHeader("token");
+	        int amount = grandTotal;
+	        LOGGER.info("In Controller Token" +token);
+	        LOGGER.info("In Controller Amount" +amount);
+	        return paymentService.chargeCreditCard(token, amount);
+	    }
+		
+		@PostMapping("/savePayment")
+		public Payment savePayment(@RequestBody Payment payment) {
+			
+			System.out.println(payment.getAmount());
+			System.out.println(payment.getPaymentId());
+			System.out.println(payment.getCreated());
+			System.out.println(payment.getStatus());
+			System.out.println(payment.getTransactionId());
+			LOGGER.info("Controller savePayment method is caiing....");
+			return paymentService.savePayment(payment);
 		}
 }

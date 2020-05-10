@@ -86,12 +86,10 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		
 		List<Address> list=new ArrayList<>();
 		
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		UserDetails userObj=	userDetailRepository.findByEmail(authentication.getName());
 
-		
 		list.addAll(userObj.getAddress());
 		list.add(addressObj);
 		userObj.setAddress(list);
@@ -133,13 +131,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	@Override
 	public int deleteUser(int id){
 		LOGGER.info("OldBookSellService deleteUser method is calling...");
-		
-		//UserDetails user=userDetailRepository.findById(id).get();
 		userDetailRepository.deleteById(id);
-//		if(user==null) {
-//			return ResponseEntity.notFound().build();
-//		}
-//		userDetailRepository.delete(user);
 		return 0;
 	}
 	

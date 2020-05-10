@@ -19,6 +19,7 @@ export class ProductdisplayComponent implements OnInit {
   newList:any;
   notEmptyPost = true;
   notscrolly = true;
+  catogoryList:any=[];
   
   constructor(public router:Router,
     public loginService:BookSellSearchService,
@@ -30,6 +31,9 @@ export class ProductdisplayComponent implements OnInit {
   ngOnInit() {
     this.javaService.findBooks(0,3).subscribe((books: any[]) => {
       this.bookList = books;
+   });
+   this.javaService.getBookCatogory().subscribe(data=>{
+     this.catogoryList=data;
    });
   }
   booksell(){

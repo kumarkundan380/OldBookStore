@@ -1,7 +1,6 @@
 package com.oldBookSell.model;
 
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,6 +54,9 @@ public class BuyOrderRequest {
 	@Column(name = "date")
 	@UpdateTimestamp
     private LocalDate date;
+	
+	@Column(name = "transaction_id")
+	private String transactionId;
 
 	public int getBuyOrderRequestId() {
 		return buyOrderRequestId;
@@ -143,9 +145,25 @@ public class BuyOrderRequest {
 	public void setDileveryPersonId(int dileveryPersonId) {
 		this.dileveryPersonId = dileveryPersonId;
 	}
+	
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getTransactionId() {
+		return transactionId;
+	}
+
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
 
 	public BuyOrderRequest(int buyOrderRequestId, String bookName, String authors, String smallThumbnail, float amount,
-			int quantity, String checkStatus, int bookId, String userId, String addressId, int dileveryPersonId) {
+			int quantity, String checkStatus, int bookId, String userId, String addressId, int dileveryPersonId,LocalDate date,String transactionId) {
 		super();
 		this.buyOrderRequestId = buyOrderRequestId;
 		this.bookName = bookName;
@@ -158,6 +176,8 @@ public class BuyOrderRequest {
 		this.userId = userId;
 		this.addressId = addressId;
 		this.dileveryPersonId = dileveryPersonId;
+		this.transactionId=transactionId;
+		this.date=date;
 	}
 
 	public BuyOrderRequest() {

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { JavaServiceService,UserInfo } from '../java-service.service';
 import { AddAddressService } from '../share/add-address.service';
 import { NotificationService } from '../share/notification.service';
-import { MatDialog,MatDialogRef} from '@angular/material/dialog';
+import { MatDialog,MatDialogRef,MatDialogConfig } from '@angular/material/dialog';
+import { PaymentComponent } from '../payment/payment.component';
 
 @Component({
   selector: 'app-book-deliver-address',
@@ -44,6 +45,12 @@ export class BookDeliverAddressComponent implements OnInit {
       this.javaServiceObj.bookDeliverAddressSingleBook(addressId); 
     }
     this.onClose();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    this.dialog.open(PaymentComponent,dialogConfig);
+    
   }
   onSubmit() {
     if (this.addaddressservice.form.valid) {

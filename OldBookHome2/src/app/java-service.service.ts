@@ -28,6 +28,15 @@ export class UserDetail{
   public role:string;
 }
 
+export class PaymentDetails{
+  public payment_id:any;
+  public transaction_id:any;
+  public status:string;
+  public amount:number;
+  public created:number;
+  
+}
+
 // login details
 export class UserLogin{
   public userName:string;
@@ -62,6 +71,7 @@ export class BookDetails{
 export class JavaServiceService {
 
   bookObj=new BookDetails();
+  payment=new PaymentDetails();
   bookISBN:any;
   bookId:any;
   bookList:any;
@@ -75,7 +85,6 @@ export class JavaServiceService {
   sellUserId:string;
   buyUserId:string;
   totalPrice:number=0;
-  // userRole:string;
   
   private urls:string;
   constructor(private http:HttpClient, private router:Router,
@@ -246,7 +255,13 @@ export class JavaServiceService {
       totalRequest=>{
         this.notification=totalRequest;
         sessionStorage.setItem('notification1',this.notification);
+        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 2000);
+        this.router.navigateByUrl('mainslider');
       });
+      
   }
 
   bookDeliverAddressSingleBook(addressId:number){
@@ -256,7 +271,13 @@ export class JavaServiceService {
     this.urls=this.url+"addDeliverAddressSingleBook";
     this.http.post(this.urls,array).subscribe(
       totalRequest=>{
+        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 2000);
+        this.router.navigateByUrl('mainslider');
       });
+      
   }
 
   //-----Update Book Status---------
@@ -285,9 +306,23 @@ export class JavaServiceService {
     return this.http.post(this.urls,value);
   }
 
+  // paymentMethod(value:Payment){
+  //   this.url=this.url+"charge";
+  //   return this.http.post(this.urls,value);
+  // }
+
   deleteUser(userId:number){
     this.urls=this.url+"deleteUser";
     return this.http.post(this.urls,userId);
+  }
+
+  //-----Payment Part------
+  savePaymentDetails(payment:PaymentDetails){
+    console.log(payment);
+    this.urls=this.url+"savePayment";
+    this.http.post(this.urls,payment).subscribe(
+      data=>{
+    });
   }
 
   //book serching for purchage topCatagory

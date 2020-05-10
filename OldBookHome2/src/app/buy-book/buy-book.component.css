@@ -1,6 +1,7 @@
 #bookDetail{
     display: inline-block;
     padding: 2rem;
+    margin-top: 14rem;
 }
 img{
     width: 100%;
@@ -68,3 +69,51 @@ p{
 .title-warp{
     margin-left: 2rem;
 }
+
+
+/* ----------------  ----------------- responsive designing   -----------------        ------------ */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #bookDetail{
+        display: inline-block;
+        margin-top: 14rem;
+        padding: 2rem;
+    }
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px )and (max-width: 767px)  {
+    #bookDetail{
+        display: inline-block;
+        margin-top: 14rem;
+        padding: 2rem;
+    }
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) and (max-width: 896px) {
+    #bookDetail{
+        display: inline-block;
+        margin-top: 14rem;
+        padding: 2rem;
+    }
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 897px) {
+    #bookDetail{
+        display: inline-block;
+        margin-top: 14rem;
+        padding: 2rem;
+    }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    #bookDetail{
+        display: inline-block;
+        margin-top: 14rem;
+        padding: 2rem;
+    }
+  }

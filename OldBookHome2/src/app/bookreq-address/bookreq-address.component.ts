@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfo, JavaServiceService } from '../java-service.service';
 import { NotificationService } from '../share/notification.service';
-import { RegistrationComponent } from '../registration/registration.component';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { AddAddressService } from '../share/add-address.service';
 
@@ -37,7 +36,7 @@ export class BookreqAddressComponent implements OnInit {
     this.userInfo=this.addaddressservice.form.value;
     this.javaServiceObj.addAddress(this.userInfo).subscribe(
       data=>{
-      //    console.log("address add ho gaya.......");
+      //  console.log(data);
         this.address=data;
         this.javaServiceObj.bookObj.addressId=this.address.address[this.address.address.length-1].id;
         this.sendId(this.javaServiceObj.bookObj.addressId);
