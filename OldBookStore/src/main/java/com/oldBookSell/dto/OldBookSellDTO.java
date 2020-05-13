@@ -3,7 +3,6 @@ package com.oldBookSell.dto;
 public class OldBookSellDTO {
 	
 	/* UserDetails Class data Member */
-	
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -13,7 +12,6 @@ public class OldBookSellDTO {
 	private String role="user";	  
 	  	  
     /* Address Class data Member */ 
-	  
 	private String address;
 	private String address2;
 	private String district;

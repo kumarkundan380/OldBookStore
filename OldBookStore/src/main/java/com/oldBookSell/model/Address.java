@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "address")
 @SequenceGenerator(name="seq", initialValue=1001, allocationSize=1)
 public class Address {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	private int id;
@@ -69,8 +70,6 @@ public class Address {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-
-	
 
 	public String getPostalCode() {
 		return postalCode;

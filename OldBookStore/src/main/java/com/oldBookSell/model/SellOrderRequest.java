@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -79,11 +80,11 @@ public class SellOrderRequest {
 	
 	@Column(name = "feedback_by_delivery_person")
 	private String feedBack;
-
+	
 	@Column(name = "date")
 	@CreationTimestamp
     private LocalDate date;
-	
+
 	public int getSellOrderRequestId() {
 		return sellOrderRequestId;
 	}
@@ -228,7 +229,6 @@ public class SellOrderRequest {
 		this.userId = userId;
 	}
 	
-	
 	public String getAddressId() {
 		return addressId;
 	}
@@ -243,6 +243,22 @@ public class SellOrderRequest {
 
 	public void setDileveryPersonId(int dileveryPersonId) {
 		this.dileveryPersonId = dileveryPersonId;
+	}
+	
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	
+	public String getFeedBack() {
+		return feedBack;
+	}
+
+	public void setFeedBack(String feedBack) {
+		this.feedBack = feedBack;
 	}
 
 	public SellOrderRequest() {

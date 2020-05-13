@@ -34,9 +34,6 @@ public class UserDetails {
 	@Column(name = "password")
 	private String password;
 
-	//To set default value
-	// columnDefinition = "varchar(255) default 'USER'"
-	
 	@Column(name = "role")
 	private String role;
 	
@@ -44,10 +41,6 @@ public class UserDetails {
 	@JoinColumn(name="userId",referencedColumnName = "userId")
 	private List<Address> address;
 	 	
-//	@OneToMany(targetEntity = Payment.class,cascade = CascadeType.ALL)
-//	@JoinColumn(name="userId",referencedColumnName = "userId")
-//	private List<Payment> payment;
-	
 	public UserDetails() {
 		super();
 	}
@@ -76,7 +69,6 @@ public class UserDetails {
 		this.role = role;
 	}
 	  
-	
 	public int getUserId() {
 		return userId;
 	}
@@ -117,14 +109,6 @@ public class UserDetails {
 		this.address = address;
 	}
 
-//	public List<Payment> getPayment() {
-//		return payment;
-//	}
-//
-//	public void setPayment(List<Payment> payment) {
-//		this.payment = payment;
-//	}
-
 	public UserDetails(int userId, String firstName, String lastName, String mobileNumber, String email,
 			String password, String role, List<Address> address) {
 		super();
@@ -136,7 +120,5 @@ public class UserDetails {
 		this.password = password;
 		this.role = role;
 		this.address = address;
-	//	this.payment=payment;
 	}
-	
 }

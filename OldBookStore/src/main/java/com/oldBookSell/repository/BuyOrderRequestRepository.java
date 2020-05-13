@@ -22,8 +22,8 @@ public interface BuyOrderRequestRepository extends JpaRepository<BuyOrderRequest
 	List<BuyOrderRequest> getOrderRequest(String name, String string);
 	
 	@Modifying
-	@Query(value="update buy_order_request set check_status=?1, address_id=?2, dilevery_person_id=?3 where user_id=?4 and check_status=?5",nativeQuery = true)
-	void addDeliverAddress(String string, int addressId, int deliveryPersonId, String name, String string2);
+	@Query(value="update buy_order_request set check_status=?1, address_id=?2, dilevery_person_id=?3 , status=?4,transaction_id=?5 where user_id=?6 and check_status=?7",nativeQuery = true)
+	void addDeliverAddress(String string, int addressId, int deliveryPersonId, String status, String transactionId, String name, String string2);
 
 	@Query(value="select buy_order_request_id,book_name,authors,amount,check_status,small_thumbnail,address, address2,district, postal_code,state,first_name,last_name,mobile_number from buy_order_request b, address a,user_details u where b.address_id = a.id and a.user_id = u.user_id and b.dilevery_person_id=?1 ORDER BY check_status ASC",nativeQuery = true)
 	Iterable<Object> deliveryPersonRequest(int deliveryId);

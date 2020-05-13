@@ -10,11 +10,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "payment")
-@SequenceGenerator(name="seq", initialValue=2001, allocationSize=1)
+@SequenceGenerator(name="seq1", initialValue=6001, allocationSize=1)
 public class Payment {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq1")
 	private int id;
 	
 	@Column(name = "transaction_id")
@@ -74,5 +74,22 @@ public class Payment {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	
 }

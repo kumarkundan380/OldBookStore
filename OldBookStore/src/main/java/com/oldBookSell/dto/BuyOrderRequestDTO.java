@@ -3,26 +3,18 @@ package com.oldBookSell.dto;
 public class BuyOrderRequestDTO {
 	
 	private int buyOrderRequestId;
-
 	private String bookName;// title
-
 	private String authors;
-	
 	private String smallThumbnail;// small image size
-
 	private float amount;
-
 	private int quantity;
-
 	private String checkStatus;
-	
 	private int bookId;
-
 	private String userId;
-
 	private String addressId;
-	
 	private int dileveryPersonId;
+	private String status="Failed";
+	private String transactionId;
 
 	public int getBuyOrderRequestId() {
 		return buyOrderRequestId;
@@ -110,6 +102,22 @@ public class BuyOrderRequestDTO {
 
 	public void setDileveryPersonId(int dileveryPersonId) {
 		this.dileveryPersonId = dileveryPersonId;
+	}	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTransactionId() {
+		return transactionId;
+	}
+
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}	
 
 }

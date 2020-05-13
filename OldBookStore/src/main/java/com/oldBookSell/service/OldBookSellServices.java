@@ -27,5 +27,9 @@ public interface OldBookSellServices {
 	public int getDeliveryPerson();
 	
 	public int getDeliveryPersonId();
+	
+	public void changePassword(String userName);
+	
+	public String sendMail(String email, String msg);
 
 }

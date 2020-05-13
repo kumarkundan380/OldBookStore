@@ -80,12 +80,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		buyOrderRequestRepository.deleteById(requestBookId);
 	}
 
-	@Override
-	public void addDeliverAddress(int addressId,int deliveryPersonId) {
-		LOGGER.info("BuyOrderRequestService addDeliveryAddress method is calling....");
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,authentication.getName(),"user");
-	}
+//	@Override
+//	public void addDeliverAddress(int addressId,int deliveryPersonId) {
+//		LOGGER.info("BuyOrderRequestService addDeliveryAddress method is calling....");
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,authentication.getName(),"user");
+//	}
 
 	@Override
 	public Iterable<Object> deliverySellRequest(int deliveryId) {
@@ -129,5 +129,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		buyOrderRequestRepository.save(buyOrderRequestObj);
 		return null;
 	}
+	
+	@Override
+	public void addDeliverAddress(int addressId, int deliveryPersonId, String status, String transactionId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,status,transactionId,authentication.getName(),"user");
+	}
+
 
 }

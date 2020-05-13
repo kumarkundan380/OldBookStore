@@ -3,10 +3,16 @@ package com.oldBookSell.serviceImpl;
 import java.util.ArrayList;	
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +35,10 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
+	
+	@Autowired
+    private JavaMailSender sender;
+
 	
 	@Override
 	public OldBookSellDTO createUser(OldBookSellDTO odlBookSellDTO) {
@@ -100,6 +110,14 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	@Override
+	public UserDetails getAddress() {
+		
+		LOGGER.info("OldBookSellService getAddress method is calling.....");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return userDetailRepository.findByEmail(authentication.getName());
+	}
+	
+	@Override
 	public List<UserDetails> userList(){
 		LOGGER.info("OldBookSellService userList method is calling...");
 		return userDetailRepository.findAll();
@@ -134,14 +152,6 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		userDetailRepository.deleteById(id);
 		return 0;
 	}
-	
-	@Override
-	public UserDetails getAddress() {
-		
-		LOGGER.info("OldBookSellService getAddress method is calling.....");
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return userDetailRepository.findByEmail(authentication.getName());
-	}
 
 	@Override
 	public String getRole() {
@@ -163,10 +173,48 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 
 	@Override
 	public int getDeliveryPersonId() {
-		LOGGER.info("getDeliveryPersonId method is calling.....");
+		LOGGER.info("OldBookSellService getDeliveryPersonId method is calling.....");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userDetailRepository.getDevileryPersonId(authentication.getName());
 	}
 	
+	@Override
+	public String sendMail(String email,String msg) {
+		LOGGER.info("OldBookSellService sendMail method is calling.....");
+		MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+            helper.setTo(email);
+            helper.setText(msg);
+            helper.setSubject("OldBookHouse");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return "Error while sending mail ..";
+        }
+        sender.send(message);
+        return "Mail Sent Success!";
+		
+	}
+	
+	@Override
+	public void changePassword(String userName) {
+		LOGGER.info("OldBookSellService changePassword method is calling.....");
+		Random rand=new Random();
+		String password=rand.nextInt(99999)+"";
+		boolean result=userDetailRepository.existsByEmail(userName);
+		if(result) {
+			LOGGER.info(" In OldBookSellService sendMail method password is "+password);
+			String msg="Greetings :) your password changed sucessfully 😄 "
+					+ " your Password is "+password;
+			sendMail(userName, msg);
+			
+			UserDetails userObj=	userDetailRepository.findByEmail(userName);
+			userObj.setPassword(bcryptEncoder.encode(password));
+			userDetailRepository.save(userObj);
+			
+		}
+		
+	}
 
 }

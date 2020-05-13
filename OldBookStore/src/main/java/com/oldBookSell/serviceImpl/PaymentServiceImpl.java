@@ -6,8 +6,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.oldBookSell.dto.PaymentDTO;
 import com.oldBookSell.model.Payment;
 import com.oldBookSell.repository.PaymentRepository;
 import com.oldBookSell.service.PaymentService;
@@ -35,7 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	@Override
 	public Charge chargeCreditCard(String token, double amount) throws InvalidRequestException, AuthenticationException, APIConnectionException, CardException, APIException {
-		LOGGER.info("PaymentServiceImpl createUser method is calling.....");
+		LOGGER.info("PaymentServiceImpl chargeCreditCard method is calling.....");
 		Map<String, Object> chargeParams = new HashMap<String, Object>();
         chargeParams.put("amount", (int)(amount * 100));
         chargeParams.put("currency", "inr");
@@ -45,8 +48,16 @@ public class PaymentServiceImpl implements PaymentService {
     }
 	
 	@Override
-	public  Payment savePayment(Payment payment) {
+	public Payment savePayment(PaymentDTO paymentDTO) {
 		LOGGER.info("PaymentServiceImpl savePayment method is calling.....");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Payment payment =new Payment();
+		payment.setAmount(paymentDTO.getAmount());
+		payment.setCreated(paymentDTO.getCreated());
+		payment.setPaymentId(paymentDTO.getPaymentId());
+		payment.setStatus(paymentDTO.getStatus());
+		payment.setTransactionId(paymentDTO.getTransactionId());
+		payment.setUserId(authentication.getName());
 		return paymentRepository.save(payment);
 	}
 

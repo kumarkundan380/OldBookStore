@@ -3,7 +3,6 @@ package com.oldBookSell.dto;
 public class SellOrderRequestDTO {
 
 	/* SellOrderRequest class Data Member*/
-	
 	private int sellOrderRequestId;
     private String book_name;//title
     private String authors;
@@ -197,5 +196,4 @@ public class SellOrderRequestDTO {
 	public SellOrderRequestDTO() {
 		super();
 	}
-
 }

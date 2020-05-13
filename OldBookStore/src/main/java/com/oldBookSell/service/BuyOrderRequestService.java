@@ -14,10 +14,12 @@ public interface BuyOrderRequestService {
 	public List<BuyOrderRequest> getOrderRequest();
 	
 	public List<BuyOrderRequest> findBuyHistory(String buyUserId);
+	
+	void addDeliverAddress(int addressId, int deliveryPersonId, String string, String string2);
 
 	public void deleteBookRequest(int requestBookId);
 
-	void addDeliverAddress(int addressId, int deliveryPersonId);
+//	void addDeliverAddress(int addressId, int deliveryPersonId);
 
 	public Iterable<Object> deliverySellRequest(int deliveryId);
 	

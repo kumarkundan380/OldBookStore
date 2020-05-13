@@ -13,12 +13,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "buy_order_request")
-@SequenceGenerator(name = "seq", initialValue = 20001, allocationSize = 1)
+@SequenceGenerator(name = "seq2", initialValue = 20001, allocationSize = 1)
 public class BuyOrderRequest {
 	
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq2")
 	private int buyOrderRequestId;
 
 	@Column(name = "book_name")
@@ -54,6 +53,9 @@ public class BuyOrderRequest {
 	@Column(name = "date")
 	@UpdateTimestamp
     private LocalDate date;
+	
+	@Column(name = "status")
+	private String status="Failed";
 	
 	@Column(name = "transaction_id")
 	private String transactionId;
@@ -153,6 +155,14 @@ public class BuyOrderRequest {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getTransactionId() {
 		return transactionId;
@@ -163,7 +173,8 @@ public class BuyOrderRequest {
 	}
 
 	public BuyOrderRequest(int buyOrderRequestId, String bookName, String authors, String smallThumbnail, float amount,
-			int quantity, String checkStatus, int bookId, String userId, String addressId, int dileveryPersonId,LocalDate date,String transactionId) {
+			int quantity, String checkStatus, int bookId, String userId, String addressId, int dileveryPersonId,
+			LocalDate date, String status, String transactionId) {
 		super();
 		this.buyOrderRequestId = buyOrderRequestId;
 		this.bookName = bookName;
@@ -176,8 +187,9 @@ public class BuyOrderRequest {
 		this.userId = userId;
 		this.addressId = addressId;
 		this.dileveryPersonId = dileveryPersonId;
-		this.transactionId=transactionId;
-		this.date=date;
+		this.date = date;
+		this.status = status;
+		this.transactionId = transactionId;
 	}
 
 	public BuyOrderRequest() {
