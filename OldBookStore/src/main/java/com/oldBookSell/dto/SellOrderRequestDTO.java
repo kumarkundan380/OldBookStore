@@ -21,7 +21,7 @@ public class SellOrderRequestDTO {
     private String addressId;
     private String user_id;
     private int quantity=1;
-    private String check_status="Pending";
+    private String check_status="ProcessingOrder";
     private int dileveryPersonId;
     private String feedBack;
  

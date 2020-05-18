@@ -25,16 +25,15 @@ import com.stripe.model.Charge;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 	
-	public static final Logger LOGGER=LoggerFactory.getLogger(PaymentServiceImpl.class);
-	
+	private static final Logger LOGGER=LoggerFactory.getLogger(PaymentServiceImpl.class);
 	
 	@Autowired
-    PaymentServiceImpl() {
+    private PaymentServiceImpl() {
         Stripe.apiKey = "sk_test_OR5dYaeZb1Lp7jVUXZfCDyPF00z2hG0s7j";
     }
 	
 	@Autowired
-	PaymentRepository paymentRepository;
+	private PaymentRepository paymentRepository;
 	
 	@Override
 	public Charge chargeCreditCard(String token, double amount) throws InvalidRequestException, AuthenticationException, APIConnectionException, CardException, APIException {
@@ -59,6 +58,12 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setTransactionId(paymentDTO.getTransactionId());
 		payment.setUserId(authentication.getName());
 		return paymentRepository.save(payment);
+	}
+	
+	@Override
+	public Iterable<Object> getInvoice(String transatctionId) {
+		LOGGER.info("PaymentServiceImpl getInvoice method is calling.....");
+		return paymentRepository.getInvoice(transatctionId);
 	}
 
 }

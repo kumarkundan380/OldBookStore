@@ -19,10 +19,10 @@ import com.oldBookSell.service.SellOrderRequestService;
 @Service
 public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	
-	public static final Logger LOGGER=LoggerFactory.getLogger(SellOrderRequestServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(SellOrderRequestServiceImpl.class);
 
 	@Autowired
-	SellOrderRequestRepository sellOrderRequest;
+	private SellOrderRequestRepository sellOrderRequest;
 	
 	@Override
 	public SellOrderRequestDTO bookRequest(SellOrderRequestDTO sellOrderRequestDTO) {
@@ -69,37 +69,19 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		LOGGER.info("SellOrderRequestService updateBookStatus method is calling....");
 		sellOrderRequest.updateBookStatus(sellOrderRequestDTO.getCheck_status(),sellOrderRequestDTO.getFeedBack(),sellOrderRequestDTO.getSellOrderRequestId());
 	}
-
-//	@Override
-//	public List<SellOrderRequest> findBooks(int min, int max) {
-//		LOGGER.info("SellOrderRequestService findBooks method is calling....");
-//		LOGGER.info("In SellOrderService findBooks Min="+min);
-//		LOGGER.info("In SellOrderService findBooks Max="+max);
-//		return sellOrderRequest.findBooks(min, max);
-//	}
-	
-	
 	
 	@Override
-	public List<SellOrderRequest> findSellHistory(String sellUserId){
-		LOGGER.info("SellOrderRequestService findSellHistory method is calling....");
-		return sellOrderRequest.findSellHistory(sellUserId);
-		
+	public Optional<SellOrderRequest> findBookById(int bookId) {
+		LOGGER.info("SellOrderRequestService findBookById method is calling....");
+		return sellOrderRequest.findById(bookId);
 	}
 	
-	
-	
-//	@Override
-//	public Iterable<Object> sellDate(String userId) {
-//		LOGGER.info("SellOrderRequestService sellDate method is calling....");
-//		Iterable<Object> result= sellOrderRequest.sellDate(userId);
-//		return result;
-//	}
-	
 	@Override
-	public int getSellOrderNotification(String status) {
-		LOGGER.info("SellOrderRequestService getSellOrderNotification method is calling....");
-		return sellOrderRequest.getSellOrderNotification(status);
+	public List<SellOrderRequest> findSellHistory(){
+		LOGGER.info("SellOrderRequestService findSellHistory method is calling....");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return sellOrderRequest.findSellHistory(authentication.getName());
+		
 	}
 	
 	@Override
@@ -108,31 +90,5 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		Iterable<Object>result= sellOrderRequest.deliveryPersonRequestAdmin();
 		return result;
 	}
-	
-	@Override
-	public List<SellOrderRequest> getAllBook() {
-		LOGGER.info("SellOrderRequestService getAllBook method is calling.....");
-		return sellOrderRequest.getAllBook();
-	}
-	
-	@Override
-	public List<SellOrderRequest> getAllBook2() {
-		LOGGER.info("SellOrderRequestService getAllBook2 method is calling.....");
-		return sellOrderRequest.getAllBookForUpdate();
-	}
-
-	@Override
-	public List<SellOrderRequest> updateBookPrice(int bookId, int price) {
-		LOGGER.info("SellOrderRequestService updateBookPrice method is calling.....");
-		Optional<SellOrderRequest> obj=sellOrderRequest.findById(bookId);
-		System.out.println(obj.get().getAmount());
-		obj.get().setAmount(price);
-		sellOrderRequest.save(obj.get());
-		return null;
-	}
-	
-
-	
-	
 	
 }

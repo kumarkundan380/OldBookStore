@@ -264,5 +264,4 @@ public class SellOrderRequest {
 	public SellOrderRequest() {
 		super();
 	}
-
 }

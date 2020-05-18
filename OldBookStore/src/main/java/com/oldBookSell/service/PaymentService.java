@@ -13,5 +13,7 @@ public interface PaymentService {
 	public Payment savePayment(PaymentDTO payment);
 	
 	public Charge chargeCreditCard(String token, double amount) throws InvalidRequestException, AuthenticationException, APIConnectionException, CardException, APIException;
+	
+	public Iterable<Object> getInvoice(String transatctionId);
 }
 	

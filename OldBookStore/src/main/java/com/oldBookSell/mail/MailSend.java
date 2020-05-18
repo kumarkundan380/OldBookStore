@@ -9,13 +9,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class MailSend {
 	
-	public MailSend() {
-	}
-	
 	@Autowired
     private JavaMailSender sender;
 	
+	public MailSend() {
+	}
+	
 	public  String sendMail() {
+		
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -23,9 +24,9 @@ public class MailSend {
             helper.setTo("kumarkundan380@gmail.com");
             helper.setText("Greetings :) this is the information for text");
             helper.setText("by Kundan Kumar");
-            helper.setSubject("OldBookHouse");
-        } catch (MessagingException e) {
-            e.printStackTrace();
+            helper.setSubject("OldBookStore");
+        } catch (MessagingException exception) {
+            exception .printStackTrace();
             return "Error while sending mail ..";
         }
         sender.send(message);

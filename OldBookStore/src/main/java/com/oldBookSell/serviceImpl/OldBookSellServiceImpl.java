@@ -28,10 +28,10 @@ import com.oldBookSell.service.OldBookSellServices;
 @Service
 public class OldBookSellServiceImpl implements OldBookSellServices{
 
-	public static final Logger LOGGER=LoggerFactory.getLogger(OldBookSellServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(OldBookSellServiceImpl.class);
 	
 	@Autowired
-	UserDetailRepository userDetailRepository;
+	private UserDetailRepository userDetailRepository;
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -39,7 +39,6 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	@Autowired
     private JavaMailSender sender;
 
-	
 	@Override
 	public OldBookSellDTO createUser(OldBookSellDTO odlBookSellDTO) {
 		
@@ -75,7 +74,9 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 			userDetails.setAddress(list);
 			userDetailRepository.save(userDetails);
 		}
-		
+		String msg="Greetings :) Welcome in OldBookHouse :)" + " your UserName is your emial ";
+		String result=sendMail(odlBookSellDTO.getEmail(),msg);
+		LOGGER.info("In OldBOOKSelService result: "+result);
 		LOGGER.info("User information is saved in user_details table");
 		
 		return odlBookSellDTO;
@@ -118,7 +119,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	@Override
-	public List<UserDetails> userList(){
+	public Iterable<UserDetails> userList(){
 		LOGGER.info("OldBookSellService userList method is calling...");
 		return userDetailRepository.findAll();
 		
@@ -126,14 +127,12 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	
 	@Override
 	public Optional<UserDetails> findById(int id) {
-		
 		LOGGER.info("OldBookSellService findById method is calling...");
 		return userDetailRepository.findById(id);
 	}
 
 	@Override
 	public Optional<UserDetails> updateUser(UserDetails userDetails){
-		
 		LOGGER.info("OldBookSellService updateUser method is calling...");
 		
 		UserDetails user=userDetailRepository.findById(userDetails.getUserId()).get();
@@ -155,7 +154,6 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 
 	@Override
 	public String getRole() {
-		
 		LOGGER.info("OldBookSellService getRole method is calling.....");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
 		return userDetailRepository.hasRole(authentication.getName());
@@ -165,10 +163,10 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	public int getDeliveryPerson() {
 		LOGGER.info("OldBookSellService getDelivery method is calling.....");
 		List<Integer> list= userDetailRepository.findAllByRole("deliveryPerson");
-		int i=(int) (Math.random()*list.size());
+		int deliveryPersonId=(int) (Math.random()*list.size());
 		LOGGER.info("In OldBookSellService getDeliveryPersion List="+list);
-		LOGGER.info("In OldBookSellService getDeliveryPersion i="+i);
-		return list.get(i);
+		LOGGER.info("In OldBookSellService getDeliveryPersion i="+deliveryPersonId);
+		return list.get(deliveryPersonId);
 	}
 
 	@Override
@@ -188,8 +186,8 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
             helper.setTo(email);
             helper.setText(msg);
             helper.setSubject("OldBookHouse");
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        } catch (MessagingException exception) {
+            exception.printStackTrace();
             return "Error while sending mail ..";
         }
         sender.send(message);
@@ -212,9 +210,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 			UserDetails userObj=	userDetailRepository.findByEmail(userName);
 			userObj.setPassword(bcryptEncoder.encode(password));
 			userDetailRepository.save(userObj);
-			
 		}
-		
 	}
 
 }

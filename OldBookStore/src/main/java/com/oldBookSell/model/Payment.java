@@ -90,6 +90,4 @@ public class Payment {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	
 }

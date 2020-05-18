@@ -16,12 +16,12 @@ import com.oldBookSell.service.BookService;
 @Service
 public class BookServiceImpl implements BookService {
 	
-	public static final Logger LOGGER=LoggerFactory.getLogger(BookServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(BookServiceImpl.class);
 
-	
 	@Autowired
-	BookRepository bookRepository;
+	private BookRepository bookRepository;
 
+	//this method is use to save the book details
 	@Override
 	public void saveBook(BookDTO bookDTOObj) {
 		LOGGER.info("BookService saveBook method is calling....");
@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
 		bookObj.setThumbnail(bookDTOObj.getThumbnail());
 		
 		//This code for useful for book Tabel find the the unique book and update quantity
-		Book uniqueBook=bookRepository.findByBookNameAndAuthor(bookDTOObj.getBookName(),bookDTOObj.getAuthors());
+		Book uniqueBook=bookRepository.findByBookNameOrAuthor(bookDTOObj.getBookName(),bookDTOObj.getAuthors());
 		try {	
 			if(uniqueBook == null) {
 				bookRepository.save(bookObj);
@@ -56,8 +56,8 @@ public class BookServiceImpl implements BookService {
 				bookRepository.save(bookObj);
 				LOGGER.info("Book information save in book table....");
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
+		}catch(Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 	
@@ -67,6 +67,15 @@ public class BookServiceImpl implements BookService {
 		LOGGER.info("In BookService findBooks Min="+min);
 		LOGGER.info("In BookService findBooks Max="+max);
 		return bookRepository.findBooks(min, max);
+	}
+	
+	@Override
+	public Book updateBookPrice(int bookId, int price) {
+		LOGGER.info("BookService updateBookPrice method is calling....");
+		Optional<Book> bookObj=bookRepository.findById(bookId);
+		LOGGER.info("In BookService findBooks method amount is "+bookObj.get().getAmount());
+		bookObj.get().setAmount(price);
+		return bookRepository.save(bookObj.get());
 	}
 	
 	@Override
@@ -106,5 +115,38 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findById(bookId);
 	}
 	
+	@Override
+	public List<Book> getAllBook() {
+		LOGGER.info("BookService getAllBook method is calling.....");
+		return bookRepository.getAllBook();
+	}
+	
+	@Override
+	public List<Book> getAllBookForUpdate() {
+		LOGGER.info("BookService getAllBookForUpdate method is calling.....");
+		return bookRepository.getAllBookForUpdate();
+	}
+	
+	@Override
+	public int getQuantity(int bookId) {
+		LOGGER.info("BookService getQuantity method is calling.....");
+		return bookRepository.getQuantity(bookId);
+	}
+	
+	@Override
+	public void minusQuantity(int bookId, int quantity) {
+		LOGGER.info("BookService minusQuantity method is calling.....");
+		Optional<Book> bookRequest =bookRepository.findByBookId(bookId);
+		Book bookObj=new Book();
+		bookObj=bookRequest.get();
+		bookObj.setQuantity(bookObj.getQuantity()-quantity);
+		LOGGER.info(" In BookService getAllBookForUpdate method book quantity "+bookObj.getQuantity());
+		bookRepository.save(bookObj);
+	}
 
+	@Override
+	public List<Book> findAllBookForSell() {
+		LOGGER.info("BookService findAllBookForSell method is calling.....");
+		return bookRepository.findAllBookForSell();
+	}
 }

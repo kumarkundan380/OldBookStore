@@ -13,25 +13,22 @@ public interface BuyOrderRequestService {
 
 	public List<BuyOrderRequest> getOrderRequest();
 	
-	public List<BuyOrderRequest> findBuyHistory(String buyUserId);
-	
-	void addDeliverAddress(int addressId, int deliveryPersonId, String string, String string2);
-
 	public void deleteBookRequest(int requestBookId);
-
-//	void addDeliverAddress(int addressId, int deliveryPersonId);
-
+	
+	public List<BuyOrderRequest> addDeliverAddress(int addressId, int deliveryPersonId, String status, String transactionId);
+	
 	public Iterable<Object> deliverySellRequest(int deliveryId);
 	
-	public Iterable<Object> buyDate(String userId);
-
 	public void updateBuyBookStatus(int buyOrderRequestId, String check_status);
 	
 	public Iterable<Object> deliverySellRequestAdmin();
+
+	public BuyOrderRequest addQuantity(int requestBookId);
+
+	public BuyOrderRequest minusQuantity(int requestBookId);
 	
-	public List<BuyOrderRequest> addQuantity(int requestBookId);
-
-	public List<BuyOrderRequest> minusQuantity(int requestBookId);
-
+	public List<BuyOrderRequest> findBuyHistory();
+	
+	public int getQuantity(int bookId);
 
 }

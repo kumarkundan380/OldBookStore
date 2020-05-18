@@ -16,11 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -49,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate","/register","/searchBook","/fetchAuthor","/fetchCategory","/fetchPublisher","/fetch","/forgetPassword","/getAllBookForSell	","/findBooks/{min}/{max}").permitAll(). 
+				.authorizeRequests().antMatchers("/authenticate","/add","/searchBook","/fetch","/fetchCategory","/findBooks/{min}/{max}").permitAll(). 
 				antMatchers(HttpMethod.OPTIONS,"/**").
 				permitAll().
 				anyRequest().authenticated().and().

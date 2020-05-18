@@ -1,6 +1,5 @@
 package com.oldBookSell.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.oldBookSell.dto.OldBookSellDTO;
@@ -14,7 +13,7 @@ public interface OldBookSellServices {
 	
 	public UserDetails getAddress();
 	
-	public List<UserDetails> userList();
+	public Iterable<UserDetails> userList();
 	
 	public Optional<UserDetails> updateUser(UserDetails userDetails);
 	

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtTockenUtil implements Serializable{
 	
-
+	private static final Logger LOGGER=LoggerFactory.getLogger(JwtTockenUtil.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
@@ -37,6 +40,7 @@ public class JwtTockenUtil implements Serializable{
 		final Claims claims = getAllClaimsFromToken(token);
 		return claimsResolver.apply(claims);
 	}
+	
 	private Claims getAllClaimsFromToken(String token) {
 		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 	}
@@ -49,7 +53,7 @@ public class JwtTockenUtil implements Serializable{
 
 	//generate token for user
 	public String generateToken(UserDetails userDetails) {
-		System.out.println("tocken generated.......");
+		LOGGER.info("Tocken generated...");
 		Map<String, Object> claims = new HashMap<>();
 		return doGenerateToken(claims, userDetails.getUsername());
 	}

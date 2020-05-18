@@ -1,5 +1,7 @@
 package com.oldBookSell.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,8 @@ import com.oldBookSell.service.JwtUserDetailsService;
 @CrossOrigin
 public class JwtAuthenticationController {
 	
+	private static final Logger LOGGER=LoggerFactory.getLogger(JwtAuthenticationController.class);
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -31,13 +35,9 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public ResponseEntity<?> saveUser(@RequestBody UserDetail user) throws Exception {
-//		return ResponseEntity.ok(userDetailsService.save(user));
-//	}
-
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		LOGGER.info("JwtAuthenticationController createAuthenticationToken method is calling....");
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
@@ -49,12 +49,13 @@ public class JwtAuthenticationController {
 	}
 
 	private void authenticate(String username, String password) throws Exception {
+		LOGGER.info("JwtAuthenticationController authenticate method is calling....");
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+		} catch (DisabledException exception) {
+			throw new Exception("USER_DISABLED", exception);
+		} catch (BadCredentialsException exception) {
+			throw new Exception("INVALID_CREDENTIALS", exception);
 		}
 	}
 

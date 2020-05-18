@@ -18,10 +18,10 @@ import com.oldBookSell.service.BuyOrderRequestService;
 @Service
 public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 
-	public static final Logger LOGGER=LoggerFactory.getLogger(BuyOrderRequestServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(BuyOrderRequestServiceImpl.class);
 	
 	@Autowired
-	BuyOrderRequestRepository buyOrderRequestRepository;
+	private BuyOrderRequestRepository buyOrderRequestRepository;
 	
 	@Override
 	public int saveRequest(BuyOrderRequestDTO buyOrderRequestDto) {
@@ -41,10 +41,18 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		buyOrderRequestObj.setUserId(authentication.getName());
 		buyOrderRequestObj.setAddressId(buyOrderRequestDto.getAddressId());
 		buyOrderRequestObj.setDileveryPersonId(buyOrderRequestDto.getDileveryPersonId());
+		buyOrderRequestObj.setStatus(buyOrderRequestDto.getStatus());
+		buyOrderRequestObj.setTransactionId(buyOrderRequestDto.getTransactionId());
 		
-		buyOrderRequestRepository.save(buyOrderRequestObj);
-		LOGGER.info("Buy Book Request save to buy_order_request Table ");
-		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");
+		BuyOrderRequest result=buyOrderRequestRepository.checkBook(authentication.getName(),buyOrderRequestDto.getBookId(),"user");
+		if(result!=null) {
+			addQuantity(result.getBuyOrderRequestId());
+			LOGGER.info("In BuyOrderRequestService BuyOrderRequestId is: "+result.getBuyOrderRequestId());
+		}else {
+			LOGGER.info("Buy Book Request save to buy_order_request Table ");
+			buyOrderRequestRepository.save(buyOrderRequestObj);
+		}	
+		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");		
 	}
 
 	@Override
@@ -55,9 +63,10 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	}
 	
 	@Override
-	public List<BuyOrderRequest> findBuyHistory(String buyUserId){
+	public List<BuyOrderRequest> findBuyHistory(){
 		LOGGER.info("BuyOrderRequestService findBuyHistory method is calling....");
-		return buyOrderRequestRepository.findBuyHistory(buyUserId);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return buyOrderRequestRepository.findBuyHistory(authentication.getName());
 	}
 
 	@Override
@@ -68,24 +77,10 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	}
 	
 	@Override
-	public Iterable<Object> buyDate(String userId){
-		LOGGER.info("BuyOrderRequestService buyDate method is calling....");
-		Iterable<Object> result=buyOrderRequestRepository.buyDate(userId);
-		return result;
-	}
-
-	@Override
 	public void deleteBookRequest(int requestBookId) {
 		LOGGER.info("BuyOrderRequestService deleteBookRequest method is calling....");
 		buyOrderRequestRepository.deleteById(requestBookId);
 	}
-
-//	@Override
-//	public void addDeliverAddress(int addressId,int deliveryPersonId) {
-//		LOGGER.info("BuyOrderRequestService addDeliveryAddress method is calling....");
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,authentication.getName(),"user");
-//	}
 
 	@Override
 	public Iterable<Object> deliverySellRequest(int deliveryId) {
@@ -95,9 +90,9 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	}
 
 	@Override
-	public void updateBuyBookStatus(int buyOrderRequestId, String check_status) {
+	public void updateBuyBookStatus(int buyOrderRequestId, String checkStatus) {
 		LOGGER.info("BuyOrderRequestService updateBuyBookStatus method is calling....");
-		buyOrderRequestRepository.updateBuyBookStatus(buyOrderRequestId,check_status);
+		buyOrderRequestRepository.updateBuyBookStatus(buyOrderRequestId,checkStatus);
 	}
 	
 	@Override
@@ -107,34 +102,46 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	}
 	
 	@Override
-	public List<BuyOrderRequest> addQuantity(int requestBookId) {
+	public BuyOrderRequest addQuantity(int requestBookId) {
 		LOGGER.info("BuyOrderRequestService addQuantity method is calling....");
 		Optional<BuyOrderRequest> buyOrderRequest =buyOrderRequestRepository.findById(requestBookId);
 		BuyOrderRequest buyOrderRequestObj=new BuyOrderRequest();
 		buyOrderRequestObj=buyOrderRequest.get();
 		buyOrderRequestObj.setQuantity(buyOrderRequestObj.getQuantity()+1);
 		LOGGER.info("In BuyOrderRequestService quantity"+buyOrderRequestObj.getQuantity());
-		buyOrderRequestRepository.save(buyOrderRequestObj);
-		return null;
+		return buyOrderRequestRepository.save(buyOrderRequestObj);
+		
 	}
 
 	@Override
-	public List<BuyOrderRequest> minusQuantity(int requestBookId) {
+	public BuyOrderRequest minusQuantity(int requestBookId) {
 		LOGGER.info("BuyOrderRequestService minusQuantity method is calling....");
 		Optional<BuyOrderRequest> buyOrderRequest =buyOrderRequestRepository.findById(requestBookId);
 		BuyOrderRequest buyOrderRequestObj=new BuyOrderRequest();
 		buyOrderRequestObj=buyOrderRequest.get();
 		buyOrderRequestObj.setQuantity(buyOrderRequestObj.getQuantity()-1);
 		LOGGER.info("In BuyOrderRequestService quantity"+buyOrderRequestObj.getQuantity());
-		buyOrderRequestRepository.save(buyOrderRequestObj);
-		return null;
+		return buyOrderRequestRepository.save(buyOrderRequestObj);
 	}
 	
 	@Override
-	public void addDeliverAddress(int addressId, int deliveryPersonId, String status, String transactionId) {
+	public List<BuyOrderRequest> addDeliverAddress(int addressId, int deliveryPersonId, String status, String transactionId) {
+		LOGGER.info("BuyOrderRequestService addDeliverAddress method is calling....");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		buyOrderRequestRepository.addDeliverAddress("pending",addressId,deliveryPersonId,status,transactionId,authentication.getName(),"user");
+		List<BuyOrderRequest> result= buyOrderRequestRepository.getBuyRequest(authentication.getName(),"user");
+		buyOrderRequestRepository.addDeliverAddress("ProcessingOrder",addressId,deliveryPersonId,status,transactionId,authentication.getName(),"user");
+		return result;
 	}
 
+	@Override
+	public int getQuantity(int bookId) {
+		LOGGER.info("BuyOrderRequestService getQuantity method is calling....");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		BuyOrderRequest result=buyOrderRequestRepository.checkBook(authentication.getName(),bookId,"user");
+		if(result!=null)
+			return result.getQuantity();
+		else
+			return 0;
+	}
 
 }

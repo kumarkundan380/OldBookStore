@@ -31,7 +31,6 @@ import com.oldBookSell.service.BuyOrderRequestService;
 import com.oldBookSell.service.OldBookSellServices;
 import com.oldBookSell.service.PaymentService;
 import com.oldBookSell.service.SellOrderRequestService;
-import com.oldBookSell.serviceImpl.OldBookSellServiceImpl;
 import com.stripe.model.Charge;
 
 @RestController
@@ -39,41 +38,37 @@ import com.stripe.model.Charge;
 @CrossOrigin
 public class OldBookSellController {
 	
-		public static final Logger LOGGER=LoggerFactory.getLogger(OldBookSellServiceImpl.class);
+		private static final Logger LOGGER=LoggerFactory.getLogger(OldBookSellController.class);
 	
 		@Autowired
-		OldBookSellServices oldBookSellServices;
+		private OldBookSellServices oldBookSellServices;
 		
 		@Autowired
-		SellOrderRequestService sellOrderRequestService;
+		private SellOrderRequestService sellOrderRequestService;
 		
 		@Autowired
-		BuyOrderRequestService buyOrderRequestService;
+		private BuyOrderRequestService buyOrderRequestService;
 		
 		@Autowired
-		BookService bookService;
+		private BookService bookService;
 		
 		@Autowired
-		PaymentService paymentService;
+		private PaymentService paymentService;
 		
-		@RequestMapping("/add")
+		/* Controller for OldBookSellService */
+		
+		//this method is use to register a user
+		@RequestMapping("/register")
 		public OldBookSellDTO createUser(@RequestBody OldBookSellDTO userDetail) {
 			LOGGER.info("Controller createUser method is caiing....");
 			return  oldBookSellServices.createUser(userDetail);
 		}
 		
+		//this is method is use to forget password
 		@RequestMapping("/forgetPassword")
 		public void forgetPassword(@RequestBody String userName) {
+			LOGGER.info("Controller forgetPassword method is caiing....");
 			oldBookSellServices.changePassword(userName);
-		}
-			
-		@RequestMapping("/bookDetailsRequest")
-		public SellOrderRequestDTO addBookDetails(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
-			LOGGER.info("Controller addBookDetails method is caiing....");
-			int deliveryId=oldBookSellServices.getDeliveryPerson();
-			LOGGER.info("In Controller addBookDetails method Delivery Id=" +deliveryId);
-			sellOrderRequestDTO.setDileveryPersonId(deliveryId);
-			return sellOrderRequestService.bookRequest(sellOrderRequestDTO);
 		}
 		
 		@RequestMapping("/addAddress")
@@ -89,7 +84,7 @@ public class OldBookSellController {
 		}
 		
 		@GetMapping("/listUser")
-		public List<UserDetails> userList(){
+		public Iterable<UserDetails> userList(){
 			LOGGER.info("Controller userList method is caiing....");
 			return oldBookSellServices.userList();
 		}
@@ -112,13 +107,44 @@ public class OldBookSellController {
 			return oldBookSellServices.deleteUser(userId);
 		}
 		
+		@GetMapping("/getRole")
+		public String getRole() {
+			LOGGER.info("Controller getRole method is caiing....");
+			return oldBookSellServices.getRole();
+		}
+		
+		/* Controller for sellOrderRequestService */
+		
+		@RequestMapping("/bookDetailsRequest")
+		public SellOrderRequestDTO addBookDetails(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
+			LOGGER.info("Controller addBookDetails method is caiing....");
+			int deliveryId=oldBookSellServices.getDeliveryPerson();
+			LOGGER.info("In Controller addBookDetails method Delivery Id=" +deliveryId);
+			sellOrderRequestDTO.setDileveryPersonId(deliveryId);
+			return sellOrderRequestService.bookRequest(sellOrderRequestDTO);
+		}
+		
 		@GetMapping("/getRequest")
 		public Iterable<Object> getDeliveryRequest() {
 			LOGGER.info("Controller getDeliveryRequest method is caiing....");
 			int deliveryId=oldBookSellServices.getDeliveryPersonId();
 			LOGGER.info("In Controller getDeliveryRequest method Delivery Id=" +deliveryId);
 			return sellOrderRequestService.deliveryRequest(deliveryId);
-		}		
+		}
+		
+		@GetMapping("/getRequestAdmin")
+		public Iterable<Object> getDeliveryRequestAdmin() {
+			LOGGER.info("Controller getDeliveryReuestAdmin method is caiing....");
+			return sellOrderRequestService.deliveryRequestAdmin();
+		}
+		
+		@RequestMapping("/sellHistory")
+		public List<SellOrderRequest> findSellHistory(){
+			LOGGER.info("Controller findSellHistory method is caiing....");
+			return sellOrderRequestService.findSellHistory();
+		}
+		
+		/* Controller for BookService */
 		
 		@RequestMapping("/bookStatus")
 		public void updateBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
@@ -127,8 +153,9 @@ public class OldBookSellController {
 			LOGGER.info(" In Controller updateBookStatus method feedback is "+sellOrderRequestDTO.getFeedBack());
 			sellOrderRequestService.updateBookStatus(sellOrderRequestDTO);
 			
-			if(sellOrderRequestDTO.getCheck_status().equals("Sucess")) {
-				Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findById(sellOrderRequestDTO.getSellOrderRequestId());
+			if(sellOrderRequestDTO.getCheck_status().equals("PickUpOrder")) {
+				Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findBookById(sellOrderRequestDTO.getSellOrderRequestId());
+
 				BookDTO bookDTOObj = new BookDTO();
 				bookDTOObj.setAmount(sellOrderRequest.get().getAmount());
 				bookDTOObj.setAuthors(sellOrderRequest.get().getAuthors());
@@ -146,10 +173,9 @@ public class OldBookSellController {
 				bookDTOObj.setQuantity(sellOrderRequest.get().getQuantity());
 				bookDTOObj.setSmallThumbnail(sellOrderRequest.get().getSmallThumbnail());
 				bookDTOObj.setThumbnail(sellOrderRequest.get().getThumbnail());
-				
+				LOGGER.info("Book information save in book table");
 				bookService.saveBook(bookDTOObj);
 			}
-			
 		}
 
 		@GetMapping("/findBooks/{min}/{max}")
@@ -181,12 +207,64 @@ public class OldBookSellController {
 			return bookService.findBookByPublisher(publisher);
 		}
 		
+		@RequestMapping("/fetchCategory")
+		public List<Book> findBookByCategory(@RequestBody String category){
+			LOGGER.info("Controller findBookByCategory method is caiing....");
+			LOGGER.info("In Controller findBookByCategory method Category=" +category);
+			return bookService.findBookByCategory(category);
+		}
+		
+		@RequestMapping("/getQuantity")
+		public int getQuantity(@RequestBody int bookId){
+			LOGGER.info("Controller getQuantity method is caiing....");
+			return bookService.getQuantity(bookId);
+		}
+		
+		@GetMapping("/allCatogory")
+		public Iterable<Object> findAllCatogory(){
+			LOGGER.info("Controller findAllCatogory method is caiing....");
+			return bookService.findAllCatogory();
+		}
+		
+		@RequestMapping("/searchBook")
+		public List<Book> searchBook(@RequestBody String bookName) {
+			LOGGER.info("Controller searchBook method is caiing....");
+			return bookService.findBookByNameAuthorAndIsbn(bookName);
+			
+		}
+		
+		@GetMapping("/getBook")
+		public List<Book> findAllBook(){
+			LOGGER.info("Controller findAllBook method is caiing....");
+			return bookService.getAllBook();
+		}
+		
+		@GetMapping("/getAllBook")
+		public List<Book> findAllBookForUpdate(){
+			LOGGER.info("Controller findAllBookForUpdate method is caiing....");
+			return bookService.getAllBookForUpdate();
+		}
+		
+		@PostMapping("/updateBookPrice")
+		public Book updateBookPrice(@RequestBody int arr[]){
+			LOGGER.info("Controller updateBookPrice method is caiing....");
+			LOGGER.info("In Controller updateBookPrice method arr[0]="+arr[0]);
+			LOGGER.info("In Controller updateBookPrice method arr[1]="+arr[1]);
+			return bookService.updateBookPrice(arr[0],arr[1]);
+		}
+		
+		@GetMapping("/getAllBookForSell")
+		public List<Book> findAllBookForSell(){
+			LOGGER.info("Controller findAllBookForSell method is caiing....");
+			return bookService.findAllBookForSell();
+		}
+		
+		/* Controller for BuyorderRequestService */
+		
 		@RequestMapping("/sellBookRequest")
 		public int addBuyOrderRequest(@RequestBody int bookId) {
-			
 			LOGGER.info("Controller addBuyOrderRequest method is caiing....");
-			
-			Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findById(bookId);
+			Optional<Book> sellOrderRequest=bookService.findBookById(bookId);
 			LOGGER.info(" In Controller sellOrderRequest="+sellOrderRequest.get().getBookName());
 			BuyOrderRequestDTO buyOrderRequestDTO =new BuyOrderRequestDTO();
 			
@@ -194,9 +272,9 @@ public class OldBookSellController {
 			buyOrderRequestDTO.setAuthors(sellOrderRequest.get().getAuthors());
 			buyOrderRequestDTO.setSmallThumbnail(sellOrderRequest.get().getSmallThumbnail());
 			buyOrderRequestDTO.setAmount(sellOrderRequest.get().getAmount());
-			buyOrderRequestDTO.setQuantity(sellOrderRequest.get().getQuantity());
+			buyOrderRequestDTO.setQuantity(1);
 			buyOrderRequestDTO.setCheckStatus("user");
-			buyOrderRequestDTO.setBookId(sellOrderRequest.get().getSellOrderRequestId());		
+			buyOrderRequestDTO.setBookId(sellOrderRequest.get().getBookId());		
 			return buyOrderRequestService.saveRequest(buyOrderRequestDTO);
 		}
 		
@@ -213,15 +291,20 @@ public class OldBookSellController {
 		}
 		
 		@RequestMapping("/plusQuantity")
-		public List<BuyOrderRequest> addQuantity(@RequestBody int requestBookId){
+		public BuyOrderRequest addQuantity(@RequestBody int requestBookId){
 			LOGGER.info("Controller addQuantity method is caiing....");
 			return buyOrderRequestService.addQuantity(requestBookId);
 		}
 		
 		@RequestMapping("/minusQuantity")
-		public List<BuyOrderRequest> substractQuantity(@RequestBody int requestBookId){
+		public BuyOrderRequest substractQuantity(@RequestBody int requestBookId){
 			LOGGER.info("Controller substractQuantity method is caiing....");
 			return buyOrderRequestService.minusQuantity(requestBookId);
+		}
+		
+		@RequestMapping("/getCartBookQuantity")
+		public int getCartBookQuantity(@RequestBody int bookId){
+			return buyOrderRequestService.getQuantity(bookId);
 		}
 		
 		@RequestMapping("/deleteBookRequest")
@@ -230,49 +313,13 @@ public class OldBookSellController {
 			buyOrderRequestService.deleteBookRequest(requestBookId);
 			return 0;
 		}
-	
-		@RequestMapping("/addDeliverAddressSingleBook")
-		public int addDeliveryAddressSingleBook(@RequestBody int array[]){
-			LOGGER.info("Controller addDeliveryAddressSingleBook method is caiing....");
-			int addressID=array[0];
-			int bookId=array[1];
-			
-			Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findById(bookId);
-			BuyOrderRequestDTO buyOrderRequestDTO =new BuyOrderRequestDTO();
-			
-			buyOrderRequestDTO.setBookName(sellOrderRequest.get().getBookName());
-			buyOrderRequestDTO.setAuthors(sellOrderRequest.get().getAuthors());
-			buyOrderRequestDTO.setSmallThumbnail(sellOrderRequest.get().getSmallThumbnail());
-			buyOrderRequestDTO.setAmount(sellOrderRequest.get().getAmount());
-			buyOrderRequestDTO.setQuantity(sellOrderRequest.get().getQuantity());
-			buyOrderRequestDTO.setCheckStatus("pending");
-			buyOrderRequestDTO.setAddressId(addressID+"");
-			buyOrderRequestDTO.setBookId(sellOrderRequest.get().getSellOrderRequestId());
-
-			int deliveryId=oldBookSellServices.getDeliveryPerson();
-			buyOrderRequestDTO.setDileveryPersonId(deliveryId);
-
-			return buyOrderRequestService.saveRequest(buyOrderRequestDTO);
-		}
-
+		
 		@GetMapping("/getSellRequest")
 		public Iterable<Object> getDeliverySellRequest() {
 			LOGGER.info("Controller getDeliverySellRequest method is calling....");
 			int deliveryId=oldBookSellServices.getDeliveryPersonId();
 			LOGGER.info("In Controller getDeliverySellRequest method Delivery ID=" +deliveryId);
 			return buyOrderRequestService.deliverySellRequest(deliveryId);
-		}
-		
-		@RequestMapping("/sellOrderNotification")
-		public int getSellOrderNotification(@RequestBody String status) {
-			LOGGER.info("Controller getSellOrderNotification method is caiing....");
-			return sellOrderRequestService.getSellOrderNotification(status);
-		}
-		
-		@GetMapping("/allCatogory")
-		public Iterable<Object> findAllCatogory(){
-			LOGGER.info("Controller findAllCatogory method is caiing....");
-			return bookService.findAllCatogory();
 		}
 		
 		@RequestMapping("/updateBuyBookStatus")
@@ -283,81 +330,20 @@ public class OldBookSellController {
 			buyOrderRequestService.updateBuyBookStatus(sellOrderRequestDTO.getSellOrderRequestId(),sellOrderRequestDTO.getCheck_status());
 		}
 		
-		@RequestMapping("/fetchCategory")
-		public List<Book> findBookByCategory(@RequestBody String category){
-			LOGGER.info("Controller findBookByCategory method is caiing....");
-			LOGGER.info("In Controller findBookByCategory method Category=" +category);
-			return bookService.findBookByCategory(category);
-		}
-			
-		@GetMapping("/getRole")
-		public String getRole() {
-			LOGGER.info("Controller getRole method is caiing....");
-			return oldBookSellServices.getRole();
-		}
-			
-		@RequestMapping("/searchBook")
-		public List<Book> searchBook(@RequestBody String bookName) {
-			LOGGER.info("Controller searchBook method is caiing....");
-			return bookService.findBookByNameAuthorAndIsbn(bookName);
-			
-		}
-		
-//		@RequestMapping("/sellDate")
-//		public Iterable<Object> sellDate(@RequestBody String userId) {
-//			LOGGER.info("Controller sellDate method is calling....");
-//			return sellOrderRequestService.sellDate(userId);
-//		}
-		
-//		@RequestMapping("/buyDate")
-//		public Iterable<Object> buyDate(@RequestBody String userId){
-//			LOGGER.info("Controller buyDate method is calling....");
-//			return buyOrderRequestService.buyDate(userId);
-//		}
-		
 		@GetMapping("/getSellRequestAdmin")
 		public Iterable<Object> getDeliverySellRequestAdmin() {
 			LOGGER.info("Controller getDeliverySellRequestAdmin method is caiing....");
 			return buyOrderRequestService.deliverySellRequestAdmin();
 		}
 		
-		@GetMapping("/getRequestAdmin")
-		public Iterable<Object> getDeliveryRequestAdmin() {
-			LOGGER.info("Controller getDeliveryReuestAdmin method is caiing....");
-			return sellOrderRequestService.deliveryRequestAdmin();
-		}
-		
 		@RequestMapping("/buyHistory")
-		public List<BuyOrderRequest> findBuyHistory(@RequestBody String buyUserId){
+		public List<BuyOrderRequest> findBuyHistory(){
 			LOGGER.info("Controller findBuyHistory method is calling....");
-			return buyOrderRequestService.findBuyHistory(buyUserId);
+			return buyOrderRequestService.findBuyHistory();
 		}
 		
-		@RequestMapping("/sellHistory")
-		public List<SellOrderRequest> findSellHistory(@RequestBody String sellUserId){
-			LOGGER.info("Controller findSellHistory method is caiing....");
-			return sellOrderRequestService.findSellHistory(sellUserId);
-		}
+		/* Controller for PaymentService */
 		
-		@GetMapping("/getBook")
-		public List<SellOrderRequest> findBook(){
-			LOGGER.info("Controller findBook method is calling...");
-			return sellOrderRequestService.getAllBook();
-		}
-		
-		@GetMapping("/getAllBook")
-		public List<SellOrderRequest> findAllBook(){
-			LOGGER.info("Controller findAllBook method is calling...");
-			return sellOrderRequestService.getAllBook2();
-		}
-		
-		@PostMapping("/updateBookPrice")
-		public List<SellOrderRequest> updateBookPrice(@RequestBody int arr[]){
-			LOGGER.info("Controller updateBookPrice method is calling...");
-			return sellOrderRequestService.updateBookPrice(arr[0],arr[1]);
-		}
-		
-		/* Controller for payment */
 		@PostMapping("/charge")
 	    public Charge chargeCard(@RequestBody int grandTotal, HttpServletRequest request) throws Exception {
 			LOGGER.info("Controller chargeCard method is caiing....");
@@ -370,9 +356,8 @@ public class OldBookSellController {
 		
 		@PostMapping("/savePayment")
 		public Payment savePayment(@RequestBody PaymentDTO payment) {
-			
 			LOGGER.info("Controller savePayment method is caiing....");
-			Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findById(payment.getBookId());
+			Optional<Book> sellOrderRequest=bookService.findBookById(payment.getBookId());
 			BuyOrderRequestDTO buyOrderRequestDTO =new BuyOrderRequestDTO();
 			
 			buyOrderRequestDTO.setBookName(sellOrderRequest.get().getBookName());
@@ -380,9 +365,9 @@ public class OldBookSellController {
 			buyOrderRequestDTO.setSmallThumbnail(sellOrderRequest.get().getSmallThumbnail());
 			buyOrderRequestDTO.setAmount(sellOrderRequest.get().getAmount());
 			buyOrderRequestDTO.setQuantity(sellOrderRequest.get().getQuantity());
-			buyOrderRequestDTO.setCheckStatus("pending");
+			buyOrderRequestDTO.setCheckStatus("PendingOrder");
 			buyOrderRequestDTO.setAddressId(payment.getAddressId()+"");
-			buyOrderRequestDTO.setBookId(sellOrderRequest.get().getSellOrderRequestId());
+			buyOrderRequestDTO.setBookId(sellOrderRequest.get().getBookId());
 			buyOrderRequestDTO.setStatus(payment.getStatus());
 			buyOrderRequestDTO.setTransactionId(payment.getTransactionId());
 
@@ -390,6 +375,7 @@ public class OldBookSellController {
 			buyOrderRequestDTO.setDileveryPersonId(deliveryId);
 
 			buyOrderRequestService.saveRequest(buyOrderRequestDTO);
+			bookService.minusQuantity(payment.getBookId(),1);
 	
 			return paymentService.savePayment(payment);
 
@@ -400,8 +386,18 @@ public class OldBookSellController {
 			LOGGER.info("Controller saveMultipleBookPayment method is caiing....");
 			
 			int deliveryId=oldBookSellServices.getDeliveryPerson();
-			buyOrderRequestService.addDeliverAddress(payment.getAddressId(),deliveryId,payment.getStatus(),payment.getTransactionId());
+			List<BuyOrderRequest> buyOrderObject=buyOrderRequestService.addDeliverAddress(payment.getAddressId(),deliveryId,payment.getStatus(),payment.getTransactionId());
+			for(int i=0;i<buyOrderObject.size();i++) {
+				bookService.minusQuantity(buyOrderObject.get(i).getBookId(),buyOrderObject.get(i).getQuantity());
+			}
 			return paymentService.savePayment(payment);
 		
+		}
+		
+		@PostMapping("/getInvoice")
+		public Iterable<Object> getInvoice(@RequestBody String transatctionId) {
+			LOGGER.info("Controller getInvoice method is calling...");
+			return paymentService.getInvoice(transatctionId);
+			
 		}
 }

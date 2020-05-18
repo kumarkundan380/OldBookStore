@@ -18,12 +18,12 @@ public interface UserDetailRepository extends JpaRepository<UserDetails,Integer>
 	boolean	existsByEmail(String name);
 	
 	@Query(value="select role from user_details where email=?1",nativeQuery = true)
-	String hasRole(String name);
+	String hasRole(String email);
 	
 	@Query(value="select user_id from user_details where role=?1",nativeQuery = true)
-	List<Integer> findAllByRole(String string);
+	List<Integer> findAllByRole(String role);
 	
 	@Query(value="select user_id from user_details where email=?1",nativeQuery = true)
-	int getDevileryPersonId(String name);
+	int getDevileryPersonId(String userName);
 	
 }
