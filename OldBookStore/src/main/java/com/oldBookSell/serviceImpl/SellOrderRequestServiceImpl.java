@@ -32,6 +32,12 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	@Autowired
 	private SellOrderRequestRepository sellOrderRequest;
 	
+	/**
+	 * This method is used to save sell request order
+	 * @param sellOrderRequestDTO this is the parameter of bookRequest method
+	 * @return SellOrderRequestDTO this returns Book Information
+	 */
+	
 	@Override
 	public SellOrderRequestDTO bookRequest(SellOrderRequestDTO sellOrderRequestDTO) {
 		LOGGER.info("SellOrderRequestService bookRequest method is calling....");
@@ -63,6 +69,11 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		return sellOrderRequestDTO;
 		
 	}
+	
+	/**
+	 * This method is used to get sell order dellivery request
+	 * @return Iterable<Object> this returns book user information
+	 */
 
 	@Override
 	public Iterable<Object> deliveryRequest(int deliveryPerson_id) {
@@ -72,17 +83,31 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		return result;
 	}
 
+	/**
+	 * This method is used to update book sell request book status
+	 * @param sellOrderRequestDTO this is the parameter of updateBookStatus method
+	 */
 	@Override
 	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO) {
 		LOGGER.info("SellOrderRequestService updateBookStatus method is calling....");
 		sellOrderRequest.updateBookStatus(sellOrderRequestDTO.getCheck_status(),sellOrderRequestDTO.getFeedBack(),sellOrderRequestDTO.getSellOrderRequestId());
 	}
 	
+	/**
+	 * This method is used to get a particular book from sell request
+	 * @param bookId this is the parameter of findBookById method
+	 * @return Optional<SellOrderRequest> this returns a particular book information
+	 */
 	@Override
 	public Optional<SellOrderRequest> findBookById(int bookId) {
 		LOGGER.info("SellOrderRequestService findBookById method is calling....");
 		return sellOrderRequest.findById(bookId);
 	}
+	
+	/**
+	 * This method is used to get all requested and sold book
+	 * @return List<SellOrderRequest> this returns list of book
+	 */
 	
 	@Override
 	public List<SellOrderRequest> findSellHistory(){
@@ -91,6 +116,11 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		return sellOrderRequest.findSellHistory(authentication.getName());
 		
 	}
+	
+	/**
+	 * This method is used to get all delivery request to admin
+	 * @return Iterable<Object> this returns Iterable<Object>
+	 */
 	
 	@Override
 	public Iterable<Object> deliveryRequestAdmin() {

@@ -29,6 +29,11 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
+	/**
+	 * This method is used to save book informarion in book table
+	 * @param bookDTOObj this is the parameter of saveBook method
+	 */
+	
 	@Override
 	public void saveBook(BookDTO bookDTOObj) {
 		LOGGER.info("BookService saveBook method is calling....");
@@ -68,6 +73,13 @@ public class BookServiceImpl implements BookService {
 		}
 	}
 	
+	/**
+	 * This method is used to get the the list of book after scroll
+	 * @param min this is the first parameter of findBooks method
+	 * @param max this is the second parameter of findBooks method
+	 * @return List<Book> ths returns list of book
+	 */
+	
 	@Override
 	public List<Book> findBooks(int min, int max) {
 		LOGGER.info("BookService findBooks method is calling....");
@@ -75,6 +87,12 @@ public class BookServiceImpl implements BookService {
 		LOGGER.info("In BookService findBooks Max="+max);
 		return bookRepository.findBooks(min, max);
 	}
+	
+	/**
+	 * This method is used to upadte the price of book
+	 * @param arr this is the parameter of updateBookPrice method
+	 * @return Book this returns book information
+	 */
 	
 	@Override
 	public Book updateBookPrice(int bookId, int price) {
@@ -85,6 +103,12 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.save(bookObj.get());
 	}
 	
+	/**
+	 * This method is used to get book by author name
+	 * @param author this is the parameter of findBookByAutho methodr
+	 * @return List<Book> this returns list of book
+	 */
+	
 	@Override
 	public List<Book> findBookByAuthor(String author){
 		LOGGER.info("BookService findBookByAuthor method is calling....");
@@ -92,11 +116,23 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findBookByAuthor(author);
 	}
 	
+	/**
+	 * This method is used to search book by title or author name or publisher or isbn number
+	 * @param bookName this is the parameter of findBookByNameAuthorAndIsbn method
+	 * @return List<Book> this returns list of books
+	 */
+	
 	@Override
 	public List<Book> findBookByNameAuthorAndIsbn(String bookName) {
 		LOGGER.info("BookRequestService findBooksByNameAuthorAndIsbn method is calling....");
 		return bookRepository.findBookByNameAuthorAndIsbn(bookName);
 	}
+	
+	/**
+	 * This method is used to get book by category
+	 * @param category this is the parameter of findBookByCategory method
+	 * @return List<Book> this returns list of book
+	 */
 	
 	@Override
 	public List<Book> findBookByCategory(String category){
@@ -104,11 +140,22 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findBookByCategory(category);
 	}
 	
+	/**
+	 * This method is used to get book by publisher name
+	 * @param publisher this is the paramter of findBookByPublisher method
+	 * @return List<Book> this returns list of book
+	 */
+	
 	@Override
 	public List<Book> findBookByPublisher(String publisher){
 		LOGGER.info("BookService findBookByPublisher method is calling....");
 		return bookRepository.findBookByPublisher(publisher);
 	}
+	
+	/**
+	 * This method is used to find all distinct available  book catogory
+	 * @return Iterable<Object> this returns list of book by catogory
+	 */
 	
 	@Override
 	public Iterable<Object> findAllCatogory(){
@@ -116,11 +163,22 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findAllCatogory();
 	}
 	
+	/**
+	 * This method is used to get a particular Book details
+	 * @param bookId this is the parameter of findBookById method
+	 * @return Optional<Book> this returns a particular book information
+	 */
+	
 	@Override
 	public Optional<Book> findBookById(int bookId) {
 		LOGGER.info("BookService findBookById method is calling.....");
 		return bookRepository.findById(bookId);
 	}
+	
+	/**
+	 * This method is used to find all book
+	 * @return List<Book> this returns list of books
+	 */
 	
 	@Override
 	public List<Book> getAllBook() {
@@ -128,17 +186,34 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.getAllBook();
 	}
 	
+	/**
+	 * This method is used to fin all book for updated
+	 * @return List<Book> this returns list of books
+	 */
+	
 	@Override
 	public List<Book> getAllBookForUpdate() {
 		LOGGER.info("BookService getAllBookForUpdate method is calling.....");
 		return bookRepository.getAllBookForUpdate();
 	}
 	
+	/**
+	 * This method is used to get total number of a particular book
+	 * @param bookId this is the parameter of getQuantity method
+	 * @return int this returns number of a particular book
+	 */
+	
 	@Override
 	public int getQuantity(int bookId) {
 		LOGGER.info("BookService getQuantity method is calling.....");
 		return bookRepository.getQuantity(bookId);
 	}
+	
+	/**
+	 * This method is used to reduce number of a particular book from cart
+	 * @param bookId this is the first parameter of minusQuantity method
+	 * @param quantity this is the second parameter
+	 */
 	
 	@Override
 	public void minusQuantity(int bookId, int quantity) {
@@ -150,7 +225,12 @@ public class BookServiceImpl implements BookService {
 		LOGGER.info(" In BookService getAllBookForUpdate method book quantity "+bookObj.getQuantity());
 		bookRepository.save(bookObj);
 	}
-
+	
+	/**
+	 * This method is used to find all book for sell
+	 * @return List<Book> this returns list of books
+	 */
+	
 	@Override
 	public List<Book> findAllBookForSell() {
 		LOGGER.info("BookService findAllBookForSell method is calling.....");

@@ -31,6 +31,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 	@Autowired
 	private BuyOrderRequestRepository buyOrderRequestRepository;
 	
+	/**
+	 * This mehod is used to purchase a particular book information
+	 * @param buyOrderRequestDTO this is the parameter of saveRequest method
+	 * @return int this returns book id
+	 */
+	
 	@Override
 	public int saveRequest(BuyOrderRequestDTO buyOrderRequestDto) {
 		
@@ -62,6 +68,11 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		}	
 		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");		
 	}
+	
+	/**
+	 * This method s used to get notification 
+	 * @return int this returns total number of notification 
+	 */
 
 	@Override
 	public int getNotification() {
@@ -70,6 +81,11 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		return buyOrderRequestRepository.countOrderRequest(authentication.getName(),"user");
 	}
 	
+	/**
+	 * This method is used to show all purschase book
+	 * @return List<BuyOrderRequest> this returns purchase book information
+	 */
+	
 	@Override
 	public List<BuyOrderRequest> findBuyHistory(){
 		LOGGER.info("BuyOrderRequestService findBuyHistory method is calling....");
@@ -77,6 +93,11 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		return buyOrderRequestRepository.findBuyHistory(authentication.getName());
 	}
 
+	/**
+	 * This method is used to get purchase book information
+	 * @return List<BuyOrderRequest> this returns list of book information
+	 */
+	
 	@Override
 	public List<BuyOrderRequest> getOrderRequest() {
 		LOGGER.info("BuyOrderRequestService getOrderRequest method is calling....");
@@ -84,11 +105,22 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		return buyOrderRequestRepository.getOrderRequest(authentication.getName(),"user");
 	}
 	
+	/**
+	 * This method is used to delete the request of purchase book
+	 * @param requestBookId this is the parameter of deleteBookRequest method
+	 * @return int this returns zero 
+	 */
+	
 	@Override
 	public void deleteBookRequest(int requestBookId) {
 		LOGGER.info("BuyOrderRequestService deleteBookRequest method is calling....");
 		buyOrderRequestRepository.deleteById(requestBookId);
 	}
+	
+	/**
+	 * This method is used to request to  a delivery person to purchase a book
+	 * @return Iterable<Object> this returns book information
+	 */
 
 	@Override
 	public Iterable<Object> deliverySellRequest(int deliveryId) {
@@ -96,6 +128,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		Iterable<Object>result= buyOrderRequestRepository.deliveryPersonRequest(deliveryId);
 		return result;
 	}
+	
+	/**
+	 * This method is used to update purchase book status
+	 * @param buyOrderRequestDTO this is the first parameter of updateBuyBookStatus method 
+	 * @param checkStatus this is the second parameter of updateBuyBookStatus method
+	 */
 
 	@Override
 	public void updateBuyBookStatus(int buyOrderRequestId, String checkStatus) {
@@ -103,11 +141,22 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		buyOrderRequestRepository.updateBuyBookStatus(buyOrderRequestId,checkStatus);
 	}
 	
+	/**
+	 * This method is used to show all the buy request to admin  
+	 * @return Iterable<Object> ths returns list of book information
+	 */
+	
 	@Override
 	public Iterable<Object> deliverySellRequestAdmin() {
 		LOGGER.info("BuyOrderRequestService deliverySellRequestAdmin method is calling....");
 		return buyOrderRequestRepository.deliveryGetAdmin();
 	}
+	
+	/**
+	 * This method is used to increse the quantity of book by one
+	 * @param requestBookId this is the parameter of addQuantity method
+	 * @return BuyOrderRequest this returns a book information
+	 */
 	
 	@Override
 	public BuyOrderRequest addQuantity(int requestBookId) {
@@ -120,6 +169,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		return buyOrderRequestRepository.save(buyOrderRequestObj);
 		
 	}
+	
+	/**
+	 * This method is used to decreses the quantity of book by one
+	 * @param requestBookId this is the parameter of minusQuantity method
+	 * @return BuyOrderRequest this returns a book information
+	 */
 
 	@Override
 	public BuyOrderRequest minusQuantity(int requestBookId) {
@@ -132,6 +187,15 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		return buyOrderRequestRepository.save(buyOrderRequestObj);
 	}
 	
+	/**
+	 * This method is used to add delivery address
+	 * @param addressId this is the first parameter of addDeliveryAddress method
+	 * @param deliveryPersonId this is the second parameter of adddeliveryAddress method
+	 * @param status this is the third parameter of adddeliveryAddress method
+	 * @param transactionId this is the fourth parameter of adddeliveryAddress method
+	 * @return List<BuyOrderRequest> this returns list of addresses
+	 */
+	
 	@Override
 	public List<BuyOrderRequest> addDeliverAddress(int addressId, int deliveryPersonId, String status, String transactionId) {
 		LOGGER.info("BuyOrderRequestService addDeliverAddress method is calling....");
@@ -140,6 +204,12 @@ public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 		buyOrderRequestRepository.addDeliverAddress("ProcessingOrder",addressId,deliveryPersonId,status,transactionId,authentication.getName(),"user");
 		return result;
 	}
+	
+	/**
+	 * This method is used to get total number of book added in cart
+	 * @param bookId this is the parameter of getQuantity method 
+	 * @return int this returns number of book added in cart
+	 */
 
 	@Override
 	public int getQuantity(int bookId) {

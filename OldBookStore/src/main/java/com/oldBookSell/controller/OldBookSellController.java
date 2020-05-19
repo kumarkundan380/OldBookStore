@@ -81,7 +81,6 @@ public class OldBookSellController {
 		/**
 		   * This method is used to forget password. 
 		   * @param userName This is the paramter of forgetPassword method
-		   * @return void This returns void.
 		 */
 		
 		@RequestMapping("/forgetPassword")
@@ -125,7 +124,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get a exgisting user address.
+		 * This method is used to get a exgisting user details.
 		 * @param id This is the paramter of getUserById method
 		 * @return UserDetails This returns user details
 		 */
@@ -202,7 +201,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get delivery request admin
+		 * This method is used to get all delivery request to admin
 		 * @return Iterable<Object> this returns Iterable<Object>
 		 */
 		
@@ -342,7 +341,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to find all available catogory book 
+		 * This method is used to find all distinct available  book catogory
 		 * @return Iterable<Object> this returns list of book by catogory
 		 */
 		
@@ -353,7 +352,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to search book by titl or author name or publisher or isbn number
+		 * This method is used to search book by title or author name or publisher or isbn number
 		 * @param bookName this is the parameter of searchBook method
 		 * @return List<Book> this returns list of books
 		 */
@@ -415,7 +414,7 @@ public class OldBookSellController {
 		/* Controller for BuyorderRequestService */
 		
 		/**
-		 * This mehod is used to purchase a particular book
+		 * This mehod is used to purchase a particular book information
 		 * @param bookId this is the parameter of addBuyOrderRequest method
 		 * @return int this returns book id
 		 */
@@ -499,6 +498,7 @@ public class OldBookSellController {
 		 * @param requestBookId this is the parameter of deleteBookRequest method
 		 * @return int this returns zero 
 		 */
+		
 		@RequestMapping("/deleteBookRequest")
 		public int deleteBookRequest(@RequestBody int requestBookId){
 			LOGGER.info("Controller deleteBookRequest method is caiing....");
@@ -507,7 +507,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to request to purchase book
+		 * This method is used to request to  a delivery person to purchase a book
 		 * @return Iterable<Object> this returns book information
 		 */
 		
@@ -533,7 +533,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get all the buy request for admin  
+		 * This method is used to show all the buy request to admin  
 		 * @return Iterable<Object> ths returns list of book information
 		 */
 		
@@ -544,7 +544,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to show  all purschase book
+		 * This method is used to show all purschase book
 		 * @return List<BuyOrderRequest> this returns purchase book information
 		 */
 		
@@ -558,8 +558,8 @@ public class OldBookSellController {
 		
 		/**
 		 * This method is used to payment
-		 * @param grandTotal this is the first parameter
-		 * @param request this is the second parameter
+		 * @param grandTotal this is the first parameter of chargeCard method
+		 * @param request this is the second parameter of chargeCard method
 		 * @return Charge this returns payment information
 		 * @throws Exception if something wrong then throw exception
 		 */

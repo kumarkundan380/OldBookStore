@@ -43,6 +43,14 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
+	/**
+	 * This method is used to payment
+	 * @param token this is the first parameter of chargeCredirCard method
+	 * @param amount this is the second parameter of chargeCredirCard method
+	 * @return Charge this returns payment information
+	 * @throws Exception if something wrong then throw exception
+	 */
+	
 	@Override
 	public Charge chargeCreditCard(String token, double amount) throws InvalidRequestException, AuthenticationException, APIConnectionException, CardException, APIException {
 		LOGGER.info("PaymentServiceImpl chargeCreditCard method is calling.....");
@@ -53,6 +61,12 @@ public class PaymentServiceImpl implements PaymentService {
         Charge charge = Charge.create(chargeParams);
         return charge;
     }
+	
+	/**
+	 * This method is used to save book payment information  
+	 * @param paymentDTO this is the parameter of savePayment method
+	 * @return Payment this return payment information
+	 */
 	
 	@Override
 	public Payment savePayment(PaymentDTO paymentDTO) {
@@ -67,6 +81,12 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setUserId(authentication.getName());
 		return paymentRepository.save(payment);
 	}
+	
+	/**
+	 * This method is used to genrate invoice
+	 * @param transatctionId
+	 * @return Iterable<Object> this returns invoice
+	 */
 	
 	@Override
 	public Iterable<Object> getInvoice(String transatctionId) {

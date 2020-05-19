@@ -45,6 +45,12 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	
 	@Autowired
     private JavaMailSender sender;
+	
+	/**
+	   * This method is used to register user. 
+	   * @param oldbookSellDTO This is the paramter to createUser method
+	   * @return OldBookSellDTO This returns user details.
+	 */
 
 	@Override
 	public OldBookSellDTO createUser(OldBookSellDTO odlBookSellDTO) {
@@ -88,6 +94,12 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		
 		return odlBookSellDTO;
 	}
+	
+	/**
+	   * This method is used to add exgisting user address. 
+	   * @param address This is the paramter of addAddress method
+	   * @return UserDetails This returns user details.
+	*/
 
 	@Override
 	public UserDetails addAddress(OldBookSellDTO address) {
@@ -117,6 +129,11 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		return userDetailRepository.findByEmail(authentication.getName());
 	}
 	
+	/**
+	 * This method is used to get exgisting user address. 
+	 * @return UserDetails This returns user details.
+	 */
+	
 	@Override
 	public UserDetails getAddress() {
 		
@@ -125,6 +142,11 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		return userDetailRepository.findByEmail(authentication.getName());
 	}
 	
+	/**
+	 *  This method is used to get List of exgisting user.
+	 * @return Iterable<UserDetails> this returns user details
+	 */
+	
 	@Override
 	public Iterable<UserDetails> userList(){
 		LOGGER.info("OldBookSellService userList method is calling...");
@@ -132,11 +154,23 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		
 	}
 	
+	/**
+	 * This method is used to get a exgisting user details.
+	 * @param id This is the paramter of getUserById method
+	 * @return UserDetails This returns user details
+	 */
+	
 	@Override
 	public Optional<UserDetails> findById(int id) {
 		LOGGER.info("OldBookSellService findById method is calling...");
 		return userDetailRepository.findById(id);
 	}
+	
+	/**
+	 * This method is used to update exgisting user
+	 * @param userDetails This is the parameter of updateUser method
+	 * @return Optional<UserDetails> This returns user details
+	 */
 
 	@Override
 	public Optional<UserDetails> updateUser(UserDetails userDetails){
@@ -152,12 +186,23 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		return Optional.of(user);
 	}
 	
+	/**
+	 * This method is used to delete exgisting user
+	 * @param userId This is the parameter of deleteUser method
+	 * @return int This returns 0
+	 */
+	
 	@Override
 	public int deleteUser(int id){
 		LOGGER.info("OldBookSellService deleteUser method is calling...");
 		userDetailRepository.deleteById(id);
 		return 0;
 	}
+	
+	/**
+	 * This method is used to get the role of exgisting user
+	 * @return String this returns user role
+	 */
 
 	@Override
 	public String getRole() {
@@ -166,6 +211,11 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		return userDetailRepository.hasRole(authentication.getName());
 	}
 
+	/**
+	 * This method is used to get deliver or pickup book request for a particular delivery person
+	 * @return int this returns delivery person id
+	 */
+	
 	@Override
 	public int getDeliveryPerson() {
 		LOGGER.info("OldBookSellService getDelivery method is calling.....");
@@ -176,12 +226,24 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		return list.get(deliveryPersonId);
 	}
 
+	/**
+	 * This method is used to get delivery person Id
+	 * @return int this returns delivery person id
+	 */
+	
 	@Override
 	public int getDeliveryPersonId() {
 		LOGGER.info("OldBookSellService getDeliveryPersonId method is calling.....");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userDetailRepository.getDevileryPersonId(authentication.getName());
 	}
+	
+	/**
+	 * This method is used to send mail during registration
+	 * @param email this is the first parameter of sendMail method
+	 * @param msg this is the second parameter of sendMail method
+	 * @return String this return a message mail sucessfully send or not
+	 */
 	
 	@Override
 	public String sendMail(String email,String msg) {
@@ -201,6 +263,11 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
         return "Mail Sent Success!";
 		
 	}
+	
+	/**
+	   * This method is used to forget password. 
+	   * @param userName This is the paramter of changePassword method
+	 */
 	
 	@Override
 	public void changePassword(String userName) {
