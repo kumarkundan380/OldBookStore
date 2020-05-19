@@ -8,6 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * This is Payment Class that is use to map the required
+ * column in payment table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Entity
 @Table(name = "payment")
 @SequenceGenerator(name="seq1", initialValue=6001, allocationSize=1)

@@ -1,5 +1,13 @@
 package com.oldBookSell.model;
 
+/**
+ * This is Address Class that is use to map the required
+ * column in address table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

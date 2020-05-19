@@ -20,6 +20,14 @@ import com.oldBookSell.model.JwtRequest;
 import com.oldBookSell.model.JwtResponse;
 import com.oldBookSell.service.JwtUserDetailsService;
 
+/**
+	* This is JwtAuthenticationController that authenticate user and
+	* genrate token.
+	* @author  Kundan,Praveen
+	* @version 1.0
+	* @since 2020-05-18
+*/
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -34,6 +42,13 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+	
+	/**
+	 * This method is used to authenticate and genrate jwt token
+	 * @param authenticationRequest this is the parameter of createAuthenticationToken method 
+	 * @return ResponseEntity this returns status ok or failed.
+	 * @throws Exception if something went wrong then throw an exception
+	 */
 	
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {

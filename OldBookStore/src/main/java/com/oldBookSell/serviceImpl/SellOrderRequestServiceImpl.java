@@ -16,6 +16,14 @@ import com.oldBookSell.model.SellOrderRequest;
 import com.oldBookSell.repository.SellOrderRequestRepository;
 import com.oldBookSell.service.SellOrderRequestService;
 
+/**
+ * This is SellOrderRequestServiceImpl implements an application that
+ * simply calls SellOrderRequestService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Service
 public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	

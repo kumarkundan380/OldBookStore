@@ -2,6 +2,13 @@ package com.oldBookSell.model;
 
 import java.io.Serializable;
 
+/**
+ * This is JwtRequest Class that is use to get or set the username and password
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 public class JwtRequest implements Serializable{
 	
 	private static final long serialVersionUID = 5926468583005150707L;

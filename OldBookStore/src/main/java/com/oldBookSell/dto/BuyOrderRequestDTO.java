@@ -1,5 +1,13 @@
 package com.oldBookSell.dto;
 
+/**
+ * This is BuyOrderRequestDTO that is use to transfer data in
+ * BuyOrderRequestServiceImpl class.
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 public class BuyOrderRequestDTO {
 	
 	private int buyOrderRequestId;

@@ -11,6 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * This is UserDetails Class that is use to map the required
+ * column in user_details table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Entity
 @Table(name = "user_details")
 public class UserDetails {

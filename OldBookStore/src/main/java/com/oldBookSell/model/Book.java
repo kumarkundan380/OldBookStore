@@ -8,6 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * This is Book Class that is use to map the required
+ * column in book table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Entity
 @Table(name = "book")
 @SequenceGenerator(name = "sequence", initialValue = 50001, allocationSize = 1)

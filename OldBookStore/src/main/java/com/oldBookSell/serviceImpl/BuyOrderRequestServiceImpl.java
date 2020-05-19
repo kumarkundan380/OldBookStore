@@ -15,6 +15,14 @@ import com.oldBookSell.model.BuyOrderRequest;
 import com.oldBookSell.repository.BuyOrderRequestRepository;
 import com.oldBookSell.service.BuyOrderRequestService;
 
+/**
+ * This is BuyOrderRequestServiceImpl implements an application that
+ * simply calls BuyOrderRequestService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+ */
+
 @Service
 public class BuyOrderRequestServiceImpl implements BuyOrderRequestService{
 

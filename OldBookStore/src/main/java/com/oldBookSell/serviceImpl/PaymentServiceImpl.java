@@ -22,6 +22,14 @@ import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Charge;
 
+/**
+ * This is PaymentServiceImpl implements an application that
+ * simply calls PaymentService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Service
 public class PaymentServiceImpl implements PaymentService {
 	

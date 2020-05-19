@@ -12,6 +12,14 @@ import org.springframework.stereotype.Service;
 import com.oldBookSell.repository.UserDetailRepository;
 import com.oldBookSell.service.JwtUserDetailsService;
 
+/**
+ * This is JwtUserDetailsServiceImpl implements an application that
+ * simply calls JwtUserDetailsService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Service
 public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 	

@@ -11,6 +11,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+/**
+ * This is BuyOrderRequest Class that is use to map the required
+ * column in buy_order_request table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Entity
 @Table(name = "buy_order_request")
 @SequenceGenerator(name = "seq2", initialValue = 20001, allocationSize = 1)

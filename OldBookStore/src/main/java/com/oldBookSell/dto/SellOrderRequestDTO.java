@@ -1,5 +1,13 @@
 package com.oldBookSell.dto;
 
+/**
+ * This is SellOrderRequestDTO that is use to transfer data in
+ * SellOrderRequestDTO class.	
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 public class SellOrderRequestDTO {
 
 	/* SellOrderRequest class Data Member*/

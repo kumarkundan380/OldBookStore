@@ -24,6 +24,13 @@ import com.oldBookSell.model.UserDetails;
 import com.oldBookSell.repository.UserDetailRepository;
 import com.oldBookSell.service.OldBookSellServices;
 
+/**
+ * This is OldBookSellServiceImpl implements an application that
+ * simply calls OldBookSellService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
 
 @Service
 public class OldBookSellServiceImpl implements OldBookSellServices{

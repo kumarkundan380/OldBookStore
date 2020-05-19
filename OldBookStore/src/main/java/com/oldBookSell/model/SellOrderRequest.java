@@ -12,13 +12,21 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+/**
+ * This is SellOrderRequest Class that is use to map the required
+ * column in sell_order_request table
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
+
 @Entity
 @Table(name = "sell_order_request")
-@SequenceGenerator(name = "seq", initialValue = 10001, allocationSize = 1)
+@SequenceGenerator(name = "seq3", initialValue = 10001, allocationSize = 1)
 public class SellOrderRequest {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq3")
 	private int sellOrderRequestId;
 
 	@Column(name = "book_name")

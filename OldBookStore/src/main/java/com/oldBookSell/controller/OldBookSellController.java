@@ -33,6 +33,15 @@ import com.oldBookSell.service.PaymentService;
 import com.oldBookSell.service.SellOrderRequestService;
 import com.stripe.model.Charge;
 
+
+/**
+ 	* This is OldBookSellController implements an application that
+ 	* simply calls com.oldbooksell.service package interface methods.
+	* @author  Kundan,Praveen
+	* @version 1.0
+	* @since 2020-05-18
+*/
+
 @RestController
 @RequestMapping
 @CrossOrigin
@@ -57,19 +66,35 @@ public class OldBookSellController {
 		
 		/* Controller for OldBookSellService */
 		
-		//this method is use to register a user
+		/**
+		   * This method is used to register user. 
+		   * @param userDetail This is the paramter to createUser method
+		   * @return OldBookSellDTO This returns user details.
+		 */
+		
 		@RequestMapping("/register")
 		public OldBookSellDTO createUser(@RequestBody OldBookSellDTO userDetail) {
 			LOGGER.info("Controller createUser method is caiing....");
 			return  oldBookSellServices.createUser(userDetail);
 		}
 		
-		//this is method is use to forget password
+		/**
+		   * This method is used to forget password. 
+		   * @param userName This is the paramter of forgetPassword method
+		   * @return void This returns void.
+		 */
+		
 		@RequestMapping("/forgetPassword")
 		public void forgetPassword(@RequestBody String userName) {
 			LOGGER.info("Controller forgetPassword method is caiing....");
 			oldBookSellServices.changePassword(userName);
 		}
+		
+		/**
+		   * This method is used to add exgisting user address. 
+		   * @param userDetail This is the paramter of addAddress method
+		   * @return UserDetails This returns user details.
+		*/
 		
 		@RequestMapping("/addAddress")
 		public UserDetails addAddress(@RequestBody OldBookSellDTO userDetail) {
@@ -77,11 +102,21 @@ public class OldBookSellController {
 			return  oldBookSellServices.addAddress(userDetail);
 		}
 		
+		/**
+		 * This method is used to get exgisting user address. 
+		 * @return UserDetails This returns user details.
+		 */
+		
 		@GetMapping("/getAddress")
 		public UserDetails getAddress() {
 			LOGGER.info("Controller userDetails method is caiing....");
 			return oldBookSellServices.getAddress();
 		}
+		
+		/**
+		 *  This method is used to get List of exgisting user.
+		 * @return Iterable<UserDetails> this returns user details
+		 */
 		
 		@GetMapping("/listUser")
 		public Iterable<UserDetails> userList(){
@@ -89,11 +124,23 @@ public class OldBookSellController {
 			return oldBookSellServices.userList();
 		}
 		
+		/**
+		 * This method is used to get a exgisting user address.
+		 * @param id This is the paramter of getUserById method
+		 * @return UserDetails This returns user details
+		 */
+		
 		@RequestMapping("/fetchUser")
 		public UserDetails getUserById(@RequestBody int id) {
 			LOGGER.info("Controller getUserById method is caiing....");
 			return oldBookSellServices.findById(id).get();
 		}
+		
+		/**
+		 * This method is used to update exgisting user
+		 * @param user This is the parameter of updateUser method
+		 * @return UserDetails This returns user details
+		 */
 		
 		@RequestMapping("/updateUser")
 		public UserDetails updateUser(@RequestBody UserDetails user){
@@ -101,11 +148,22 @@ public class OldBookSellController {
 			return oldBookSellServices.updateUser(user).get();
 		}
 		
+		/**
+		 * This method is used to delete exgisting user
+		 * @param userId This is the parameter of deleteUser method
+		 * @return int This returns 0
+		 */
+		
 		@RequestMapping("/deleteUser")
 		public int deleteUser(@RequestBody int userId ){
 			LOGGER.info("Controller deleteUser method is caiing....");
 			return oldBookSellServices.deleteUser(userId);
 		}
+		
+		/**
+		 * This method is used to get the role of exgisting user
+		 * @return String this returns user role
+		 */
 		
 		@GetMapping("/getRole")
 		public String getRole() {
@@ -114,6 +172,12 @@ public class OldBookSellController {
 		}
 		
 		/* Controller for sellOrderRequestService */
+		
+		/**
+		 * This method is used to save sell request order
+		 * @param sellOrderRequestDTO this is the parameter of addBookDetails
+		 * @return SellOrderRequestDTO this returns Book Information
+		 */
 		
 		@RequestMapping("/bookDetailsRequest")
 		public SellOrderRequestDTO addBookDetails(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
@@ -124,6 +188,11 @@ public class OldBookSellController {
 			return sellOrderRequestService.bookRequest(sellOrderRequestDTO);
 		}
 		
+		/**
+		 * This method is used to get sell order dellivery request
+		 * @return Iterable<Object> this returns book user information
+		 */
+		
 		@GetMapping("/getRequest")
 		public Iterable<Object> getDeliveryRequest() {
 			LOGGER.info("Controller getDeliveryRequest method is caiing....");
@@ -132,11 +201,21 @@ public class OldBookSellController {
 			return sellOrderRequestService.deliveryRequest(deliveryId);
 		}
 		
+		/**
+		 * This method is used to get delivery request admin
+		 * @return Iterable<Object> this returns Iterable<Object>
+		 */
+		
 		@GetMapping("/getRequestAdmin")
 		public Iterable<Object> getDeliveryRequestAdmin() {
 			LOGGER.info("Controller getDeliveryReuestAdmin method is caiing....");
 			return sellOrderRequestService.deliveryRequestAdmin();
 		}
+		
+		/**
+		 * This method is used to get all requested and sold book
+		 * @return List<SellOrderRequest> this returns list of book
+		 */
 		
 		@RequestMapping("/sellHistory")
 		public List<SellOrderRequest> findSellHistory(){
@@ -145,6 +224,11 @@ public class OldBookSellController {
 		}
 		
 		/* Controller for BookService */
+		
+		/**
+		 * This method is used to update Book status
+		 * @param sellOrderRequestDTO this is the parameter updateBookStats
+		 */
 		
 		@RequestMapping("/bookStatus")
 		public void updateBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
@@ -178,6 +262,13 @@ public class OldBookSellController {
 			}
 		}
 
+		/**
+		 * This method is used to get the the list of book after scroll
+		 * @param min this is the first parameter of getBook method
+		 * @param max this is the second parameter of getBook method
+		 * @return List<Book> ths returns list of book
+		 */
+		
 		@GetMapping("/findBooks/{min}/{max}")
 		public List<Book> getBook(@PathVariable(value = "min")int min,@PathVariable(value = "max")int max){
 			LOGGER.info("Controller getBook method is caiing....");
@@ -186,12 +277,24 @@ public class OldBookSellController {
 			return bookService.findBooks(min,max);
 		}
 			
+		/**
+		 * This method is used to get a particular Book details
+		 * @param bookId this is the parameter of fetchBook method
+		 * @return Optional<Book> this returns a particular book information
+		 */
+		
 		@RequestMapping("/fetch")
 		public Optional<Book> fetchBook(@RequestBody int bookId) {
 			LOGGER.info("Controller fetchBook method is caiing....");
 			LOGGER.info("In Controller fetchBook method bookId=" +bookId);
 			return bookService.findBookById(bookId);
 		}
+		
+		/**
+		 * This method is used to get book by author name
+		 * @param author this is the parameter of findBookByAutho methodr
+		 * @return List<Book> this returns list of book
+		 */
 		
 		@RequestMapping("/fetchAuthor")
 		public List<Book> findBookByAuthor(@RequestBody String author){
@@ -200,12 +303,24 @@ public class OldBookSellController {
 			return bookService.findBookByAuthor(author);
 		}
 		
+		/**
+		 * This method is used to get book by publisher name
+		 * @param publisher this is the paramter of findBookByPublisher method
+		 * @return List<Book> this returns list of book
+		 */
+		
 		@RequestMapping("/fetchPublisher")
 		public List<Book> findBookByPublisher(@RequestBody String publisher){
 			LOGGER.info("Controller findBookByPublisher method is caiing....");
 			LOGGER.info("In Controller findBookByPublisher method Publisher Name=" +publisher);
 			return bookService.findBookByPublisher(publisher);
 		}
+		
+		/**
+		 * This method is used to get book by category
+		 * @param category this is the parameter of findBookByCategory method
+		 * @return List<Book> this returns list of book
+		 */
 		
 		@RequestMapping("/fetchCategory")
 		public List<Book> findBookByCategory(@RequestBody String category){
@@ -214,17 +329,34 @@ public class OldBookSellController {
 			return bookService.findBookByCategory(category);
 		}
 		
+		/**
+		 * This method is used to get total number of a particular book
+		 * @param bookId this is the parameter of getQuantity method
+		 * @return int this returns number of a particular book
+		 */
+		
 		@RequestMapping("/getQuantity")
 		public int getQuantity(@RequestBody int bookId){
 			LOGGER.info("Controller getQuantity method is caiing....");
 			return bookService.getQuantity(bookId);
 		}
 		
+		/**
+		 * This method is used to find all available catogory book 
+		 * @return Iterable<Object> this returns list of book by catogory
+		 */
+		
 		@GetMapping("/allCatogory")
 		public Iterable<Object> findAllCatogory(){
 			LOGGER.info("Controller findAllCatogory method is caiing....");
 			return bookService.findAllCatogory();
 		}
+		
+		/**
+		 * This method is used to search book by titl or author name or publisher or isbn number
+		 * @param bookName this is the parameter of searchBook method
+		 * @return List<Book> this returns list of books
+		 */
 		
 		@RequestMapping("/searchBook")
 		public List<Book> searchBook(@RequestBody String bookName) {
@@ -233,17 +365,33 @@ public class OldBookSellController {
 			
 		}
 		
+		/**
+		 * This method is used to find all book
+		 * @return List<Book> this returns list of books
+		 */
+		
 		@GetMapping("/getBook")
 		public List<Book> findAllBook(){
 			LOGGER.info("Controller findAllBook method is caiing....");
 			return bookService.getAllBook();
 		}
 		
+		/**
+		 * This method is used to fin all book for updated
+		 * @return List<Book> this returns list of books
+		 */
+		
 		@GetMapping("/getAllBook")
 		public List<Book> findAllBookForUpdate(){
 			LOGGER.info("Controller findAllBookForUpdate method is caiing....");
 			return bookService.getAllBookForUpdate();
 		}
+		
+		/**
+		 * This method is used to upadte the price of book
+		 * @param arr this is the parameter of updateBookPrice method
+		 * @return Book this returns book information
+		 */
 		
 		@PostMapping("/updateBookPrice")
 		public Book updateBookPrice(@RequestBody int arr[]){
@@ -253,6 +401,11 @@ public class OldBookSellController {
 			return bookService.updateBookPrice(arr[0],arr[1]);
 		}
 		
+		/**
+		 * This method is used to find all book for sell
+		 * @return List<Book> this returns list of books
+		 */
+		
 		@GetMapping("/getAllBookForSell")
 		public List<Book> findAllBookForSell(){
 			LOGGER.info("Controller findAllBookForSell method is caiing....");
@@ -260,6 +413,12 @@ public class OldBookSellController {
 		}
 		
 		/* Controller for BuyorderRequestService */
+		
+		/**
+		 * This mehod is used to purchase a particular book
+		 * @param bookId this is the parameter of addBuyOrderRequest method
+		 * @return int this returns book id
+		 */
 		
 		@RequestMapping("/sellBookRequest")
 		public int addBuyOrderRequest(@RequestBody int bookId) {
@@ -278,11 +437,21 @@ public class OldBookSellController {
 			return buyOrderRequestService.saveRequest(buyOrderRequestDTO);
 		}
 		
+		/**
+		 * This method s used to get notification 
+		 * @return int this returns total number of notification 
+		 */
+		
 		@RequestMapping("/getNotification")
 		public int getNotification() {
 			LOGGER.info("Controller getNotification method is caiing....");
 			return buyOrderRequestService.getNotification();
 		}
+		
+		/**
+		 * This method is used to get purchase book information
+		 * @return List<BuyOrderRequest> this returns list of book information
+		 */
 		
 		@RequestMapping("/getBuyBook")
 		public List<BuyOrderRequest> getOderRequest(){
@@ -290,11 +459,23 @@ public class OldBookSellController {
 			return buyOrderRequestService.getOrderRequest();
 		}
 		
+		/**
+		 * This method is used to increse the quantity of book by one
+		 * @param requestBookId this is the parameter of addQuantity method
+		 * @return BuyOrderRequest this returns a book information
+		 */
+		
 		@RequestMapping("/plusQuantity")
 		public BuyOrderRequest addQuantity(@RequestBody int requestBookId){
 			LOGGER.info("Controller addQuantity method is caiing....");
 			return buyOrderRequestService.addQuantity(requestBookId);
 		}
+		
+		/**
+		 * This method is used to decreses the quantity of book by one
+		 * @param requestBookId this is the parameter of substractQuantity method
+		 * @return BuyOrderRequest this returns a book information
+		 */
 		
 		@RequestMapping("/minusQuantity")
 		public BuyOrderRequest substractQuantity(@RequestBody int requestBookId){
@@ -302,17 +483,33 @@ public class OldBookSellController {
 			return buyOrderRequestService.minusQuantity(requestBookId);
 		}
 		
+		/**
+		 * This method is used to get total number of book added in cart
+		 * @param bookId this is the parameter of getCartBookQuantity method 
+		 * @return int this returns number of book added in cart
+		 */
+		
 		@RequestMapping("/getCartBookQuantity")
 		public int getCartBookQuantity(@RequestBody int bookId){
 			return buyOrderRequestService.getQuantity(bookId);
 		}
 		
+		/**
+		 * This method is used to delete the request of purchase book
+		 * @param requestBookId this is the parameter of deleteBookRequest method
+		 * @return int this returns zero 
+		 */
 		@RequestMapping("/deleteBookRequest")
 		public int deleteBookRequest(@RequestBody int requestBookId){
 			LOGGER.info("Controller deleteBookRequest method is caiing....");
 			buyOrderRequestService.deleteBookRequest(requestBookId);
 			return 0;
 		}
+		
+		/**
+		 * This method is used to request to purchase book
+		 * @return Iterable<Object> this returns book information
+		 */
 		
 		@GetMapping("/getSellRequest")
 		public Iterable<Object> getDeliverySellRequest() {
@@ -322,6 +519,11 @@ public class OldBookSellController {
 			return buyOrderRequestService.deliverySellRequest(deliveryId);
 		}
 		
+		/**
+		 * This method is used to update purchase book status
+		 * @param sellOrderRequestDTO this is the parameter of updateBuyBookStatus method 
+		 */
+		
 		@RequestMapping("/updateBuyBookStatus")
 		public void updateBuyBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
 			LOGGER.info("Controller updateBuyBookStatus method is calling....");
@@ -330,11 +532,21 @@ public class OldBookSellController {
 			buyOrderRequestService.updateBuyBookStatus(sellOrderRequestDTO.getSellOrderRequestId(),sellOrderRequestDTO.getCheck_status());
 		}
 		
+		/**
+		 * This method is used to get all the buy request for admin  
+		 * @return Iterable<Object> ths returns list of book information
+		 */
+		
 		@GetMapping("/getSellRequestAdmin")
 		public Iterable<Object> getDeliverySellRequestAdmin() {
 			LOGGER.info("Controller getDeliverySellRequestAdmin method is caiing....");
 			return buyOrderRequestService.deliverySellRequestAdmin();
 		}
+		
+		/**
+		 * This method is used to show  all purschase book
+		 * @return List<BuyOrderRequest> this returns purchase book information
+		 */
 		
 		@RequestMapping("/buyHistory")
 		public List<BuyOrderRequest> findBuyHistory(){
@@ -343,6 +555,14 @@ public class OldBookSellController {
 		}
 		
 		/* Controller for PaymentService */
+		
+		/**
+		 * This method is used to payment
+		 * @param grandTotal this is the first parameter
+		 * @param request this is the second parameter
+		 * @return Charge this returns payment information
+		 * @throws Exception if something wrong then throw exception
+		 */
 		
 		@PostMapping("/charge")
 	    public Charge chargeCard(@RequestBody int grandTotal, HttpServletRequest request) throws Exception {
@@ -353,6 +573,12 @@ public class OldBookSellController {
 	        LOGGER.info("In Controller Amount" +amount);
 	        return paymentService.chargeCreditCard(token, amount);
 	    }
+		
+		/**
+		 * This method is used to save single book payment information  
+		 * @param payment this is the parameter of savePayment method
+		 * @return Payment this return single book payment information
+		 */
 		
 		@PostMapping("/savePayment")
 		public Payment savePayment(@RequestBody PaymentDTO payment) {
@@ -381,6 +607,12 @@ public class OldBookSellController {
 
 		}
 		
+		/**
+		 * This method is used to save multiple book payment information
+		 * @param payment this is the parameter od 
+		 * @return Payment this returns payments information
+		 */
+		
 		@PostMapping("/saveMultipleBookPayment")
 		public Payment saveMultipleBookPayment(@RequestBody PaymentDTO payment) {
 			LOGGER.info("Controller saveMultipleBookPayment method is caiing....");
@@ -393,6 +625,12 @@ public class OldBookSellController {
 			return paymentService.savePayment(payment);
 		
 		}
+		
+		/**
+		 * This method is used to genrate invoice
+		 * @param transatctionId
+		 * @return Iterable<Object> this returns invoice
+		 */
 		
 		@PostMapping("/getInvoice")
 		public Iterable<Object> getInvoice(@RequestBody String transatctionId) {

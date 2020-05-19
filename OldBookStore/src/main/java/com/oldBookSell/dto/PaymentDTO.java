@@ -1,5 +1,12 @@
 package com.oldBookSell.dto;
 
+/**
+ * This is PaymentDTO that is use to transfer data in
+ * PaymentServiceImpl class.	
+ * @author  Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+*/
 
 public class PaymentDTO {
 	

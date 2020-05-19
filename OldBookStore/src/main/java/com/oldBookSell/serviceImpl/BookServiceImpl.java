@@ -13,6 +13,14 @@ import com.oldBookSell.model.Book;
 import com.oldBookSell.repository.BookRepository;
 import com.oldBookSell.service.BookService;
 
+/**
+ * This is BookServiceImpl implements an application that
+ * simply calls BookService interface methods
+ * @author Kundan,Praveen
+ * @version 1.0
+ * @since 2020-05-18
+ */
+
 @Service
 public class BookServiceImpl implements BookService {
 	
@@ -21,7 +29,6 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
-	//this method is use to save the book details
 	@Override
 	public void saveBook(BookDTO bookDTOObj) {
 		LOGGER.info("BookService saveBook method is calling....");
