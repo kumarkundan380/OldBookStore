@@ -90,7 +90,7 @@ export class CheckoutComponent implements OnInit {
       data=>{
         this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
         this.javaServiceObj.getBookNotification();
-        this.javaServiceObj.getSpinner();
+        this.javaServiceObj.getSpinner(1000);
         this.router.navigateByUrl('/checkout');
         });
       }

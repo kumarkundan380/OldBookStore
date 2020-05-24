@@ -15,8 +15,8 @@ export class BookSellSearchComponent implements OnInit {
   constructor(public loginService: BookSellSearchService,
     public dialogRef: MatDialogRef<BookSellSearchComponent>,
     public dialog: MatDialog,
-    private javaService:JavaServiceService,
-    private router:Router,
+    public javaService:JavaServiceService,
+    public router:Router,
     public spinner:NgxSpinnerService) {
   }
 
@@ -27,7 +27,7 @@ export class BookSellSearchComponent implements OnInit {
       this.loginService.form.reset();
       this.loginService.initializeFormGroup();
       this.onClose();
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1000);
       this.router.navigate(['/booksell']);
     }
   }

@@ -13,6 +13,7 @@ export class PaymentService {
     expMonth: new FormControl('',Validators.required),
     expYear: new FormControl('',Validators.required),
     cvc:new FormControl('',Validators.required),
+    amount:new FormControl(''),
   });
 
   initializeFormGroup() {
@@ -22,6 +23,11 @@ export class PaymentService {
       expMonth:'',
       expYear:'',
       cvc:'',
+      amount:0.0,
     });
   }
+  setFormValue(data:any){
+    this.form.controls.amount.setValue(data);
+  }
+
 }

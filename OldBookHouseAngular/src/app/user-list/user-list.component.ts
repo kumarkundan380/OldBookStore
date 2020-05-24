@@ -25,6 +25,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.javaService.userList().subscribe((user: any[]) => {
       this.userList = user;
+      console.log(this.userList);
       for (let index = 0; index < this.userList.length; index++) {
           if(this.userList[index].role==='admin'){
             this.adminNo++;

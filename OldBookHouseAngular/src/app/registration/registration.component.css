@@ -29,18 +29,19 @@ mat-radio-group mat-radio-button{
     width: 32%;
     color: #fec239;
     border: none;
-    padding: 3px;
-    border-radius: 6px;
+    padding: 0.5rem;
+    border-radius: 2rem;
     font-family: sans-serif
 }
 #regButtonClear{
     width: 32%;
     background-color: #fec239;
     border: none;
-    padding: 2px;
-    border-radius: 6px;
+    padding: 0.5rem;
+    border-radius: 2rem;
     font-family: sans-serif
 }
+
 #regHeader{
     background-color: #fec239;
 }

@@ -22,11 +22,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "sell_order_request")
-@SequenceGenerator(name = "seq3", initialValue = 10001, allocationSize = 1)
+@SequenceGenerator(name = "sell_order_sequence", initialValue = 70001, allocationSize = 1)
 public class SellOrderRequest {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq3")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sell_order_sequence")
 	private int sellOrderRequestId;
 
 	@Column(name = "book_name")

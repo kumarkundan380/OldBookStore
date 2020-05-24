@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { LoginServeiceService } from '../share/login-serveice.service';
 import { BookSellSearchComponent } from '../book-sell-search/book-sell-search.component';
 import { BookSellSearchService } from '../share/book-sell-search.service';
 import { JavaServiceService } from '../java-service.service';
@@ -66,7 +65,7 @@ export class ProductdisplayComponent implements OnInit {
   // this method is use to navigate the buyBook Component 
   buyBook(sellOrderRequestId:number){
     this.javaService.bookId=sellOrderRequestId;
-    this.javaService.getSpinner();
+    this.javaService.getSpinner(1000);
     this.router.navigate(['/buybook']);
   }
 
@@ -101,7 +100,7 @@ export class ProductdisplayComponent implements OnInit {
   // this mehod is use to purchage the book 
   purchaseBook(){
     if(this.hasLogin.isUserLoggedIn()){
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1000);
       this.router.navigate(['/checkout']);
     }else{
       this.notificationService.warn("please Login first.")
@@ -113,7 +112,7 @@ export class ProductdisplayComponent implements OnInit {
     this.notEmptyPost=false;
     this.javaService.findBookByAuthor(author).subscribe(data=>{
       this.bookList = data;
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1000);
     });
   }
 
@@ -121,7 +120,7 @@ export class ProductdisplayComponent implements OnInit {
   findBookByPublisher(publisher:string){
     this.javaService.getBookByPublisher(publisher).subscribe(data=>{
       this.bookList = data;
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1000);
     });
   }
 
@@ -130,7 +129,7 @@ export class ProductdisplayComponent implements OnInit {
     this.cartDisplay=true;
     this.javaService.getBookByCategory(category).subscribe(data=>{
       this.bookList = data;
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1000);
     });
   }
 }

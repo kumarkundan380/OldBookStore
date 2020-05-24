@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
 
   // thid method use to send the home page
   home(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
       this.router.navigateByUrl('mainslider');
     });
@@ -77,13 +77,13 @@ searchCatogory(bookCatagory:any){
 
 //this method used for geeting all book request for deliver 
 deliverySellRequest(){
-  this.javaCallObj.getSpinner();
+  this.javaCallObj.getSpinner(1000);
   this.router.navigate(["/deliverBuyRequest"]);
 }
 
 // this method used for getting all book request for buy (get delivery)
 deliveryRequestFun(){
-  this.javaCallObj.getSpinner();
+  this.javaCallObj.getSpinner(1000);
   this.router.navigate(["/deliveryRequest"]);
 }
 
@@ -128,31 +128,31 @@ deliveryRequestFun(){
 
   // this method is use to navigate the buyHistory component
   buyOrder(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigate(["/buyHistory"]);
   }
 
   // this method is use to navigate the sellHistory component
   sellOrder(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigate(["/sellHistory"]);
   }
 
   // this method is use to navigate userList
   listUserFun(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigate(["/userList"]);
   }
 
   // this method is use to navigate deliverBuyRequest
   deliverySellRequestAdmin(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigate(["/deliverBuyRequest"]);
   }
 
   // this method is use to navigate deliveryRequest
   deliveryRequestFunAdmin(){
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
     this.router.navigate(["/deliveryRequest"]);
   }
 
@@ -175,7 +175,7 @@ deliveryRequestFun(){
   // this method is use to navigate contact
   contact(){
     this.router.navigate(['/contact']);
-    this.javaCallObj.getSpinner();
+    this.javaCallObj.getSpinner(1000);
   }
 
 }

@@ -27,10 +27,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-//  import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { PaymentService } from './share/payment.service';
+import { DialogService } from './share/dialog.service';
 import { MatCardModule } from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { LoginServeiceService } from './share/login-serveice.service';
@@ -41,7 +42,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BasicAuthHttpInterceptorService } from './service/basic-auth-http-interceptor.service';
 
 import { AuthGardService } from './service/auth-gard.service';
-import {} from './java-service.service';
 import { BooksellComponent } from './booksell/booksell.component';
 import { BookreqAddressComponent } from './bookreq-address/bookreq-address.component';
 import { BookSellSearchComponent } from './book-sell-search/book-sell-search.component';
@@ -66,6 +66,7 @@ import { UpdatePriceComponent } from './update-price/update-price.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ContactComponent } from './contact/contact.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { InvoiceComponent } from './invoice/invoice.component';
     UpdatePriceComponent,
     PaymentComponent,
     ContactComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +128,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
     InfiniteScrollModule,
     NgxSpinnerModule
   ],
-  providers: [LoginServeiceService,RegistrationService,NotificationService,AuthGardService,
+  providers: [LoginServeiceService,RegistrationService,NotificationService,PaymentService,DialogService,AuthGardService,
     {    
       provide:HTTP_INTERCEPTORS,useClass:BasicAuthHttpInterceptorService,multi:true
     }

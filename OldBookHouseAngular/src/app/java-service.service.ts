@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router, RouteReuseStrategy } from '@angular/router';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NotificationService } from './share/notification.service';
 
@@ -68,6 +68,16 @@ export class PaymentDetails {
   public bookId: number;
 }
 
+// Card details
+export class Payment{
+  public name:any;
+  public cardNumber:any;
+  public expMonth:any;
+  public expYear:any;
+  public cvc:any;
+  public amount:any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -88,10 +98,16 @@ export class JavaServiceService {
   totalPrice: number = 0;
   oldBookStatus: boolean = false;
   paymentData: any;
+  paymentInfo: any;
+  parsedJson:any;
 
   private urls: string;
 
-  constructor(private http: HttpClient, private router: Router, public spinner: NgxSpinnerService, public zone: NgZone, public notificationService: NotificationService) {
+  constructor(public http: HttpClient,
+     public router: Router, 
+     public spinner: NgxSpinnerService, 
+     public zone: NgZone,
+     public notificationService: NotificationService) {
   }
 
   public url = "http://localhost:8080/";
@@ -205,7 +221,7 @@ export class JavaServiceService {
     this.urls = this.url + "bookStatus";
     this.http.post(this.urls, status).subscribe(
       data => {
-        this.getSpinner();
+        this.getSpinner(1000);
         this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
           this.router.navigateByUrl('deliveryRequest');
         });
@@ -230,7 +246,7 @@ export class JavaServiceService {
     this.urls = this.url + "searchBook";
     this.http.post(this.urls, searchValue).subscribe((books: any[]) => {
       this.bookList = books;
-      this.getSpinner();
+      this.getSpinner(1000);
       this.router.navigate(['/showbook']);
     });
   }
@@ -240,7 +256,7 @@ export class JavaServiceService {
     this.urls = this.url + "fetchCategory";
     this.http.post(this.urls, bookCatgory).subscribe((books: any[]) => {
       this.bookList = books;
-      this.getSpinner();
+      this.getSpinner(1000);
       this.router.navigate(['/showbook']);
     });
   }
@@ -250,7 +266,7 @@ export class JavaServiceService {
     this.urls = this.url + "getAllBookForSell";
     this.http.get(this.urls).subscribe((books: any[]) => {
       this.bookList = books;
-      this.getSpinner();
+      this.getSpinner(1000);
       this.router.navigate(['/showbook']);
     });
   }
@@ -438,11 +454,34 @@ export class JavaServiceService {
           sessionStorage.setItem('notification1', this.notification);
           this.paymentData = data;
           this.notificationService.success(':: Payment successfully');
-          this.getSpinner();
+          this.getSpinner(1000);
           this.zone.run(() => this.router.navigate(['invoice']));
         });
       });
   }
+
+  // this method is use to payment of book 
+  chargeCard(token: string, amount1) {
+    let amount: number = +amount1;
+    this.urls = this.url + "charge";
+    const headers = new HttpHeaders({ 'token': token });
+    this.http.post(this.urls, amount, { headers: headers, responseType: 'text' })
+      .subscribe(resp => {
+        this.paymentInfo = resp;
+        this.parsedJson = JSON.parse(this.paymentInfo); 
+        this.payment.paymentId=this.parsedJson.id;
+        this.payment.transactionId=this.parsedJson.balanceTransaction;
+        this.payment.status=this.parsedJson.status;
+        this.payment.amount=this.parsedJson.amount;
+        this.payment.created=this.parsedJson.created;
+        if(this.checkCart){
+          this.savePaymentDetailsMutipleBook(this.payment);
+        }else{
+          this.savePaymentDetails(this.payment);
+        }
+      });
+  }
+
 
   // this method is use to get book invoice 
   getInvoice(transactionId: any) {
@@ -451,10 +490,10 @@ export class JavaServiceService {
   }
 
   // this method is use to spinner in project
-  getSpinner() {
+  getSpinner(sec:number) {
     this.spinner.show();
     setTimeout(() => {
       this.spinner.hide();
-    }, 1000);
+    }, sec);
   }
 }

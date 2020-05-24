@@ -3,9 +3,9 @@ import { LoginServeiceService } from '../share/login-serveice.service';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RegistrationComponent } from '../registration/registration.component';
 import { RegistrationService } from '../share/registration.service';
-import { UserInfo, UserLogin, JavaServiceService } from '../java-service.service';
+import { UserLogin, JavaServiceService } from '../java-service.service';
 import { AuthenticationService } from '../service/authentication.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 import { ForgetPasswordService } from '../share/forget-password.service';
 

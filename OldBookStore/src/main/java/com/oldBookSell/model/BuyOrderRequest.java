@@ -21,11 +21,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "buy_order_request")
-@SequenceGenerator(name = "seq2", initialValue = 20001, allocationSize = 1)
+@SequenceGenerator(name = "buy_order_sequence", initialValue = 20001, allocationSize = 1)
 public class BuyOrderRequest {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq2")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "buy_order_sequence")
 	private int buyOrderRequestId;
 
 	@Column(name = "book_name")

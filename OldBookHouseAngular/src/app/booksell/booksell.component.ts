@@ -35,7 +35,7 @@ export class BooksellComponent implements OnInit {
     this.name=this.book.value;
     this.httpClient.get('https://www.googleapis.com/books/v1/volumes?q='+this.name.isbnNo).subscribe(
       data=>{
-      this.javaService.getSpinner();
+      this.javaService.getSpinner(1500);
       this.array=data;
       this.isBook=true;
       }
@@ -50,6 +50,7 @@ export class BooksellComponent implements OnInit {
       this.name=this.javaService.bookISBN;
       this.httpClient.get('https://www.googleapis.com/books/v1/volumes?q='+this.name).subscribe(
         data=>{   
+          this.javaService.getSpinner(1500);
           this.array=data;
           this.isBook=true;
         }

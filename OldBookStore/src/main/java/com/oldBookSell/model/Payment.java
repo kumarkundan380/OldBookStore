@@ -18,11 +18,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "payment")
-@SequenceGenerator(name="seq1", initialValue=6001, allocationSize=1)
+@SequenceGenerator(name="payment_sequence", initialValue=6001, allocationSize=1)
 public class Payment {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq1")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="payment_sequence")
 	private int id;
 	
 	@Column(name = "transaction_id")
