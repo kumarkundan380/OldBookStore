@@ -24,8 +24,7 @@ export class CheckoutComponent implements OnInit {
     public hasLogin:AuthenticationService,
     public router:Router,
     public spinner:NgxSpinnerService,
-    public notificationService:NotificationService
-  ) { }
+    public notificationService:NotificationService) { }
 
   // this method is use to calculate the total price 
   getPrice(){

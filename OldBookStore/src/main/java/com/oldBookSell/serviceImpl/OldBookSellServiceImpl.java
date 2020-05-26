@@ -59,27 +59,27 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		
 		UserDetails userDetails=new UserDetails();
 		
-		userDetails.setFirstName(odlBookSellDTO.getFirstName());
-		userDetails.setLastName(odlBookSellDTO.getLastName());
-		userDetails.setMobileNumber(odlBookSellDTO.getMobileNumber());
-		userDetails.setEmail(odlBookSellDTO.getEmail());
+		userDetails.setFirstName(odlBookSellDTO.getFirstName().trim());
+		userDetails.setLastName(odlBookSellDTO.getLastName().trim());
+		userDetails.setMobileNumber(odlBookSellDTO.getMobileNumber().trim());
+		userDetails.setEmail(odlBookSellDTO.getEmail().trim());
 		userDetails.setPassword(bcryptEncoder.encode(odlBookSellDTO.getPassword()));
-		userDetails.setRole(odlBookSellDTO.getRole());
+		userDetails.setRole(odlBookSellDTO.getRole().trim());
 		
 		Address addressObj=new Address();
 		
-		addressObj.setAddress(odlBookSellDTO.getAddress());
-		addressObj.setAddress2(odlBookSellDTO.getAddress2());
-		addressObj.setDistrict(odlBookSellDTO.getDistrict());
-		addressObj.setLocation(odlBookSellDTO.getLocation());
-		addressObj.setPostalCode(odlBookSellDTO.getPinCode());
-		addressObj.setState(odlBookSellDTO.getState());
+		addressObj.setAddress(odlBookSellDTO.getAddress().trim());
+		addressObj.setAddress2(odlBookSellDTO.getAddress2().trim());
+		addressObj.setDistrict(odlBookSellDTO.getDistrict().trim());
+		addressObj.setLocation(odlBookSellDTO.getLocation().trim());
+		addressObj.setPostalCode(odlBookSellDTO.getPinCode().trim());
+		addressObj.setState(odlBookSellDTO.getState().trim());
 		
 		List<Address> list=new ArrayList<>();
 		list.add(addressObj);
 		
-		if(userDetailRepository.existsByEmail(odlBookSellDTO.getEmail())) {
-			UserDetails userObj=	userDetailRepository.findByEmail(odlBookSellDTO.getEmail());
+		if(userDetailRepository.existsByEmail(odlBookSellDTO.getEmail().trim())) {
+			UserDetails userObj=	userDetailRepository.findByEmail(odlBookSellDTO.getEmail().trim());
 			list.addAll(userObj.getAddress());
 			userObj.setAddress(list);
 			userDetailRepository.save(userObj);
@@ -107,18 +107,18 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		LOGGER.info("OldBookSellService addAddress method is calling.....");
 		Address addressObj=new Address();
 		
-		addressObj.setAddress(address.getAddress());
-		addressObj.setAddress2(address.getAddress2());
-		addressObj.setDistrict(address.getDistrict());
-		addressObj.setLocation(address.getLocation());
-		addressObj.setPostalCode(address.getPinCode());
-		addressObj.setState(address.getState());
+		addressObj.setAddress(address.getAddress().trim());
+		addressObj.setAddress2(address.getAddress2().trim());
+		addressObj.setDistrict(address.getDistrict().trim());
+		addressObj.setLocation(address.getLocation().trim());
+		addressObj.setPostalCode(address.getPinCode().trim());
+		addressObj.setState(address.getState().trim());
 		
 		List<Address> list=new ArrayList<>();
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		UserDetails userObj=	userDetailRepository.findByEmail(authentication.getName());
+		UserDetails userObj=	userDetailRepository.findByEmail(authentication.getName().trim());
 
 		list.addAll(userObj.getAddress());
 		list.add(addressObj);
@@ -177,11 +177,11 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		LOGGER.info("OldBookSellService updateUser method is calling...");
 		
 		UserDetails user=userDetailRepository.findById(userDetails.getUserId()).get();
-		user.setFirstName(userDetails.getFirstName());
-		user.setLastName(userDetails.getLastName());
-		user.setEmail(userDetails.getEmail());
-		user.setMobileNumber(userDetails.getMobileNumber());
-		user.setRole(userDetails.getRole());
+		user.setFirstName(userDetails.getFirstName().trim());
+		user.setLastName(userDetails.getLastName().trim());
+		user.setEmail(userDetails.getEmail().trim());
+		user.setMobileNumber(userDetails.getMobileNumber().trim());
+		user.setRole(userDetails.getRole().trim());
 		userDetailRepository.save(user);
 		return Optional.of(user);
 	}

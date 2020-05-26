@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from '../share/registration.service';
 import { LoginServeiceService } from '../share/login-serveice.service';
-import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../share/notification.service';
 import { UserInfo, JavaServiceService } from '../java-service.service';
 

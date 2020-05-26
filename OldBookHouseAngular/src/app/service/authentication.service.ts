@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthenticationService {
 
   object:any;
-  constructor(private httpClient:HttpClient) { }
+  constructor(public httpClient:HttpClient) { }
 
     // this method is use to loging the user  
     authenticate(username, password) {

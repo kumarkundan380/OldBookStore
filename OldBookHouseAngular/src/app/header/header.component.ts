@@ -20,8 +20,13 @@ export class HeaderComponent implements OnInit {
   cartshow:boolean=false;
   bookList:any;
   nav_toggel:boolean=false;
-  constructor(public dialog: MatDialog,public loginService:LoginServeiceService,public registrationService:RegistrationService,public javaCallObj:JavaServiceService,
-    private hasLogin:AuthenticationService,private router:Router,public spinner:NgxSpinnerService) { }
+  constructor(public dialog: MatDialog,
+      public loginService:LoginServeiceService,
+      public registrationService:RegistrationService,
+      public javaCallObj:JavaServiceService,
+      public hasLogin:AuthenticationService,
+      public router:Router,
+      public spinner:NgxSpinnerService) { }
   fun(){
     this.cartshow=true;
   }

@@ -20,9 +20,12 @@ export class ProductdisplayComponent implements OnInit {
   notEmptyPost = true;
   notscrolly = true;
   cartDisplay=false;
-  constructor(private router:Router,public loginService:BookSellSearchService,
-    public dialog:MatDialog,public javaService:JavaServiceService,
-    public spinner:NgxSpinnerService, public hasLogin:AuthenticationService,
+  constructor(public router:Router,
+    public loginService:BookSellSearchService,
+    public dialog:MatDialog,
+    public javaService:JavaServiceService,
+    public spinner:NgxSpinnerService, 
+    public hasLogin:AuthenticationService,
     public notificationService:NotificationService) { }
 
   ngOnInit() {

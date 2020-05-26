@@ -4,6 +4,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Router } from '@angular/router';
 import * as Chart from 'chart.js'
+import { DialogService } from '../share/dialog.service';
+import { NotificationService } from '../share/notification.service';
 
 
 @Component({
@@ -20,7 +22,10 @@ export class UserListComponent implements OnInit {
   ctx: any; 
 
   constructor(public javaService: JavaServiceService,
-    public dialog: MatDialog,private router:Router) { }
+    public dialogService:DialogService,
+    public dialog: MatDialog,
+    public router:Router,
+    public notificationService:NotificationService) { }
 
   ngOnInit() {
     this.javaService.userList().subscribe((user: any[]) => {
@@ -53,13 +58,19 @@ export class UserListComponent implements OnInit {
 
  // this method is use to delete the user  
   deleteUser(userId: number) {
-    this.javaService.deleteUser(userId).subscribe(data=>{
-      this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
-        this.router.navigateByUrl('/userList');
-       }
-      );
+    this.dialogService.openConfirmDialog('Are you sure to delete this user ?')
+      .afterClosed().subscribe(res =>{
+        if(res){
+          this.javaService.deleteUser(userId).subscribe(data=>{
+            this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
+            this.router.navigateByUrl('/userList');
+            this.notificationService.warn('! Deleted successfully');
+          });
+        });
+      }
     });
   }
+
  // this method is use to draw the chart 
   chartGraph(){
     this.canvas = document.getElementById('myChart');

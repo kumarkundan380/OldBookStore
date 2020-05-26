@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JavaServiceService } from '../java-service.service';
-import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { UpdateBookPriceService } from '../share/update-book-price.service';
 import { UpdatePriceComponent } from '../update-price/update-price.component';
 
@@ -12,7 +12,7 @@ import { UpdatePriceComponent } from '../update-price/update-price.component';
 })
 export class UpdateBookPriceComponent implements OnInit {
   bookList:any;
-  constructor(private router:Router,
+  constructor(public router:Router,
     public javaServiceObj:JavaServiceService,
     public updatePriceService:UpdateBookPriceService, 
     public dialog:MatDialog

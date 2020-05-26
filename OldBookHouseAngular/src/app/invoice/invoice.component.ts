@@ -10,8 +10,8 @@ import html2canvas from 'html2canvas';
 })
 export class InvoiceComponent implements OnInit {
   invoiceData:any;
-  total=0;
-  constructor(private javaServiceObj:JavaServiceService) { }
+  total:number=0;
+  constructor(public javaServiceObj:JavaServiceService) { }
 
   //this method is use to calculate total price
   getTotal(){

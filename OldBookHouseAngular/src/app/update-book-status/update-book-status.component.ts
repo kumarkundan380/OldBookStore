@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 })
 export class UpdateBookStatusComponent implements OnInit {
 status:any;
-  constructor(private bookStatus:UpdateBookStatusService,
+  constructor(public bookStatus:UpdateBookStatusService,
     public dialogRef: MatDialogRef<UpdateBookStatusComponent>,
     public dialog: MatDialog,
-    private javaService:JavaServiceService,
-    private router:Router) { }
+    public javaService:JavaServiceService,
+    public router:Router) { }
 
   ngOnInit() {
   }

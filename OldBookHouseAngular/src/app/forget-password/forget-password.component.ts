@@ -13,8 +13,7 @@ export class ForgetPasswordComponent implements OnInit {
   user:any;
   constructor(public forgetPasswordService:ForgetPasswordService, 
     public dialogRef: MatDialogRef<ForgetPasswordComponent>,
-    public javaServiceObj:JavaServiceService
-    ) { }
+    public javaServiceObj:JavaServiceService) { }
   ngOnInit() {
   }
 

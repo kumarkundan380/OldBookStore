@@ -9,7 +9,8 @@ import { JavaServiceService } from '../java-service.service';
 })
 export class MainsliderComponent implements OnInit {
 
-  constructor(public spinner:NgxSpinnerService,private javaService:JavaServiceService) { }
+  constructor(public spinner:NgxSpinnerService,
+    public javaService:JavaServiceService) { }
 
   ngOnInit() {
 

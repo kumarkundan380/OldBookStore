@@ -11,9 +11,11 @@ import { NotificationService } from '../share/notification.service';
 })
 export class ShowBookComponent implements OnInit {
   bookList:any;
-  constructor(public javaService:JavaServiceService,public router:Router,
-    public hasLogin:AuthenticationService,public notificationService:NotificationService) { 
-    this.bookList=this.javaService.bookList;
+  constructor(public javaService:JavaServiceService,
+    public router:Router,
+    public hasLogin:AuthenticationService,
+    public notificationService:NotificationService) { 
+      this.bookList=this.javaService.bookList;
   }
 
   ngOnInit() {

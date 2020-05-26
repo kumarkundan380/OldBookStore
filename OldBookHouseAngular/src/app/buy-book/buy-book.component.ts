@@ -13,11 +13,11 @@ import { NotificationService } from '../share/notification.service';
 })
 export class BuyBookComponent implements OnInit {
   bookDetail:any;
-  constructor(private javaServiceObj:JavaServiceService,
+  constructor(public javaServiceObj:JavaServiceService,
     public addreqService:AddAddressService,
     public dialog:MatDialog,
-    private hasLogin:AuthenticationService,
-    private notificationService:NotificationService
+    public hasLogin:AuthenticationService,
+    public notificationService:NotificationService
   ) { }
 
   ngOnInit() {

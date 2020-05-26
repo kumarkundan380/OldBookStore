@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
+import { JavaServiceService } from '../java-service.service';
 
 @Component({
   selector: 'app-refresh',
@@ -8,12 +9,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class RefreshComponent implements OnInit {
 
-  constructor(public spinner:NgxSpinnerService) { }
+  constructor(public spinner:NgxSpinnerService,
+    public javaService:JavaServiceService) { }
 
   ngOnInit() {
-    this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1000);
+    this.javaService.getSpinner(1000);
   }
 }

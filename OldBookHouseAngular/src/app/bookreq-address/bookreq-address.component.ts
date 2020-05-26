@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfo, JavaServiceService } from '../java-service.service';
-import { LoginServeiceService } from '../share/login-serveice.service';
 import { NotificationService } from '../share/notification.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -21,9 +20,7 @@ export class BookreqAddressComponent implements OnInit {
     public notificationService:NotificationService,
     public dialogRef:MatDialogRef<RegistrationComponent>,
     public dialog: MatDialog,
-    public javaServiceObj:JavaServiceService ) { 
-      
-    }
+    public javaServiceObj:JavaServiceService ) { }
 
 // htis mehtod is use to call javaServiceMethod method of requestBookDetails 
 sendId(id:number){

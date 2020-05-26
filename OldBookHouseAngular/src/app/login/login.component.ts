@@ -22,12 +22,10 @@ export class LoginComponent implements OnInit {
     public registrationService: RegistrationService,
     public forgetPasswordService:ForgetPasswordService,
     public dialogRef: MatDialogRef<LoginComponent>,
-    private javaCallObj:JavaServiceService,
+    public javaCallObj:JavaServiceService,
     public dialog: MatDialog,
-    private loginAuth:AuthenticationService,
-    private router:Router) {
-
-  }
+    public loginAuth:AuthenticationService,
+    public router:Router) {}
 
   ngOnInit(): void {
   }
@@ -37,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.islogin=false;
     if (this.loginService.form.valid) {
       this.userLogin=this.loginService.form.value;
-      this.loginAuth.authenticate(this.userLogin.userName,this.userLogin.userPassword).subscribe(
+      this.loginAuth.authenticate(this.userLogin.userName.trim(),this.userLogin.userPassword).subscribe(
         data=>{
           sessionStorage.setItem('username',this.userLogin.userName);
           let tokenStr= 'Bearer '+data.token;
@@ -55,7 +53,7 @@ export class LoginComponent implements OnInit {
        );
     }
   }
-
+ // this method is use to close login component
   onClose() {
     this.loginService.form.reset();
     this.loginService.initializeFormGroup();
