@@ -10,7 +10,7 @@ export class UpdateBookPriceService {
   form: FormGroup = new FormGroup({
     amount: new FormControl('', Validators.required),
   });
-  
+
   initializeFormGroup() {
     this.form.setValue({
       amount: ''

@@ -12,19 +12,19 @@ import { AddAddressService } from '../share/add-address.service';
 })
 export class BookreqAddressComponent implements OnInit {
 
-  userInfo=new UserInfo();
-  isShowAddress:boolean=false;
-  address:any;
+  userInfo = new UserInfo();
+  isShowAddress = false;
+  address: any;
 
-  constructor(public addaddressservice:AddAddressService,
-    public notificationService:NotificationService,
-    public dialogRef:MatDialogRef<RegistrationComponent>,
-    public dialog: MatDialog,
-    public javaServiceObj:JavaServiceService ) { }
+  constructor(public addaddressservice: AddAddressService,
+              public notificationService: NotificationService,
+              public dialogRef: MatDialogRef<RegistrationComponent>,
+              public dialog: MatDialog,
+              public javaServiceObj: JavaServiceService ) { }
 
-// htis mehtod is use to call javaServiceMethod method of requestBookDetails 
-sendId(id:number){
-  this.javaServiceObj.bookObj.addressId=id;
+// htis mehtod is use to call javaServiceMethod method of requestBookDetails
+sendId(id: number) {
+  this.javaServiceObj.bookObj.addressId = id;
   this.javaServiceObj.requestBookDetails(this.javaServiceObj.bookObj);
   this.onClose();
 }
@@ -32,18 +32,18 @@ sendId(id:number){
 // this mehtod is use to call the javaServiceMethod of addAddress
 onSubmit() {
   if (this.addaddressservice.form.valid) {
-    this.userInfo=this.addaddressservice.form.value;
+    this.userInfo = this.addaddressservice.form.value;
     this.javaServiceObj.addAddress(this.userInfo).subscribe(
-      data=>{
-        this.address=data;
-        this.javaServiceObj.bookObj.addressId=this.address.address[this.address.address.length-1].id;
+      data => {
+        this.address = data;
+        this.javaServiceObj.bookObj.addressId = this.address.address[this.address.address.length - 1].id;
         this.sendId(this.javaServiceObj.bookObj.addressId);
       }
     );
-  this.addaddressservice.form.reset();
-  this.addaddressservice.initializeFormGroup();
-  this.notificationService.success(':: Submitted successfully');
-  this.onClose();
+    this.addaddressservice.form.reset();
+    this.addaddressservice.initializeFormGroup();
+    this.notificationService.success(':: Submitted successfully');
+    this.onClose();
   }
 }
 
@@ -58,19 +58,19 @@ this.dialogRef.close();
 onClear() {
   this.addaddressservice.form.reset();
   this.addaddressservice.initializeFormGroup();
-    this.notificationService.warn(':: Clear successfully');
+  this.notificationService.warn(':: Clear successfully');
 }
 
-addAddress(){
-  this.isShowAddress=true;
+addAddress() {
+  this.isShowAddress = true;
 }
 
 // this method use to get the user address
 ngOnInit() {
   this.javaServiceObj.getAddress().subscribe(
-    (data)=>{
-      this.address=data;
-      this.address=this.address.address;
+    (data) => {
+      this.address = data;
+      this.address = this.address.address;
   });
 }
 }

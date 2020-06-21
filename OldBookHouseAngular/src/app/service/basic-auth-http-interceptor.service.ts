@@ -6,23 +6,22 @@ import { HttpRequest, HttpHandler } from '@angular/common/http';
 })
 export class BasicAuthHttpInterceptorService {
 
-  temp:string;
+  temp: string;
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-    this.temp=req.url;
-    this.temp=this.temp.substr(0,26);
+    this.temp = req.url;
+    this.temp = this.temp.substr(0, 26);
 
-    if(this.temp==="https://www.googleapis.com"){
+    if (this.temp === 'https://www.googleapis.com') {
       sessionStorage.removeItem('tocken');
-    }else{
-
+    } else {
       if (sessionStorage.getItem('username') && sessionStorage.getItem('token')) {
         req = req.clone({
           setHeaders: {
-            Authorization: sessionStorage.getItem('token')   
+            Authorization: sessionStorage.getItem('token')
           }
-        })
+        });
       }
     }
     return next.handle(req);

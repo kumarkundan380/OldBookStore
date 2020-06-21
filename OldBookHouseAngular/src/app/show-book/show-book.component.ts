@@ -10,48 +10,46 @@ import { NotificationService } from '../share/notification.service';
   styleUrls: ['./show-book.component.css']
 })
 export class ShowBookComponent implements OnInit {
-  bookList:any;
-  constructor(public javaService:JavaServiceService,
-    public router:Router,
-    public hasLogin:AuthenticationService,
-    public notificationService:NotificationService) { 
-      this.bookList=this.javaService.bookList;
+  bookList: any;
+  constructor(public javaService: JavaServiceService,
+              public router: Router,
+              public hasLogin: AuthenticationService,
+              public notificationService: NotificationService) {
+      this.bookList = this.javaService.bookList;
   }
 
   ngOnInit() {
   }
 
   // this method is use to navigate the buyBook component
-  viewBook(sellOrderRequestId:number){
-    this.javaService.bookId=sellOrderRequestId;
+  viewBook(sellOrderRequestId: number) {
+    this.javaService.bookId = sellOrderRequestId;
     this.router.navigate(['/buybook']);
   }
 
   // this method is use to book added in cart
-  addToCart(bookId:number){
-    if(this.hasLogin.isUserLoggedIn()){
+  addToCart(bookId: number) {
+    if (this.hasLogin.isUserLoggedIn()) {
       this.javaService.getQuantity(bookId).subscribe(
-        data=>{
-          let bookQuantity=data;
-          if(0<bookQuantity){
+        data => {
+          const bookQuantity = data;
+          if (0 < bookQuantity) {
             this.javaService.getCartBookQuantity(bookId).subscribe(
-              data=>{
-                if(data<bookQuantity){
+              quantaty => {
+                if (quantaty < bookQuantity) {
                   this.javaService.addSellOrderRequest(bookId);
-                  this.notificationService.success("Added to Cart Successfully.");
-                }else{
-                  this.notificationService.warn("No more quantity is available.");
+                  this.notificationService.success('Added to Cart Successfully.');
+                } else {
+                  this.notificationService.warn('No more quantity is available.');
                 }
-              }
-            );
-          }else{
-            this.notificationService.warn("Book is out of stock.");
+              });
+          } else {
+            this.notificationService.warn('Book is out of stock.');
           }
-        }
-      );
-    }else{
-      this.notificationService.warn("please Login first.");
-    } 
+        });
+    } else {
+      this.notificationService.warn('please Login first.');
+    }
   }
 
 }

@@ -11,37 +11,37 @@ import { UpdatePriceComponent } from '../update-price/update-price.component';
   styleUrls: ['./update-book-price.component.css']
 })
 export class UpdateBookPriceComponent implements OnInit {
-  bookList:any;
-  constructor(public router:Router,
-    public javaServiceObj:JavaServiceService,
-    public updatePriceService:UpdateBookPriceService, 
-    public dialog:MatDialog
+  bookList: any;
+  constructor(public router: Router,
+              public javaServiceObj: JavaServiceService,
+              public updatePriceService: UpdateBookPriceService,
+              public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    if(this.javaServiceObj.oldBookStatus){
+    if (this.javaServiceObj.oldBookStatus) {
       this.javaServiceObj.getAllBook().subscribe(
-        data=>{
-          this.bookList=data;
+        data => {
+          this.bookList = data;
         }
       );
-    }else{
+    } else {
       this.javaServiceObj.getBook().subscribe(
-        data=>{
-          this.bookList=data;
+        data => {
+          this.bookList = data;
         }
       );
     }
   }
 
   // this method is use to open the UpdatePriceComponent
-  updatePrice(bookid:number){
-      this.javaServiceObj.bookId=bookid;
+  updatePrice(bookid: number) {
+      this.javaServiceObj.bookId = bookid;
       this.updatePriceService.initializeFormGroup();
       const priceDialog = new MatDialogConfig();
       priceDialog.disableClose = true;
       priceDialog.autoFocus = true;
-      priceDialog.width = "40%";
+      priceDialog.width = '40%';
       this.dialog.open(UpdatePriceComponent, priceDialog);
   }
 }

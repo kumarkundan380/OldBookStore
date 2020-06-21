@@ -9,15 +9,15 @@ import { JavaServiceService } from '../java-service.service';
 })
 export class SellHistoryComponent implements OnInit {
 
-  bookList:any;
-  constructor(public hasLogin:AuthenticationService,
-    public javaService:JavaServiceService) { }
-    
+  bookList: any;
+  constructor(public hasLogin: AuthenticationService,
+              public javaService: JavaServiceService) { }
+
   // this mehtod is use to fetch the sell book history of user
   ngOnInit() {
-    if(this.hasLogin.isUserLoggedIn()){
-      this.javaService.getSellHistory().subscribe(data=>{
-        this.bookList=data;
+    if (this.hasLogin.isUserLoggedIn()) {
+      this.javaService.getSellHistory().subscribe(data => {
+        this.bookList = data;
       });
     }
   }

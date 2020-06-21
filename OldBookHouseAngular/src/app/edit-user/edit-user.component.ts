@@ -11,56 +11,55 @@ import { EditUSerService } from '../share/edit-user.service';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  userRecord:any;
+  userRecord: any;
   roles: any[] = [
     {value: 'user', viewValue: 'User'},
     {value: 'deliveryPerson', viewValue: 'Delivery Person'},
     {value: 'admin', viewValue: 'Admin'}
   ];
-  constructor(public edituserService:EditUSerService,
-    public javaService:JavaServiceService,
-    public notificationService:NotificationService,
-    public router:Router,
-    public dialogRef:MatDialogRef<EditUserComponent>) { }
+  constructor(public edituserService: EditUSerService,
+              public javaService: JavaServiceService,
+              public notificationService: NotificationService,
+              public router: Router,
+              public dialogRef: MatDialogRef<EditUserComponent>) { }
 
   ngOnInit() {
     this.userRecord = new UserDetail();
     this.javaService.getUserById(this.javaService.userId).subscribe(data => {
        this.userRecord = data;
-       let json = {
-         userId:this.userRecord.userId,
-         firstName:this.userRecord.firstName,
-         lastName:this.userRecord.lastName,
-         email:this.userRecord.email,
-         mobileNumber:this.userRecord.mobileNumber,
-         role:this.userRecord.role,
+       const json = {
+         userId: this.userRecord.userId,
+         firstName: this.userRecord.firstName,
+         lastName: this.userRecord.lastName,
+         email: this.userRecord.email,
+         mobileNumber: this.userRecord.mobileNumber,
+         role: this.userRecord.role,
        };
        this.edituserService.setFormValue(json);
     }, error => console.log(error));
   }
 
   // this method is use to navigate the userList componebt
-  onSubmit(){
-    if(this.edituserService.form.valid){
+  onSubmit() {
+    if (this.edituserService.form.valid) {
       this.javaService.updateUserDetail(this.edituserService.form.value)
-      .subscribe(data=>{
+      .subscribe(data => {
         this.router.navigateByUrl('/refresh', { skipLocationChange: true }).then(() => {
           this.router.navigateByUrl('userList');
-        }
-        );
+        });
       });
       this.notificationService.success(':: Updated successfully');
     }
     this.onClose();
   }
 
-  onClear(){
+  onClear() {
     this.edituserService.form.reset();
     this.edituserService.initializeFormGroup();
-    
+
   }
 
-  onClose(){
+  onClose() {
     this.edituserService.form.reset();
     this.edituserService.initializeFormGroup();
     this.dialogRef.close();

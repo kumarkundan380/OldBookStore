@@ -5,13 +5,13 @@ import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGardService implements CanActivate{
+export class AuthGardService implements CanActivate {
 
-  constructor(public router:Router,
-    public authService:AuthenticationService) { }
+  constructor(public router: Router,
+              public authService: AuthenticationService) { }
 
-  canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot){
-    if(this.authService.isUserLoggedIn()){
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if ( this.authService.isUserLoggedIn()) {
       return true;
     }
     return false;

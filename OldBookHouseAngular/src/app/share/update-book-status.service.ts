@@ -9,15 +9,15 @@ export class UpdateBookStatusService {
   constructor() { }
   form: FormGroup = new FormGroup({
     sellOrderRequestId: new FormControl(''),
-    check_status: new FormControl("",Validators.required),
-    feedBack:new FormControl('',Validators.required)
+    check_status: new FormControl('', Validators.required),
+    feedBack: new FormControl('', Validators.required)
   });
-  
+
   initializeFormGroup() {
     this.form.setValue({
       sellOrderRequestId: '',
-      check_status:'',
-      feedBack:''
+      check_status: '',
+      feedBack: ''
     });
   }
 }

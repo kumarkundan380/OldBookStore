@@ -12,63 +12,60 @@ import { NotificationService } from '../share/notification.service';
   styleUrls: ['./buy-book.component.css']
 })
 export class BuyBookComponent implements OnInit {
-  bookDetail:any;
-  constructor(public javaServiceObj:JavaServiceService,
-    public addreqService:AddAddressService,
-    public dialog:MatDialog,
-    public hasLogin:AuthenticationService,
-    public notificationService:NotificationService
-  ) { }
+  bookDetail: any;
+  constructor(public javaServiceObj: JavaServiceService,
+              public addreqService: AddAddressService,
+              public dialog: MatDialog,
+              public hasLogin: AuthenticationService,
+              public notificationService: NotificationService) { }
 
   ngOnInit() {
     this.javaServiceObj.getBookById(this.javaServiceObj.bookId).subscribe((book) => {
-      this.bookDetail=book;
+      this.bookDetail = book;
     });
   }
 
   // this method is use to add the book in cart
-  addToCart(bookId:number){
-    if(this.hasLogin.isUserLoggedIn()){
+  addToCart(bookId: number) {
+    if (this.hasLogin.isUserLoggedIn()) {
 
       this.javaServiceObj.getQuantity(bookId).subscribe(
-        data=>{
-          let bookQuantity=data;
-          if(0<bookQuantity){
+        data => {
+          const bookQuantity = data;
+          if (0 < bookQuantity) {
             this.javaServiceObj.getCartBookQuantity(bookId).subscribe(
-              data=>{
-                if(data<bookQuantity){
+              quantity => {
+                if (quantity < bookQuantity) {
                   this.javaServiceObj.addSellOrderRequest(bookId);
-                  this.notificationService.success("Added to Cart Successfully.");
-                }else{
-                  this.notificationService.warn("No more quantity is available.");
+                  this.notificationService.success('Added to Cart Successfully.');
+                } else {
+                  this.notificationService.warn('No more quantity is available.');
                 }
-              }
-            );
-          }else{
-            this.notificationService.warn("Book is out of stock");
+              });
+          } else {
+            this.notificationService.warn('Book is out of stock');
           }
-        }
-      );
-    }else{
-      this.notificationService.warn("please Login first.");
+        });
+    } else {
+      this.notificationService.warn('please Login first.');
     }
   }
-  
-  // this mehod is use to purchase the book 
-  buyNow(bookId:number,bookPrice:number){
+
+  // this mehod is use to purchase the book
+  buyNow(bookId: number, bookPrice: number) {
     console.log(bookId);
-    if(this.hasLogin.isUserLoggedIn()){
-      this.javaServiceObj.bookId=bookId;
-      this.javaServiceObj.totalPrice=bookPrice;
-      this.javaServiceObj.checkCart=false;
+    if (this.hasLogin.isUserLoggedIn()) {
+      this.javaServiceObj.bookId = bookId;
+      this.javaServiceObj.totalPrice = bookPrice;
+      this.javaServiceObj.checkCart = false;
       this.addreqService.initializeFormGroup();
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.width = "50%";
-      this.dialog.open(BookDeliverAddressComponent,dialogConfig);
-    }else{
-      this.notificationService.warn("please Login first.");
+      dialogConfig.width = '50%';
+      this.dialog.open(BookDeliverAddressComponent, dialogConfig);
+    } else {
+      this.notificationService.warn('please Login first.');
     }
   }
 }

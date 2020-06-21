@@ -15,31 +15,31 @@ import { ForgetPasswordService } from '../share/forget-password.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  userLogin=new UserLogin();
-  islogin:boolean=false;
+  userLogin = new UserLogin();
+  islogin = false;
 
   constructor(public loginService: LoginServeiceService,
-    public registrationService: RegistrationService,
-    public forgetPasswordService:ForgetPasswordService,
-    public dialogRef: MatDialogRef<LoginComponent>,
-    public javaCallObj:JavaServiceService,
-    public dialog: MatDialog,
-    public loginAuth:AuthenticationService,
-    public router:Router) {}
+              public registrationService: RegistrationService,
+              public forgetPasswordService: ForgetPasswordService,
+              public dialogRef: MatDialogRef<LoginComponent>,
+              public javaCallObj: JavaServiceService,
+              public dialog: MatDialog,
+              public loginAuth: AuthenticationService,
+              public router: Router) {}
 
   ngOnInit(): void {
   }
 
   // this method is use to login the user and set data in sessionStorage
   onSubmit() {
-    this.islogin=false;
+    this.islogin = false;
     if (this.loginService.form.valid) {
-      this.userLogin=this.loginService.form.value;
-      this.loginAuth.authenticate(this.userLogin.userName.trim(),this.userLogin.userPassword).subscribe(
-        data=>{
-          sessionStorage.setItem('username',this.userLogin.userName);
-          let tokenStr= 'Bearer '+data.token;
-          sessionStorage.setItem('token', tokenStr);      
+      this.userLogin = this.loginService.form.value;
+      this.loginAuth.authenticate(this.userLogin.userName.trim(), this.userLogin.userPassword).subscribe(
+        data => {
+          sessionStorage.setItem('username', this.userLogin.userName);
+          const tokenStr = 'Bearer ' + data.token;
+          sessionStorage.setItem('token', tokenStr);
           this.router.navigate(['/mainslider']);
           this.javaCallObj.getRole();
           this.javaCallObj.getBookNotification();
@@ -47,10 +47,9 @@ export class LoginComponent implements OnInit {
           this.loginService.initializeFormGroup();
           this.onClose();
         },
-        error=>{
-        this.islogin=true;
-        }
-       );
+        error => {
+        this.islogin = true;
+        });
     }
   }
  // this method is use to close login component
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit {
     const passwordDialog = new MatDialogConfig();
     passwordDialog.disableClose = true;
     passwordDialog.autoFocus = true;
-    passwordDialog.width = "40%";
+    passwordDialog.width = '40%';
     this.dialog.open(ForgetPasswordComponent, passwordDialog);
   }
 
@@ -78,7 +77,7 @@ export class LoginComponent implements OnInit {
     const registratinDialog = new MatDialogConfig();
     registratinDialog.disableClose = true;
     registratinDialog.autoFocus = true;
-    registratinDialog.width = "60%";
+    registratinDialog.width = '60%';
     this.dialog.open(RegistrationComponent, registratinDialog);
   }
 }

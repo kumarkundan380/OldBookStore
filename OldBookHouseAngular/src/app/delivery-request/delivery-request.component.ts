@@ -3,7 +3,7 @@ import { JavaServiceService } from '../java-service.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { UpdateBookStatusComponent } from '../update-book-status/update-book-status.component';
 import { UpdateBookStatusService } from '../share/update-book-status.service';
-import * as Chart from 'chart.js'
+import * as Chart from 'chart.js';
 
 
 @Component({
@@ -13,67 +13,64 @@ import * as Chart from 'chart.js'
 })
 export class DeliveryRequestComponent implements OnInit {
 
-  array:any;
-  sucess:boolean=true;
-  pendingNo:number=0;
-  sucessNo:number=0;
-  rejectNo:number=0;
+  array: any;
+  sucess = true;
+  pendingNo = 0;
+  sucessNo = 0;
+  rejectNo = 0;
   canvas: any;
   ctx: any;
 
   constructor(public dialog: MatDialog,
-    public  javaServiceObj:JavaServiceService,
-    public updateService:UpdateBookStatusService) { }
+              public  javaServiceObj: JavaServiceService,
+              public updateService: UpdateBookStatusService) { }
 
   ngOnInit() {
-    if(this.javaServiceObj.hasAdminRole()){
+    if (this.javaServiceObj.hasAdminRole()) {
       this.javaServiceObj.getDeliveryRequestAdmin().subscribe(
-        data=>{
-          this.array=data;
-          for (let index = 0; index < this.array.length; index++) {
-            if(this.array[index][3]==='ProcessingOrder'){
+        data => {
+          this.array = data;
+          for (const index in this.array.length) {
+            if (this.array[index][3] === 'ProcessingOrder') {
               this.pendingNo++;
-            }else if(this.array[index][3]==='CanceledOrder'){
+            } else if (this.array[index][3] === 'CanceledOrder') {
               this.rejectNo++;
-            }else{
+            } else {
               this.sucessNo++;
             }
         }
-        this.drawChart();
-        }
-      );
-    }else{
+          this.drawChart();
+        });
+    } else {
       this.javaServiceObj.getDeliveryRequest().subscribe(
-        data=>{
-          this.array=data;
-        }
-      );
+        data => {
+          this.array = data;
+        });
     }
-    
   }
 
-  //this method is use to update book status
-  updateStatus(bookId:number){
-    this.javaServiceObj.bookId=this.array[bookId][0];
+  // this method is use to update book status
+  updateStatus(bookId: number) {
+    this.javaServiceObj.bookId = this.array[bookId][0];
     this.updateService.initializeFormGroup();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
-    this.dialog.open(UpdateBookStatusComponent,dialogConfig);
+    dialogConfig.width = '40%';
+    this.dialog.open(UpdateBookStatusComponent, dialogConfig);
   }
 
  // this mehod is use to draw chart
   drawChart() {
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
-    let myChart = new Chart(this.ctx, {
+    const myChart = new Chart(this.ctx, {
       type: 'bar',
       data: {
-          labels: ["Canceled Order", "Processing Order", "Shipped Order"],
+          labels: ['Canceled Order', 'Processing Order', 'Shipped Order'],
           datasets: [{
               label: '# of Votes',
-              data: [this.rejectNo,this.pendingNo,this.sucessNo],
+              data: [this.rejectNo, this.pendingNo, this.sucessNo],
               backgroundColor: [
                   'rgba(255, 99, 132, 1)',
                   'rgba(54, 162, 235, 1)',
@@ -83,9 +80,9 @@ export class DeliveryRequestComponent implements OnInit {
           }]
       },
       options: {
-        
+
         responsive: false,
-        display:true,
+        display: true,
         scales: {
           yAxes: [{
               ticks: {

@@ -10,23 +10,23 @@ import { JavaServiceService } from '../java-service.service';
 })
 export class UpdatePriceComponent implements OnInit {
 
-  book:any;
-  constructor(public updatePriceService:UpdateBookPriceService, 
-    public dialogRef: MatDialogRef<UpdatePriceComponent>,
-    public javaServiceObj:JavaServiceService) { }
-  
+  book: any;
+  constructor(public updatePriceService: UpdateBookPriceService,
+              public dialogRef: MatDialogRef<UpdatePriceComponent>,
+              public javaServiceObj: JavaServiceService) { }
+
     ngOnInit() {}
-  
-    onSubmit(){
+
+    onSubmit() {
       if (this.updatePriceService.form.valid) {
-        this.book=this.updatePriceService.form.value;
-        this.javaServiceObj.updateBookPrice(this.book.amount,this.javaServiceObj.bookId);
+        this.book = this.updatePriceService.form.value;
+        this.javaServiceObj.updateBookPrice(this.book.amount, this.javaServiceObj.bookId);
       }
       this.updatePriceService.form.reset();
       this.updatePriceService.initializeFormGroup();
       this.onClose();
     }
-    
+
     onClose() {
       this.updatePriceService.form.reset();
       this.updatePriceService.initializeFormGroup();

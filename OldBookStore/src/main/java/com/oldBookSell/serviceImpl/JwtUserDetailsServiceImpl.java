@@ -29,10 +29,10 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 	private UserDetailRepository userDetailRepository;
 	
 	/**
-	 * This method is use to load user by username
+	 * This method is use to load user by user name
 	 * @param username this is the parameter of loadUserByUsername method
 	 * @return UserDetails this returns details of user
-	 * @exception UsernameNotFoundException if user is not fuond then throw exception
+	 * @exception UsernameNotFoundException if user is not found then throw exception
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

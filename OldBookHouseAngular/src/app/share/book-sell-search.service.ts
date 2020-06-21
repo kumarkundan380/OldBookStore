@@ -10,10 +10,10 @@ export class BookSellSearchService {
   form: FormGroup = new FormGroup({
     bookISBN: new FormControl('', Validators.required)
   });
-  
+
   initializeFormGroup() {
     this.form.setValue({
-      bookISBN:''
+      bookISBN: ''
     });
   }
 }

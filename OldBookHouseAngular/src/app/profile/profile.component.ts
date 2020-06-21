@@ -10,22 +10,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ProfileComponent implements OnInit {
 
-  userInfo=new UserInfo();
-  profile:any;
-  name:string;
-  email:string;
-  mobile:string;
-  constructor( public javaServiceObj:JavaServiceService,
-    public dialogRef:MatDialogRef<ProfileComponent>) { }
+  userInfo = new UserInfo();
+  profile: any;
+  name: string;
+  email: string;
+  mobile: string;
+  constructor( public javaServiceObj: JavaServiceService,
+               public dialogRef: MatDialogRef<ProfileComponent>) { }
 
     // This method is use to fetch user profile
     ngOnInit() {
     this.javaServiceObj.getAddress().subscribe(
-      (data)=>{
-        this.profile=data;
-        this.name=this.profile.firstName+" "+this.profile.lastName;
-        this.email=this.profile.email;
-        this.mobile=this.profile.mobileNumber;
+      (data) => {
+        this.profile = data;
+        this.name = this.profile.firstName + ' ' + this.profile.lastName;
+        this.email = this.profile.email;
+        this.mobile = this.profile.mobileNumber;
       });
   }
   onClose() {

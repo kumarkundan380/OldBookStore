@@ -10,29 +10,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./update-book-status.component.css']
 })
 export class UpdateBookStatusComponent implements OnInit {
-status:any;
-  constructor(public bookStatus:UpdateBookStatusService,
-    public dialogRef: MatDialogRef<UpdateBookStatusComponent>,
-    public dialog: MatDialog,
-    public javaService:JavaServiceService,
-    public router:Router) { }
+status: any;
+  constructor(public bookStatus: UpdateBookStatusService,
+              public dialogRef: MatDialogRef<UpdateBookStatusComponent>,
+              public dialog: MatDialog,
+              public javaService: JavaServiceService,
+              public router: Router) { }
 
   ngOnInit() {
   }
 
-  //this method is use to update the book status
+  // this method is use to update the book status
   onSubmit() {
     if (this.bookStatus.form.valid) {
-      this.status=this.bookStatus.form.value;
-      this.status.sellOrderRequestId=this.javaService.bookId;
-      if(this.javaService.deliveryForBuy){
+      this.status = this.bookStatus.form.value;
+      this.status.sellOrderRequestId = this.javaService.bookId;
+      if (this.javaService.deliveryForBuy) {
         this.javaService.updateBuyBookStatus(this.status);
-      }else{
+      } else {
         this.javaService.updateBookStatus(this.status);
       }
       this.bookStatus.form.reset();
       this.bookStatus.initializeFormGroup();
-      this.onClose(); 
+      this.onClose();
     }
   }
 

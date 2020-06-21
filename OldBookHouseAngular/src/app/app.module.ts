@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { LoginServeiceService } from './share/login-serveice.service';
 import { RegistrationService } from './share/registration.service';
@@ -91,13 +91,18 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     InfiniteScrollModule,
     NgxSpinnerModule
   ],
-  providers: [LoginServeiceService,RegistrationService,NotificationService,JavaServiceService,PaymentService,DialogService,AuthGardService,
-    {    
-      provide:HTTP_INTERCEPTORS,useClass:BasicAuthHttpInterceptorService,multi:true
+  providers: [LoginServeiceService,
+      RegistrationService,
+      NotificationService,
+      JavaServiceService,
+      PaymentService,
+      DialogService,
+      AuthGardService, {
+      provide: HTTP_INTERCEPTORS, useClass: BasicAuthHttpInterceptorService, multi: true
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents:[MainsliderComponent,ConfirmDialogComponent]
+  entryComponents: [MainsliderComponent, ConfirmDialogComponent]
 
 })
 export class AppModule { }

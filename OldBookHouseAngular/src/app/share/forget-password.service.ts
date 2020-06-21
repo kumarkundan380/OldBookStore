@@ -10,7 +10,7 @@ export class ForgetPasswordService {
   form: FormGroup = new FormGroup({
     userName: new FormControl('', Validators.required),
   });
-  
+
   initializeFormGroup() {
     this.form.setValue({
       userName: ''

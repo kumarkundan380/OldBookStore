@@ -10,18 +10,18 @@ import { JavaServiceService } from '../java-service.service';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  user:any;
-  constructor(public forgetPasswordService:ForgetPasswordService, 
-    public dialogRef: MatDialogRef<ForgetPasswordComponent>,
-    public javaServiceObj:JavaServiceService) { }
+  user: any;
+  constructor(public forgetPasswordService: ForgetPasswordService,
+              public dialogRef: MatDialogRef<ForgetPasswordComponent>,
+              public javaServiceObj: JavaServiceService) { }
   ngOnInit() {
   }
 
   // this method is use to get user details from form and call to forgetPassword mehtod
-  onSubmit(){
+  onSubmit() {
     if (this.forgetPasswordService.form.valid) {
 
-      this.user=this.forgetPasswordService.form.value;
+      this.user = this.forgetPasswordService.form.value;
       this.javaServiceObj.forgetPassword(this.user.userName);
     }
     this.forgetPasswordService.form.reset();

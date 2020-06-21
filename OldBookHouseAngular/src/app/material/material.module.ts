@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { MatSliderModule }  from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
-const MaterialComponents=[MatInputModule,
+const MaterialComponents = [MatInputModule,
                           MatSliderModule,
                           MatToolbarModule,
                           MatGridListModule,
@@ -39,7 +39,7 @@ const MaterialComponents=[MatInputModule,
                           MatSidenavModule];
 
 @NgModule({
-  
+
   imports: [MaterialComponents],
   exports: [MaterialComponents]
 })
