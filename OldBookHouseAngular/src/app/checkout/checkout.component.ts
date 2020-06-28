@@ -40,7 +40,7 @@ export class CheckoutComponent implements OnInit {
   checkQuantity() {
     for (const index of this.bookList) {
       if (index.quantity === 0) {
-        this.deleteBookRequest(this.bookList[index].buyOrderRequestId);
+        this.deleteBookRequest(index.buyOrderRequestId);
       }
     }
   }

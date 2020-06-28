@@ -16,8 +16,8 @@ import com.oldBookSell.service.BookService;
 /**
  * This is BookServiceImpl implements an application that
  * simply calls BookService interface methods
- * @author Kundan,Praveen
- * @version 1.0
+ * @author Kundan , Praveen
+ * @version 1.8
  * @since 2020-05-18
  */
 
@@ -218,12 +218,18 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void minusQuantity(int bookId, int quantity) {
 		LOGGER.info("BookService minusQuantity method is calling.....");
-		Optional<Book> bookRequest =bookRepository.findByBookId(bookId);
-		Book bookObj=new Book();
-		bookObj=bookRequest.get();
-		bookObj.setQuantity(bookObj.getQuantity()-quantity);
-		LOGGER.info(" In BookService getAllBookForUpdate method book quantity "+bookObj.getQuantity());
-		bookRepository.save(bookObj);
+		Optional<Book> bookRequest =bookRepository.findById(bookId);
+		if(bookRequest.isPresent()) {
+			Book bookObj=new Book();
+			bookObj=bookRequest.get();
+			bookObj.setQuantity(bookObj.getQuantity()-quantity);
+			LOGGER.info(" In BookService getAllBookForUpdate method book quantity "+bookObj.getQuantity());
+			bookRepository.save(bookObj);
+		}
+		else {
+			LOGGER.info("Book not found:");
+		}
+		
 	}
 	
 	/**

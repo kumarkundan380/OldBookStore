@@ -38,8 +38,7 @@ export class BooksellComponent implements OnInit {
       this.javaService.getSpinner(1500);
       this.array = data;
       this.isBook = true;
-      }
-    );
+      });
   }
 
   ngOnInit(): void {
@@ -59,7 +58,7 @@ export class BooksellComponent implements OnInit {
 
   // this mehod is use to save the book details
   sellBook(bookNumber: number) {
-    console.log(this.array.items[bookNumber]);
+  //  console.log(this.array.items[bookNumber]);
     this.javaService.bookObj.bookName = this.array.items[bookNumber].volumeInfo.title;
     this.javaService.bookObj.authors = this.array.items[bookNumber].volumeInfo.authors[0];
     try {

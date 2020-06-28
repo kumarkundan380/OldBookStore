@@ -45,7 +45,8 @@ public interface BookRepository extends JpaRepository<Book, Integer>{
 	@Query(value="select distinct categories from book where amount!=0",nativeQuery=true)
 	Iterable<Object> findAllCatogory();
 	
-	Optional<Book> findByBookId(int bookId);
+	//Optional<Book> findByBookId(int bookId);
+	Optional<Book>findById(int bookId);
 	
 	@Query(value="select * from book where amount!=0 and quantity!=0",nativeQuery = true)
 	List<Book> findAllBookForSell();

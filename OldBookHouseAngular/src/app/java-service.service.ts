@@ -411,7 +411,7 @@ export class JavaServiceService {
 
   // this method is use to update the book price
   updateBookPrice(price: number, bookId: number) {
-    const array = new Array(2);
+    const array: any[] = [];
     array[0] = bookId;
     array[1] = price;
     this.urls = this.url + 'updateBookPrice';
