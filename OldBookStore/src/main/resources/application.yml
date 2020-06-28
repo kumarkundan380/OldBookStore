@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/oldbookstore?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: root
-    password: Kundan@123
+    password: Your-Password
 
   jpa:
     show-sql: true
@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 25
-    username: kumarkundan380@gmail.com
-    password: kunmuz@123
+    username: Your Email-id
+    password: Your Password
     
     properties:
       mail:
