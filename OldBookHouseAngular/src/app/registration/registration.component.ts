@@ -40,7 +40,7 @@ onSubmit() {
       }, error => {
         this.registrationService.form.reset();
         this.registrationService.initializeFormGroup();
-        this.notificationService.success(':: Registation Failed');
+        this.notificationService.warn(':: Registation Failed');
         this.onClose();
         }
     );

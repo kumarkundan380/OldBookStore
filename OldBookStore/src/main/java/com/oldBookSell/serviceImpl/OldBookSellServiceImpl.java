@@ -27,7 +27,7 @@ import com.oldBookSell.service.OldBookSellServices;
 /**
  * This is OldBookSellServiceImpl implements an application that
  * simply calls OldBookSellService interface methods
- * @author Kundan,Praveen
+ * @author Kundan
  * @version 1.0
  * @since 2020-05-18
 */
@@ -48,7 +48,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	
 	/**
 	   * This method is used to register user. 
-	   * @param oldbookSellDTO This is the paramter to createUser method
+	   * @param oldbookSellDTO This is the parameter to createUser method
 	   * @return OldBookSellDTO This returns user details.
 	 */
 
@@ -79,7 +79,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		list.add(addressObj);
 		
 		if(userDetailRepository.existsByEmail(odlBookSellDTO.getEmail().trim())) {
-			UserDetails userObj=	userDetailRepository.findByEmail(odlBookSellDTO.getEmail().trim());
+			UserDetails userObj = userDetailRepository.findByEmail(odlBookSellDTO.getEmail().trim());
 			list.addAll(userObj.getAddress());
 			userObj.setAddress(list);
 			userDetailRepository.save(userObj);
@@ -90,14 +90,13 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 		String msg="Greetings :) Welcome in OldBookHouse :)" + " your UserName is your emial ";
 		String result=sendMail(odlBookSellDTO.getEmail(),msg);
 		LOGGER.info("In OldBOOKSelService result: "+result);
-		LOGGER.info("User information is saved in user_details table");
 		
 		return odlBookSellDTO;
 	}
 	
 	/**
-	   * This method is used to add exgisting user address. 
-	   * @param address This is the paramter of addAddress method
+	   * This method is used to add existing user address. 
+	   * @param address This is the parameter of addAddress method
 	   * @return UserDetails This returns user details.
 	*/
 
@@ -130,7 +129,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 * This method is used to get exgisting user address. 
+	 * This method is used to get existing user address. 
 	 * @return UserDetails This returns user details.
 	 */
 	
@@ -143,7 +142,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 *  This method is used to get List of exgisting user.
+	 *  This method is used to get List of existing user.
 	 * @return Iterable<UserDetails> this returns user details
 	 */
 	
@@ -155,8 +154,8 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 * This method is used to get a exgisting user details.
-	 * @param id This is the paramter of getUserById method
+	 * This method is used to get a existing user details.
+	 * @param id This is the parameter of getUserById method
 	 * @return UserDetails This returns user details
 	 */
 	
@@ -167,7 +166,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 * This method is used to update exgisting user
+	 * This method is used to update existing user
 	 * @param userDetails This is the parameter of updateUser method
 	 * @return Optional<UserDetails> This returns user details
 	 */
@@ -187,7 +186,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 * This method is used to delete exgisting user
+	 * This method is used to delete existing user
 	 * @param userId This is the parameter of deleteUser method
 	 * @return int This returns 0
 	 */
@@ -200,7 +199,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	}
 	
 	/**
-	 * This method is used to get the role of exgisting user
+	 * This method is used to get the role of existing user
 	 * @return String this returns user role
 	 */
 
@@ -242,7 +241,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	 * This method is used to send mail during registration
 	 * @param email this is the first parameter of sendMail method
 	 * @param msg this is the second parameter of sendMail method
-	 * @return String this return a message mail sucessfully send or not
+	 * @return String this return a message mail successfully send or not
 	 */
 	
 	@Override
@@ -266,7 +265,7 @@ public class OldBookSellServiceImpl implements OldBookSellServices{
 	
 	/**
 	   * This method is used to forget password. 
-	   * @param userName This is the paramter of changePassword method
+	   * @param userName This is the parameter of changePassword method
 	 */
 	
 	@Override

@@ -232,9 +232,7 @@ public class OldBookSellController {
 		
 		@RequestMapping("/bookStatus")
 		public void updateBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
-			LOGGER.info("Controller updateBookStatus method is caiing....");
 			LOGGER.info(" In Controller updateBookStatus method status is "+sellOrderRequestDTO.getCheckStatus());
-			LOGGER.info(" In Controller updateBookStatus method feedback is "+sellOrderRequestDTO.getFeedBack());
 			sellOrderRequestService.updateBookStatus(sellOrderRequestDTO);
 			
 			if(sellOrderRequestDTO.getCheckStatus().equals("PickUpOrder")) {

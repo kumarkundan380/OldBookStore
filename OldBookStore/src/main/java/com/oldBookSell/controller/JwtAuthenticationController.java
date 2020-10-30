@@ -22,8 +22,8 @@ import com.oldBookSell.service.JwtUserDetailsService;
 
 /**
 	* This is JwtAuthenticationController that authenticate user and
-	* genrate token.
-	* @author  Kundan,Praveen
+	* Generate token.
+	* @author  Kundan
 	* @version 1.0
 	* @since 2020-05-18
 */
@@ -44,9 +44,9 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 	
 	/**
-	 * This method is used to authenticate and genrate jwt token
+	 * This method is used to authenticate and generate jwt token
 	 * @param authenticationRequest this is the parameter of createAuthenticationToken method 
-	 * @return ResponseEntity this returns status ok or failed.
+	 * @return ResponseEntity this returns status OK or failed.
 	 * @throws Exception if something went wrong then throw an exception
 	 */
 	

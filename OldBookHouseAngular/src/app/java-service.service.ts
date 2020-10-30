@@ -46,9 +46,9 @@ export class BookDetails {
   public categories: string;
   public contentVersion: string;
   public isbnType10: string;
-  public isbnNo1: number;
+  public isbnNo1: number|string;
   public isbnType13: string;
-  public isbnNo2: number;
+  public isbnNo2: number|string;
   public smallThumbnail: string;
   public thumbnail: string;
   public amount = 0.0;
@@ -138,10 +138,10 @@ export class JavaServiceService {
   // this method is use to save the book details of user
   requestBookDetails(bookObj: BookDetails) {
     this.urls = this.url + 'bookDetailsRequest';
-    console.log(bookObj);
+  //  console.log(bookObj);
     this.http.post(this.urls, bookObj).subscribe(
       data => {
-        console.log(data);
+      //  console.log(data);
       });
   }
 

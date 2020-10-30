@@ -8,8 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
- * This is MailSend that is use to send the mail to registerd user
- * @author  Kundan,Praveen
+ * This is MailSend that is use to send the mail to registered user
+ * @author  Kundan
  * @version 1.0
  * @since 2020-05-18
 */

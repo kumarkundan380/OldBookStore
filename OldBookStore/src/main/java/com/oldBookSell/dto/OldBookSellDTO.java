@@ -3,7 +3,7 @@ package com.oldBookSell.dto;
 /**
  * This is OldBookSellDTO that is use to transfer data in
  * OldBookSellServiceImpl class.	
- * @author  Kundan,Praveen
+ * @author  Kundan
  * @version 1.0
  * @since 2020-05-18
 */
