@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oldbookstore?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/oldbookstore
     username: root
-    password: Your-Password
+    password: jaimatadi
 
   jpa:
     show-sql: true
@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 25
-    username: Your Email-id
-    password: Your Password
+    username: kumarkundan380@gmail.com
+    password: kunmuz@123
     
     properties:
       mail:

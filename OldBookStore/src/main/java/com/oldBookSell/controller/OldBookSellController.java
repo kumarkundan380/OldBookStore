@@ -37,7 +37,7 @@ import com.stripe.model.Charge;
 /**
  	* This is OldBookSellController implements an application that
  	* simply calls com.oldbooksell.service package interface methods.
-	* @author  Kundan,Praveen
+	* @author  Kundan
 	* @version 1.0
 	* @since 2020-05-18
 */
@@ -68,7 +68,7 @@ public class OldBookSellController {
 		
 		/**
 		   * This method is used to register user. 
-		   * @param userDetail This is the paramter to createUser method
+		   * @param userDetail This is the parameter to createUser method
 		   * @return OldBookSellDTO This returns user details.
 		 */
 		
@@ -80,7 +80,7 @@ public class OldBookSellController {
 		
 		/**
 		   * This method is used to forget password. 
-		   * @param userName This is the paramter of forgetPassword method
+		   * @param userName This is the parameter of forgetPassword method
 		 */
 		
 		@RequestMapping("/forgetPassword")
@@ -90,8 +90,8 @@ public class OldBookSellController {
 		}
 		
 		/**
-		   * This method is used to add exgisting user address. 
-		   * @param userDetail This is the paramter of addAddress method
+		   * This method is used to add existing user address. 
+		   * @param userDetail This is the parameter of addAddress method
 		   * @return UserDetails This returns user details.
 		*/
 		
@@ -102,7 +102,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get exgisting user address. 
+		 * This method is used to get existing user address. 
 		 * @return UserDetails This returns user details.
 		 */
 		
@@ -113,7 +113,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 *  This method is used to get List of exgisting user.
+		 *  This method is used to get List of existing user.
 		 * @return Iterable<UserDetails> this returns user details
 		 */
 		
@@ -124,8 +124,8 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get a exgisting user details.
-		 * @param id This is the paramter of getUserById method
+		 * This method is used to get a existing user details.
+		 * @param id This is the parameter of getUserById method
 		 * @return UserDetails This returns user details
 		 */
 		
@@ -136,7 +136,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to update exgisting user
+		 * This method is used to update existing user
 		 * @param user This is the parameter of updateUser method
 		 * @return UserDetails This returns user details
 		 */
@@ -148,7 +148,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to delete exgisting user
+		 * This method is used to delete existing user
 		 * @param userId This is the parameter of deleteUser method
 		 * @return int This returns 0
 		 */
@@ -160,7 +160,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get the role of exgisting user
+		 * This method is used to get the role of existing user
 		 * @return String this returns user role
 		 */
 		
@@ -180,7 +180,8 @@ public class OldBookSellController {
 		
 		@RequestMapping("/bookDetailsRequest")
 		public SellOrderRequestDTO addBookDetails(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
-			LOGGER.info("Controller addBookDetails method is caiing....");
+			LOGGER.info("Controller addBookDetails method is calling....");
+			System.out.println(sellOrderRequestDTO);
 			int deliveryId=oldBookSellServices.getDeliveryPerson();
 			LOGGER.info("In Controller addBookDetails method Delivery Id=" +deliveryId);
 			sellOrderRequestDTO.setDileveryPersonId(deliveryId);
@@ -188,7 +189,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to get sell order dellivery request
+		 * This method is used to get sell order delivery request
 		 * @return Iterable<Object> this returns book user information
 		 */
 		
@@ -232,11 +233,11 @@ public class OldBookSellController {
 		@RequestMapping("/bookStatus")
 		public void updateBookStatus(@RequestBody SellOrderRequestDTO sellOrderRequestDTO) {
 			LOGGER.info("Controller updateBookStatus method is caiing....");
-			LOGGER.info(" In Controller updateBookStatus method status is "+sellOrderRequestDTO.getCheck_status());
+			LOGGER.info(" In Controller updateBookStatus method status is "+sellOrderRequestDTO.getCheckStatus());
 			LOGGER.info(" In Controller updateBookStatus method feedback is "+sellOrderRequestDTO.getFeedBack());
 			sellOrderRequestService.updateBookStatus(sellOrderRequestDTO);
 			
-			if(sellOrderRequestDTO.getCheck_status().equals("PickUpOrder")) {
+			if(sellOrderRequestDTO.getCheckStatus().equals("PickUpOrder")) {
 				Optional<SellOrderRequest> sellOrderRequest=sellOrderRequestService.findBookById(sellOrderRequestDTO.getSellOrderRequestId());
 
 				BookDTO bookDTOObj = new BookDTO();
@@ -265,7 +266,7 @@ public class OldBookSellController {
 		 * This method is used to get the the list of book after scroll
 		 * @param min this is the first parameter of getBook method
 		 * @param max this is the second parameter of getBook method
-		 * @return List<Book> ths returns list of book
+		 * @return List<Book> this returns list of book
 		 */
 		
 		@GetMapping("/findBooks/{min}/{max}")
@@ -304,7 +305,7 @@ public class OldBookSellController {
 		
 		/**
 		 * This method is used to get book by publisher name
-		 * @param publisher this is the paramter of findBookByPublisher method
+		 * @param publisher this is the parameter of findBookByPublisher method
 		 * @return List<Book> this returns list of book
 		 */
 		
@@ -341,8 +342,8 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to find all distinct available  book catogory
-		 * @return Iterable<Object> this returns list of book by catogory
+		 * This method is used to find all distinct available  book category
+		 * @return Iterable<Object> this returns list of book by category
 		 */
 		
 		@GetMapping("/allCatogory")
@@ -352,7 +353,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to search book by title or author name or publisher or isbn number
+		 * This method is used to search book by title or author name or publisher or ISBN number
 		 * @param bookName this is the parameter of searchBook method
 		 * @return List<Book> this returns list of books
 		 */
@@ -387,7 +388,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to upadte the price of book
+		 * This method is used to update the price of book
 		 * @param arr this is the parameter of updateBookPrice method
 		 * @return Book this returns book information
 		 */
@@ -414,7 +415,7 @@ public class OldBookSellController {
 		/* Controller for BuyorderRequestService */
 		
 		/**
-		 * This mehod is used to purchase a particular book information
+		 * This method is used to purchase a particular book information
 		 * @param bookId this is the parameter of addBuyOrderRequest method
 		 * @return int this returns book id
 		 */
@@ -459,7 +460,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to increse the quantity of book by one
+		 * This method is used to increase the quantity of book by one
 		 * @param requestBookId this is the parameter of addQuantity method
 		 * @return BuyOrderRequest this returns a book information
 		 */
@@ -471,7 +472,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to decreses the quantity of book by one
+		 * This method is used to decreases the quantity of book by one
 		 * @param requestBookId this is the parameter of substractQuantity method
 		 * @return BuyOrderRequest this returns a book information
 		 */
@@ -529,12 +530,12 @@ public class OldBookSellController {
 			LOGGER.info("Controller updateBuyBookStatus method is calling....");
 			LOGGER.info("In Controller updateBuyBookStatus method SellOrderRequestId = "+sellOrderRequestDTO.getSellOrderRequestId());
 			LOGGER.info("In Controller updateBuyBookStatus method sellOrderRequestDTO.getFeedBack = "+sellOrderRequestDTO.getFeedBack());
-			buyOrderRequestService.updateBuyBookStatus(sellOrderRequestDTO.getSellOrderRequestId(),sellOrderRequestDTO.getCheck_status());
+			buyOrderRequestService.updateBuyBookStatus(sellOrderRequestDTO.getSellOrderRequestId(),sellOrderRequestDTO.getCheckStatus());
 		}
 		
 		/**
 		 * This method is used to show all the buy request to admin  
-		 * @return Iterable<Object> ths returns list of book information
+		 * @return Iterable<Object> this returns list of book information
 		 */
 		
 		@GetMapping("/getSellRequestAdmin")
@@ -544,7 +545,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to show all purschase book
+		 * This method is used to show all purchase book
 		 * @return List<BuyOrderRequest> this returns purchase book information
 		 */
 		
@@ -609,7 +610,7 @@ public class OldBookSellController {
 		
 		/**
 		 * This method is used to save multiple book payment information
-		 * @param payment this is the parameter od 
+		 * @param payment this is the parameter 
 		 * @return Payment this returns payments information
 		 */
 		
@@ -627,7 +628,7 @@ public class OldBookSellController {
 		}
 		
 		/**
-		 * This method is used to genrate invoice
+		 * This method is used to generate invoice
 		 * @param transatctionId
 		 * @return Iterable<Object> this returns invoice
 		 */

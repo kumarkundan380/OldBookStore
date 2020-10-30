@@ -138,8 +138,10 @@ export class JavaServiceService {
   // this method is use to save the book details of user
   requestBookDetails(bookObj: BookDetails) {
     this.urls = this.url + 'bookDetailsRequest';
+    console.log(bookObj);
     this.http.post(this.urls, bookObj).subscribe(
       data => {
+        console.log(data);
       });
   }
 

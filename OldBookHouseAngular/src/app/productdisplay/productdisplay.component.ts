@@ -31,6 +31,7 @@ export class ProductdisplayComponent implements OnInit {
   ngOnInit() {
     this.javaService.findBooks(0, 3).subscribe((books: any[]) => {
       this.bookList = books;
+      console.log(this.bookList);
    });
   }
 

@@ -10,7 +10,7 @@
         </form>
     </div>
     <div *ngIf='isBook'>
-    <div class="col-sm-12 booktable"  *ngFor="let i of [0,1,2]">
+    <div class="col-sm-12 booktable"  *ngFor="let i of this.listBook">
         <div class="col-sm-2 product-detail">
             <div class="product-warp">
                 <div class="product-info">
@@ -20,7 +20,7 @@
         </div>
         <div class="col-sm-7">
             <div class="product-info product-info-wrap">
-                
+
                     <h4 class="title-name">{{this.array.items[i].volumeInfo.title}}</h4>
                     <div>
                         <p>Authors : <span class="catagory"> {{this.array.items[i].volumeInfo.authors[0]}}</span></p>
@@ -28,7 +28,7 @@
                         <p>Publisher : <span class="catagory">{{this.array.items[i].volumeInfo.publisher}}</span></p>
                         <p>Publisher Date : <span class="catagory">{{this.array.items[i].volumeInfo.publishedDate}}</span></p>
                     </div>
-            </div> 
+            </div>
         </div>
         <div class="col-sm-3">
             <div class="title-warp text-center">

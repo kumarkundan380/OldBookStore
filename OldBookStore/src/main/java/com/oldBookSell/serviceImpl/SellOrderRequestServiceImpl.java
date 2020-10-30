@@ -45,22 +45,22 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 		
 		SellOrderRequest sellOrderRequestObj=new SellOrderRequest();
 		
-		sellOrderRequestObj.setBookName(sellOrderRequestDTO.getBook_name());
+		sellOrderRequestObj.setBookName(sellOrderRequestDTO.getBookName());
 		sellOrderRequestObj.setAuthors(sellOrderRequestDTO.getAuthors());
 		sellOrderRequestObj.setDescription(sellOrderRequestDTO.getDescription());
 		sellOrderRequestObj.setPublisher(sellOrderRequestDTO.getPublisher());
 		sellOrderRequestObj.setPublishedDate(sellOrderRequestDTO.getPublishedDate());
 		sellOrderRequestObj.setCategories(sellOrderRequestDTO.getCategories());
-		sellOrderRequestObj.setIsbnType10(sellOrderRequestDTO.getIsbn_type_10());
+		sellOrderRequestObj.setIsbnType10(sellOrderRequestDTO.getIsbnType10());
 		sellOrderRequestObj.setIsbnNo1(sellOrderRequestDTO.getIsbnNo1());
-		sellOrderRequestObj.setIsbnType13(sellOrderRequestDTO.getIsbn_type_13());
+		sellOrderRequestObj.setIsbnType13(sellOrderRequestDTO.getIsbnType13());
 		sellOrderRequestObj.setIsbnNo2(sellOrderRequestDTO.getIsbnNo2());
 		sellOrderRequestObj.setSmallThumbnail(sellOrderRequestDTO.getSmallThumbnail());
 		sellOrderRequestObj.setThumbnail(sellOrderRequestDTO.getThumbnail());
 		sellOrderRequestObj.setAmount(sellOrderRequestDTO.getAmount());
 		sellOrderRequestObj.setCurrencyCode(sellOrderRequestDTO.getCurrencyCode());
 		sellOrderRequestObj.setQuantity(sellOrderRequestDTO.getQuantity());
-		sellOrderRequestObj.setCheckStatus(sellOrderRequestDTO.getCheck_status());
+		sellOrderRequestObj.setCheckStatus(sellOrderRequestDTO.getCheckStatus());
 		sellOrderRequestObj.setUserId(authentication.getName());
 		sellOrderRequestObj.setAddressId(sellOrderRequestDTO.getAddressId());
 		sellOrderRequestObj.setDileveryPersonId(sellOrderRequestDTO.getDileveryPersonId());
@@ -90,7 +90,7 @@ public class SellOrderRequestServiceImpl implements SellOrderRequestService {
 	@Override
 	public void updateBookStatus(SellOrderRequestDTO sellOrderRequestDTO) {
 		LOGGER.info("SellOrderRequestService updateBookStatus method is calling....");
-		sellOrderRequest.updateBookStatus(sellOrderRequestDTO.getCheck_status(),sellOrderRequestDTO.getFeedBack(),sellOrderRequestDTO.getSellOrderRequestId());
+		sellOrderRequest.updateBookStatus(sellOrderRequestDTO.getCheckStatus(),sellOrderRequestDTO.getFeedBack(),sellOrderRequestDTO.getSellOrderRequestId());
 	}
 	
 	/**

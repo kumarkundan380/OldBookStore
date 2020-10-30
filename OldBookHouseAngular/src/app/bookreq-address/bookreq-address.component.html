@@ -22,36 +22,36 @@
       <form [formGroup]="addaddressservice.form" class="normal-form" (submit)="onSubmit()">
         <mat-grid-list cols=1 rowHeight="400px">
           <mat-grid-tile>
-            <div class="controles-container">          
+            <div class="controles-container">
               <mat-form-field>
                 <input formControlName="address" matInput placeholder="Address*">
                 <mat-error>This field is mandatory.</mat-error>
               </mat-form-field>
-      
+
               <mat-form-field>
                 <input formControlName="address2" matInput placeholder="Address 2">
                 <mat-error>This field is mandatory.</mat-error>
               </mat-form-field>
-      
+
               <mat-form-field>
                 <input formControlName="district" matInput placeholder="District*">
                 <mat-error>This field is mandatory.</mat-error>
               </mat-form-field>
-      
+
               <mat-form-field>
                 <input formControlName="location" matInput placeholder="Location*">
                 <mat-error>This field is mandatory.</mat-error>
               </mat-form-field>
-      
+
               <mat-form-field>
                 <input formControlName="pinCode" matInput placeholder="Postal Code*">
                 <mat-error>This field is mandatory.</mat-error>
               </mat-form-field>
-      
+
               <mat-form-field>
                 <input formControlName="state" matInput placeholder="State*">
                 <mat-error>This field is mandatory.</mat-error>
-              </mat-form-field>        
+              </mat-form-field>
             </div>
           </mat-grid-tile>
         </mat-grid-list>

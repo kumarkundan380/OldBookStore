@@ -24,6 +24,7 @@ status: any;
   onSubmit() {
     if (this.bookStatus.form.valid) {
       this.status = this.bookStatus.form.value;
+      console.log(this.status);
       this.status.sellOrderRequestId = this.javaService.bookId;
       if (this.javaService.deliveryForBuy) {
         this.javaService.updateBuyBookStatus(this.status);

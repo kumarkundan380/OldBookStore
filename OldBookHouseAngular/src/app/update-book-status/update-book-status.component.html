@@ -9,7 +9,7 @@
             <mat-grid-tile>
                 <div class="controles-container">
                    <p>plese select Book Status</p>
-                        <select formControlName="check_status" id="status" >
+                        <select formControlName="checkStatus" id="status" >
                             <option value="ProcessingOrder">ProcessingOrder</option>
                             <option value="CanceledOrder">CanceledOrder</option>
                             <option *ngIf="!this.javaService.deliveryForBuy" value="PickUpOrder">PickUpOrder</option>
@@ -22,11 +22,11 @@
                     </mat-form-field>
                     <div>
                     </div>
-                    <div class="d-flex justify-content-center text-center"> 
+                    <div class="d-flex justify-content-center text-center">
                         <button  class="login-button loginButton"  mat-raised-button color="accent" type="submit">Submit</button>
                     </div>
-                </div>    
+                </div>
             </mat-grid-tile>
-        </mat-grid-list>    
-    </form> 
+        </mat-grid-list>
+    </form>
 </div>

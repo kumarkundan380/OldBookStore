@@ -20,6 +20,7 @@ export class BooksellComponent implements OnInit {
   book: any;
   name: any;
   array: any;
+  listBook: number[] = [0, 1, 2];
   isBook = false;
 
   constructor(public dialog: MatDialog,
@@ -37,6 +38,7 @@ export class BooksellComponent implements OnInit {
       data => {
       this.javaService.getSpinner(1500);
       this.array = data;
+      console.log(this.array);
       this.isBook = true;
       });
   }
@@ -51,6 +53,7 @@ export class BooksellComponent implements OnInit {
         data => {
           this.javaService.getSpinner(1500);
           this.array = data;
+          console.log(this.array);
           this.isBook = true;
         });
     }
@@ -59,7 +62,9 @@ export class BooksellComponent implements OnInit {
   // this mehod is use to save the book details
   sellBook(bookNumber: number) {
   //  console.log(this.array.items[bookNumber]);
+  //  console.log(this.array.items[bookNumber].volumeInfo.title);
     this.javaService.bookObj.bookName = this.array.items[bookNumber].volumeInfo.title;
+  //  console.log(this.javaService.bookObj.bookName);
     this.javaService.bookObj.authors = this.array.items[bookNumber].volumeInfo.authors[0];
     try {
       this.javaService.bookObj.description = this.array.items[bookNumber].volumeInfo.description.substring(0, 255);

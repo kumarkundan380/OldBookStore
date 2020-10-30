@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oldbookstore?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    username: root
+    password: Your-Password
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect    
+    
+  mail:
+    host: smtp.gmail.com
+    port: 25
+    username: Your Email-id
+    password: Your Password
+    
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true  
+
+jwt:
+  secret: secret            

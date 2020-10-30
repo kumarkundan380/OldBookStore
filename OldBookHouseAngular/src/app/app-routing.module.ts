@@ -30,33 +30,33 @@ import { InvoiceComponent } from './invoice/invoice.component';
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'/mainslider',pathMatch:'full'},
-  {path:'home',component:HeaderComponent}, 
-  {path:'mainslider',component:MainsliderComponent},
-  {path:'checkout',component:CheckoutComponent},
-  {path:'login',component:LoginComponent},
-  {path:'registration',component:RegistrationComponent},
-  {path:'booksell',component:BooksellComponent},
-  {path:'address',component:BookreqAddressComponent},
-  {path:'booksellsearch',component:BookSellSearchComponent},
-  {path:'deliveryRequest',component:DeliveryRequestComponent},
-  {path:'bookStatus',component:UpdateBookStatusComponent},
-  {path:'profile',component:ProfileComponent},
-  {path:'showbook',component:ShowBookComponent},
-  {path:'buybook',component:BuyBookComponent},
-  {path:'bookDeliverAddress',component:BookDeliverAddressComponent},
-  {path:'deliverBuyRequest',component:DeliveryBuyRequestComponent},
-  {path:'userList',component:UserListComponent},
-  {path:'editUser',component:EditUserComponent},
-  {path:'refresh',component:RefreshComponent},
-  {path:'buyHistory',component:BuyHistoryComponent},
-  {path:'sellHistory',component:SellHistoryComponent},
-  {path:'forgetPassword',component:ForgetPasswordComponent},
-  {path:'updateBookPrice',component:UpdateBookPriceComponent},
-  {path:'updatePrice',component:UpdatePriceComponent},
-  {path:'payment',component:PaymentComponent},
-  {path:'contact',component:ContactComponent},
-  {path:'invoice',component:InvoiceComponent}
+  {path: '', redirectTo: '/mainslider', pathMatch: 'full'},
+  {path: 'home', component: HeaderComponent},
+  {path: 'mainslider', component: MainsliderComponent},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'registration', component: RegistrationComponent},
+  {path: 'booksell', component: BooksellComponent},
+  {path: 'address', component: BookreqAddressComponent},
+  {path: 'booksellsearch', component: BookSellSearchComponent},
+  {path: 'deliveryRequest', component: DeliveryRequestComponent},
+  {path: 'bookStatus', component: UpdateBookStatusComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'showbook', component: ShowBookComponent},
+  {path: 'buybook', component: BuyBookComponent},
+  {path: 'bookDeliverAddress', component: BookDeliverAddressComponent},
+  {path: 'deliverBuyRequest', component: DeliveryBuyRequestComponent},
+  {path: 'userList', component: UserListComponent},
+  {path: 'editUser', component: EditUserComponent},
+  {path: 'refresh', component: RefreshComponent},
+  {path: 'buyHistory', component: BuyHistoryComponent},
+  {path: 'sellHistory', component: SellHistoryComponent},
+  {path: 'forgetPassword', component: ForgetPasswordComponent},
+  {path: 'updateBookPrice', component: UpdateBookPriceComponent},
+  {path: 'updatePrice', component: UpdatePriceComponent},
+  {path: 'payment', component: PaymentComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'invoice', component: InvoiceComponent}
 ];
 
 @NgModule({
@@ -64,11 +64,11 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents=[MainsliderComponent,CheckoutComponent,LoginComponent,
-  RegistrationComponent,BooksellComponent,BookreqAddressComponent,BookSellSearchComponent,
-  DeliveryRequestComponent,UpdateBookStatusComponent,ProfileComponent,ShowBookComponent,
-  BuyBookComponent,BookDeliverAddressComponent,DeliveryBuyRequestComponent,
-  UserListComponent,EditUserComponent,RefreshComponent,BuyHistoryComponent,SellHistoryComponent,
-  ForgetPasswordComponent,UpdateBookPriceComponent,UpdatePriceComponent,PaymentComponent,ContactComponent,
+export const routingComponents = [MainsliderComponent, CheckoutComponent, LoginComponent,
+  RegistrationComponent, BooksellComponent, BookreqAddressComponent, BookSellSearchComponent,
+  DeliveryRequestComponent, UpdateBookStatusComponent, ProfileComponent, ShowBookComponent,
+  BuyBookComponent, BookDeliverAddressComponent, DeliveryBuyRequestComponent,
+  UserListComponent, EditUserComponent, RefreshComponent, BuyHistoryComponent, SellHistoryComponent,
+  ForgetPasswordComponent, UpdateBookPriceComponent, UpdatePriceComponent, PaymentComponent, ContactComponent,
   InvoiceComponent
-]
+];
